@@ -91,9 +91,9 @@ pub struct VaultAction<'info> {
 
 1. `signer`：需要使用`mut`约束，因为我们将在转账过程中修改其 lamports。
 2. `vault`：
-  - `mut`，因为我们将在转账过程中修改其 lamports
-  - `seeds` 和 `bumps` 定义了如何从种子派生出有效的 PDA
-3. `system_program`：检查账户是否设置为可执行，并且地址是否为系统程序地址
+    - `mut`，因为我们将在转账过程中修改其 lamports。
+    - `seeds` 和 `bumps` 定义了如何从种子派生出有效的 PDA。
+3. `system_program`：检查账户是否设置为可执行，并且地址是否为系统程序地址。
 
 <ArticleSection name="Errors" id="errors" level="h2" />
 

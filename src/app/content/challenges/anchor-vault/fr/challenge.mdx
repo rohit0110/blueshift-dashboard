@@ -89,11 +89,11 @@ pub struct VaultAction<'info> {
 
 Détaillons les contraintes de chaque compte :
 
-1. `signer`: La contrainte `mut` est nécessaire puisque nous allons modifier ses lamports pendant les transferts
-2. `vault`: 
-  - `mut` car nous allons modifier ses lamports
-  - `seeds` & `bumps` définit comment dériver un PDA valide à partir des seeds
-3. `system_program`: vérifie que le compte est exécutable et que l'adresse est celle du programme système
+1. `signer`: La contrainte `mut` est nécessaire puisque nous allons modifier ses lamports pendant les transferts.
+2. `vault`:
+    - `mut` car nous allons modifier ses lamports.
+    - `seeds` & `bumps` définit comment dériver un PDA valide à partir des seeds.
+3. `system_program`: vérifie que le compte est exécutable et que l'adresse est celle du programme système.
 
 <ArticleSection name="Erreurs" id="errors" level="h2" />
 
@@ -101,7 +101,7 @@ Nous n'avons pas besoin de beaucoup d'erreurs pour ce petit programme, nous allo
 - `VaultAlreadyExists`: cela nous permet de savoir s'il y a déjà des lamports dans le compte. Cela signifierait dans ce cas que le vault existe déjà.
 - `InvalidAmount`: nous ne pouvons pas déposer un montant inférieur à la rente minimale d'un compte de base, nous vérifions donc que le montant est supérieur à cette rente.
 
-Cela ressemblera à quelque chose comme ça : 
+Cela ressemblera à quelque chose comme ça :
 
 ```rust
 #[error_code]
@@ -200,6 +200,6 @@ Commencez par compiler votre programme en utilisant la commande suivante dans vo
 anchor build
 ```
 
-Cela générera un fichier `.so` directement dans votre dossier `target/deploy`. 
+Cela générera un fichier `.so` directement dans votre dossier `target/deploy`.
 
 Cliquez ensuite sur le bouton `Relever le challenge` et déposez le fichier !

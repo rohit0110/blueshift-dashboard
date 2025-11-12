@@ -90,10 +90,10 @@ pub struct VaultAction<'info> {
 Lassen Sie uns jede Account-Einschränkung genauer betrachten:
 
 1. `signer`: Die `mut`-Einschränkung ist notwendig, da wir dessen Lamports während der Übertragungen ändern werden.
-2. `vault`: 
-  - `mut` weil wir dessen Lamports ändern werden
-  - `seeds` & `bumps` definiert, wie ein gültiger PDA aus den Seeds abgeleitet wird
-3. `system_program`: prüft, ob das Konto als ausführbar markiert ist und ob die Adresse die des System-Programms ist
+2. `vault`:
+    - `mut` weil wir dessen Lamports ändern werden.
+    - `seeds` & `bumps` definiert, wie ein gültiger PDA aus den Seeds abgeleitet wird.
+3. `system_program`: prüft, ob das Konto als ausführbar markiert ist und ob die Adresse die des System-Programms ist.
 
 <ArticleSection name="Errors" id="errors" level="h2" />
 

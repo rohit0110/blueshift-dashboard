@@ -90,10 +90,10 @@ pub struct VaultAction<'info> {
 Mari kita uraikan setiap batasan akun:
 
 1. `signer`: Batasan `mut` diperlukan karena kita akan memodifikasi lamports-nya selama transfer.
-2. `vault`: 
-  - `mut` karena kita akan memodifikasi lamports-nya
-  - `seeds` & `bumps` mendefinisikan cara menurunkan PDA yang valid dari seeds
-3. `system_program`: memeriksa apakah akun diatur sebagai executable dan alamatnya adalah alamat System Program
+2. `vault`:
+    - `mut` karena kita akan memodifikasi lamports-nya.
+    - `seeds` & `bumps` mendefinisikan cara menurunkan PDA yang valid dari seeds.
+3. `system_program`: memeriksa apakah akun diatur sebagai executable dan alamatnya adalah alamat System Program.
 
 <ArticleSection name="Errors" id="errors" level="h2" />
 
