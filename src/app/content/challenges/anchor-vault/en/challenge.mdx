@@ -68,7 +68,7 @@ Since both instruction use the same accounts, to make it easier and more readabl
 The `VaultAction` account struct will need to have:
 - `signer`: this is the owner of the vault, and the only person that can withdraw the lamports after creating the vault.
 - `vault`: a PDA derived from the following seeds: `[b"vault", signer.key().as_ref()]` that holds the lamports for the signer.
-- `system_program`: the system program account that needs to be included since we're going to use the transfer instruction CPI from the system program  
+- `system_program`: the system program account that needs to be included since we're going to use the transfer instruction CPI from the system program
 
 Here's how we define the account struct:
 
@@ -91,11 +91,9 @@ Let's break down each account constraint:
 
 
 1. `signer`: The `mut` constraint is needed because we'll be modifying its lamports during transfers.
-
-2. `vault`:  
-    - `mut` because we'll be modifying its lamports.  
-    - `seeds` & `bumps` define how to derive a valid PDA from the seeds.  
-
+2. `vault`:
+    - `mut` because we'll be modifying its lamports.
+    - `seeds` & `bumps` define how to derive a valid PDA from the seeds.
 3. `system_program`: checks if the account is set to executable and that the address is the System Program one.
 
 <ArticleSection name="Errors" id="errors" level="h2" />
@@ -104,7 +102,7 @@ We don't need a lot of errors for this small programs, so we're just going to cr
 - `VaultAlreadyExists`: that let us know if there are already some lamports in the account since it would mean that the vault exists already.
 - `InvalidAmount`: we can't deposit an amount that is less than the minimum rent for a basic account, so we check that the amount is greater than that.
 
-It will look something like this: 
+It will look something like this:
 
 ```rust
 #[error_code]
@@ -203,6 +201,6 @@ Start by building your program using the following command in your terminal
 anchor build
 ```
 
-This generated a `.so` file directly in your `target/deploy` folder. 
+This generated a `.so` file directly in your `target/deploy` folder.
 
 Now click on the `take challenge` button and drop the file there!

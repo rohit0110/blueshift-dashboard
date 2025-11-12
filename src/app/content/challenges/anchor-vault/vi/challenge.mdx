@@ -91,9 +91,9 @@ Hãy phân tích từng ràng buộc của account:
 
 1. `signer`: ràng buộc `mut` cần thiết vì chúng ta sẽ thay đổi lamport của account trong quá trình chuyển tiền.
 2. `vault`:
-  - `mut` vì chúng ta sẽ thay đổi lamport của nó
-  - `seeds` & `bumps` định nghĩa cách tạo PDA hợp lệ từ các seed
-3. `system_program`: kiểm tra xem account có được đặt thành executable và địa chỉ có phải là System Program không
+    - `mut` vì chúng ta sẽ thay đổi lamport của nó.
+    - `seeds` & `bumps` định nghĩa cách tạo PDA hợp lệ từ các seed.
+3. `system_program`: kiểm tra xem account có được đặt thành executable và địa chỉ có phải là System Program không.
 
 <ArticleSection name="Errors" id="errors" level="h2" />
 
