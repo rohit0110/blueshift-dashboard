@@ -77,7 +77,7 @@ console.log(`Mint created! Check out your TX here: https://explorer.solana.com/t
 
 <ArticleSection name="Transferring Tokens with the Fee" id="transferring-tokens-with-the-fee" level="h2" />
 
-To transfer tokens for `Mint` that have a TransferFee` extension we have to routes:
+To transfer tokens for `Mint` that have a TransferFee` extension we have two routes:
 - We can use the normal `transferChecked()` instruction and by doing this the calculation of the fee is handled automatically
 - We can use the `transferCheckedWithFee()` instruction and supply manually the `fee` we're going to pay in that transfer. This is very useful if we want to make sure to not get "rugged" if the authority change the fee and create a abnormally high fee; it's like setting the slippage for a transfer.
 
