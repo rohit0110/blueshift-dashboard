@@ -64,7 +64,7 @@ Next, we prepare the arguments for the `sol_log_` syscall:
 
 ```sbpf
 ldxdw r2, [r1+DATA_LEN]   ; Load length of memo into r2
-add64  r1, DATA           ; Adjust r1 to point to memo bytes
+add64 r1, DATA            ; Adjust r1 to point to memo bytes
 ```
 
 These instructions set up the arguments for `sol_log_`:

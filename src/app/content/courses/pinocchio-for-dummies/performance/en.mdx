@@ -236,7 +236,7 @@ Heap allocation isn't inherently bad, but on Solana it's expensive and complex b
 
 ### Pinocchio Memory Allocator
 
-If you want to make sure that you don't allocate any heap, Pinocchio provide a specialized macro to make sure that this happen: `no_allocator!()`
+If you want to make sure that you don't allocate any heap, Pinocchio provides a specialized macro to make sure that this will never happen: `no_allocator!()`
 
 > If not set, Pinocchio will use the `default_allocator!()` for programs requiring traditional heap operations.
 
