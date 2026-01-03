@@ -273,7 +273,7 @@ export default function TableOfContents() {
                                   ?.scrollIntoView({ behavior: "smooth" });
                                 setTimeout(() => {
                                   isManualScrollRef.current = false;
-                                }, 1200);
+                                }, 1000);
                               }}
                               className={`font-mono relative flex font-medium text-shade-tertiary text-xs transition hover:text-shade-primary`}
                             >
