@@ -29,7 +29,7 @@ export default async function ChallengeLayout({
 
   return (
     <div className="flex flex-col w-full border-b border-b-border">
-      <div className="w-full">
+      <div className="relative max-w-app mx-auto w-full app:border-x border-border-light">
         <Breadcrumbs
           items={[
             { label: t("header.challenges"), href: "/challenges" },
@@ -40,9 +40,9 @@ export default async function ChallengeLayout({
           badge={challengeMetadata.language}
           title={challengePageTitle}
           badgeColor={challengeMetadata.language}
-          className="border-x-0 app:border-x"
           collectionSize={collectionSize}
           collectionMintAddress={collectionMintAddress}
+          showBorder={false}
         />
       </div>
 

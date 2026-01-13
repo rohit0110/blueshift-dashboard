@@ -39,17 +39,17 @@ export default function MarketingBanner() {
             initial={{ opacity: 0 }}
             animate={{ opacity: [0, 1, 0.2, 1, 0.4, 1, 0.6, 1, 0.8, 1] }}
             transition={{ duration: 1, ease: anticipate, delay: 0.3 }}
-            className="h-full px-4 sm:px-0 sm:pl-[28px] sm:pr-6 bg-background/40 w-full sm:w-max gap-y-1 sm:gap-y-0 gap-x-4 flex flex-col sm:flex-row md:items-center justify-center mx-auto relative"
+            className="h-full px-4 w-full sm:w-max gap-y-1 sm:gap-y-0 gap-x-5 flex flex-col sm:flex-row md:items-center justify-center mx-auto relative"
           >
-            <div className="flex sm:items-center gap-x-1.5 sm:gap-x-2 relative">
+            <div className="flex sm:items-center gap-x-1.5 sm:gap-x-1.5 relative">
               <DepletingHeart
                 closeHeart={closeHeart}
                 className="mt-[3px] sm:mt-0"
               />
-              <span className="text-sm font-medium text-brand-primary sm:block hidden">
+              <span className="text-sm font-medium text-brand-secondary sm:block hidden">
                 {t("marketing_banner.title")}
               </span>
-              <span className="relative z-10 text-sm font-medium text-brand-primary inline-block sm:hidden max-w-[80%]">
+              <span className="relative z-10 text-sm font-medium text-brand-secondary inline-block sm:hidden max-w-[80%]">
                 {t.rich("marketing_banner.mobile", {
                   link: (chunks) => (
                     <a
@@ -65,22 +65,24 @@ export default function MarketingBanner() {
               </span>
             </div>
 
-            <a href={stakingUrl} target="_blank" className="hidden sm:block">
-              <Button size="xs" label={t("marketing_banner.button")} />
+            <a
+              href={stakingUrl}
+              target="_blank"
+              className="hidden sm:block text-brand-primary font-medium"
+            >
+              <Button
+                size="xs"
+                crosshairProps={{ size: 0 }}
+                className="text-xs! font-medium! py-0.5! px-2!"
+                label={t("marketing_banner.button")}
+              />
             </a>
-
-            <CrosshairCorners
-              className="text-brand-primary hidden sm:flex"
-              size={6}
-              thickness={1.25}
-              animationDelay={0.3}
-            />
           </motion.div>
           <button
             onClick={() => handleCloseBanner()}
             className="z-10 text-brand-secondary transition hover:text-brand-primary hover:cursor-pointer h-[32px] w-[32px] flex items-center justify-center absolute right-3 top-1/2 -translate-y-1/2 bg-background/60 sm:bg-transparent hover:bg-background/60"
           >
-            <Icon name="Close" size={16 as 18} />
+            <Icon name="Close" size={14 as 18} />
           </button>
           <motion.div
             className="pointer-events-none w-full h-full absolute inset-0 flex items-center justify-center mx-auto"

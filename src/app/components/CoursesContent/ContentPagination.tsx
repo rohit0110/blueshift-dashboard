@@ -63,13 +63,20 @@ export default function ContentPagination(props: ContentPaginationProps) {
       ? `/paths/${pathSlug}/challenges/${challengeSlug}`
       : `/challenges/${challengeSlug}`;
 
+  const { marketingBannerViewed } = usePersistentStore();
+
   return (
-    <div className="w-[calc(100dvw-2rem)] md:max-w-[350px] xl:w-full z-30 xl:p-5 col-span-3 xl:col-span-3 bottom-8 !fixed left-1/2 -translate-x-1/2 xl:bottom-0 xl:!relative">
+    <div
+      className={classNames(
+        "w-[calc(100dvw-2rem)] md:max-w-[350px] xl:w-full z-30 xl:p-5 col-span-3 xl:col-span-3 bottom-8 !fixed left-1/2 -translate-x-1/2 xl:bottom-0 xl:!relative"
+      )}
+    >
       <motion.div
         layoutId="course-pagination"
         className={classNames(
           "bg-card-solid/50 backdrop-blur-xl border border-border flex flex-col gap-y-4 py-4 relative xl:!sticky xl:top-[calc(78px+1rem)]",
-          className
+          className,
+          !marketingBannerViewed && "top-[calc(128px+1rem)]!"
         )}
       >
         <CrosshairCorners
@@ -113,9 +120,7 @@ export default function ContentPagination(props: ContentPaginationProps) {
                     )
                   );
                 }}
-                disabled={
-                  props.currentLesson === props.course.lessons.length
-                }
+                disabled={props.currentLesson === props.course.lessons.length}
                 className={classNames(
                   "text-shade-tertiary hover:bg-brand-primary/5 transition p-1.5 hover:text-brand-primary cursor-pointer disabled:opacity-40 disabled:cursor-default"
                 )}

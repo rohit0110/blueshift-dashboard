@@ -152,7 +152,7 @@ export default function PathStepsList({
 
   if (!isMounted || !width) {
     return (
-      <div className="relative w-full p-6 pb-12 max-w-app mx-auto app:border-x app:border-border-light">
+      <div className="min-h-[calc(100dvh-128px)] relative w-full p-6 pb-12 max-w-app mx-auto app:border-x app:border-border-light">
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-y-12 gap-x-0 md:gap-x-24">
           {steps.map((step, index) => (
             <div
@@ -177,7 +177,7 @@ export default function PathStepsList({
   const isMobile = itemsPerRow === 1;
 
   return (
-    <div className="relative w-full p-6 pb-12 max-w-app mx-auto app:border-x app:border-border-light">
+    <div className="min-h-[calc(100dvh-128px)] relative w-full p-6 pb-12 max-w-app mx-auto app:border-x app:border-border-light">
       <div className="flex flex-col w-full gap-y-0 md:gap-y-24">
         {chunks.map((rowSteps, rowIndex) => {
           // Only alternate direction on non-mobile

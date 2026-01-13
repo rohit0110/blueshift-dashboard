@@ -119,7 +119,9 @@ function derivePathPagination(
   const previousStep = pathSteps[currentIndex - 1];
   const nextStep = pathSteps[currentIndex + 1];
 
-  const previousHref = previousStep ? buildPathHref(previousStep, pathSlug) : null;
+  const previousHref = previousStep
+    ? buildPathHref(previousStep, pathSlug)
+    : null;
   const nextHref = nextStep ? buildPathHref(nextStep, pathSlug) : null;
 
   if (!previousHref && !nextHref) return null;
@@ -147,7 +149,11 @@ export default function Breadcrumbs({
   const resolvedPathSlug = pathSlug ?? null;
 
   const breadcrumbItems = deriveBreadcrumbItems(items, resolvedPathSlug, t);
-  const pathPagination = derivePathPagination(pathname, resolvedPathSlug, pathSteps);
+  const pathPagination = derivePathPagination(
+    pathname,
+    resolvedPathSlug,
+    pathSteps
+  );
 
   const shouldShowPagination = hasPagination || Boolean(pathPagination);
   const resolvedCanPaginateBack = hasPagination
@@ -184,7 +190,7 @@ export default function Breadcrumbs({
         className
       )}
     >
-      <div className="absolute inset-0 -z-1 w-dvw border-b border-border-light bg-card-solid"></div>
+      <div className="absolute inset-0 -z-1 w-dvw left-1/2 -translate-x-1/2 border-b border-border-light bg-card-solid"></div>
       <div className="relative z-10 flex items-center gap-2 flex-1 min-w-0">
         {breadcrumbItems.map((item, index) => {
           const isLast = index === breadcrumbItems.length - 1;

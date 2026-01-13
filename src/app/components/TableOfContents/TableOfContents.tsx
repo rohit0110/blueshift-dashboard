@@ -8,6 +8,7 @@ import classNames from "classnames";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { URLS } from "@/constants/urls";
+import { usePersistentStore } from "@/stores/store";
 
 function getGithubSourceUrl(pathname: string): string {
   const url = `${URLS.BLUESHIFT_EDUCATION_REPO}/tree/master/src/app/content`;
@@ -116,12 +117,17 @@ export default function TableOfContents() {
     };
   }, []);
 
+  const { marketingBannerViewed } = usePersistentStore();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, ease: anticipate }}
-      className="font-content order-1 lg:order-2 h-max lg:sticky top-[78px] md:col-span-2 lg:col-span-3 xl:col-span-3 flex flex-col gap-y-6 py-6 px-5 lg:py-6 xl:px-6"
+      className={classNames(
+        "font-content order-1 lg:order-2 h-max lg:sticky top-[78px] md:col-span-2 lg:col-span-3 xl:col-span-3 flex flex-col gap-y-6 py-6 px-5 lg:py-6 xl:px-6",
+        !marketingBannerViewed && "top-[128px]!"
+      )}
     >
       <div className="flex items-center space-x-2">
         <Icon name="Table" size={16} />
@@ -146,6 +152,10 @@ export default function TableOfContents() {
             const isExpanded =
               expandedOverrides[section.id] ?? isExpandedDerived;
 
+            // Show indicator on parent if parent is active, or if a child is active when collapsed
+            const shouldShowParentIndicator =
+              isSectionActive || (containsActiveSubsection && !isExpanded);
+
             return (
               <div key={section.id} className="flex flex-col">
                 <a
@@ -159,7 +169,7 @@ export default function TableOfContents() {
                   }}
                   className={`font-mono relative text-sm font-medium text-shade-primary transition hover:text-shade-primary flex items-center`}
                 >
-                  {activeSection === section.id && (
+                  {shouldShowParentIndicator && (
                     <motion.div
                       className={classNames(
                         "absolute -left-[calc(24px-2.5px)] w-[1.5px] bg-brand-secondary"
