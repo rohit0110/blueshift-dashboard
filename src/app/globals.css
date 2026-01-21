@@ -39,7 +39,7 @@
 }
 
 body {
-  @apply w-screen h-auto overflow-x-hidden;
+  @apply h-auto overflow-x-hidden;
   background: var(--color-background);
   font-family: var(--font-funnel-display);
   color: var(--color-shade-primary);
