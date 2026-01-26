@@ -1,0 +1,372 @@
+{
+  "courses": [
+    {
+      "id": "introduction-to-blockchain-and-solana",
+      "title": "Introduction to Blockchain and Solana",
+      "overview": "Master blockchain fundamentals from first principles in this comprehensive introduction to distributed systems and Solana architecture. This course teaches you why blockchains exist by exploring the distributed systems problems they solve, including the CAP Theorem and Byzantine Generals Problem. You'll understand how Bitcoin's Proof of Work solved the double-spending problem, how blockchain evolved from sequential to parallel execution, and why Solana's architecture enables thousands of transactions per second. Rather than abstract explanations, you'll learn the concrete computer science challenges that blockchain technology addresses, from network partitions to Byzantine fault tolerance. By the end, you'll understand distributed consensus mechanisms, transaction finality, and what makes Solana's parallel processing fundamentally different from sequential blockchains like Ethereum.",
+      "what_you_will_learn": [
+        "Understand distributed systems fundamentals including CAP Theorem and Byzantine fault tolerance",
+        "Learn how Bitcoin solved the double-spending problem with Proof of Work",
+        "Master the evolution from sequential to parallel blockchain execution",
+        "Explore Solana's architecture and parallel transaction processing model",
+        "Analyze consensus mechanisms and their tradeoffs in distributed networks",
+        "Compare blockchain architectures and understand when to use each approach"
+      ],
+      "who_this_is_for": "Perfect for developers new to blockchain who want a deep, computer science-focused understanding of distributed systems and Solana architecture. No blockchain experience required, but basic programming knowledge is helpful.",
+      "what_you_will_build": "Conceptual understanding of blockchain systems rather than practical projects. You'll analyze real blockchain architectures, explore distributed systems tradeoffs, and understand the technical decisions behind Solana's design.",
+      "prerequisites": "None - this course starts from first principles. Basic programming experience helpful but not required."
+    },
+    {
+      "id": "anchor-for-dummies",
+      "title": "Anchor for Dummies",
+      "overview": "Learn Anchor, the premier framework for Solana smart contract development, and build production-ready programs with built-in security and minimal boilerplate. Anchor transforms Solana program development by abstracting repetitive account management, instruction serialization, and error handling through powerful procedural macros. This course covers the complete Anchor workflow from program structure to client-side development. You'll master the declare_id, program, derive(Accounts), and error_code macros that eliminate low-level byte management. Learn how to structure accounts with proper constraints, implement secure PDAs for program-derived addresses, and build type-safe clients for your programs. Whether you're building DeFi protocols, NFT platforms, or custom on-chain logic, Anchor's security-first approach and developer ergonomics make it the standard choice for professional Solana development.",
+      "what_you_will_learn": [
+        "Master Anchor's procedural macros for reduced boilerplate and enhanced security",
+        "Structure programs with proper account validation and constraint checking",
+        "Implement Program Derived Addresses (PDAs) for deterministic account generation",
+        "Build custom error handling with human-readable error messages",
+        "Create type-safe client applications that interact with your programs",
+        "Follow best practices for production Solana program development"
+      ],
+      "who_this_is_for": "Ideal for developers ready to build production Solana programs who want framework support and built-in security. Requires basic Solana knowledge and Rust fundamentals.",
+      "what_you_will_build": "Complete Anchor programs including account initialization, instruction handlers, PDA management, and client-side integrations. You'll build real smart contracts with proper validation and error handling.",
+      "prerequisites": "Basic understanding of Solana accounts and programs. Rust fundamentals including structs, enums, and traits."
+    },
+    {
+      "id": "pinocchio-for-dummies",
+      "title": "Pinocchio for Dummies",
+      "overview": "Build high-performance Solana programs with Pinocchio, a minimalist zero-copy framework that achieves dramatically smaller binaries and lower compute costs than Anchor. Pinocchio enables native Solana development without heavyweight dependencies by treating transaction payloads as single byte slices and reading them in-place through zero-copy techniques. This course teaches you to craft lean, efficient programs where every byte matters. You'll learn to implement custom entrypoints with single-byte discriminators, validate accounts and instructions using Rust's TryFrom trait, and eliminate serialization overhead entirely. Master PDA verification, CPI execution, and security checks without macros. Created by Febo at Anza with contributions from the Solana ecosystem, Pinocchio is perfect for developers who need maximum performance, minimal dependencies, and complete control over program execution.",
+      "what_you_will_learn": [
+        "Implement zero-copy account access for dramatically lower compute costs",
+        "Build custom entrypoints with efficient instruction dispatching",
+        "Master the TryFrom pattern for clean account and instruction validation",
+        "Achieve smaller program binaries through minimal dependency management",
+        "Execute cross-program invocations without serialization overhead",
+        "Apply native development patterns for maximum performance optimization"
+      ],
+      "who_this_is_for": "Advanced Solana developers who need maximum performance and control, or anyone wanting to understand what frameworks like Anchor do under the hood. Strong Rust skills required.",
+      "what_you_will_build": "Native Solana programs with zero-copy account access, custom validation logic, efficient PDAs, and optimized CPIs. You'll build a complete vault program that demonstrates Pinocchio's performance benefits.",
+      "prerequisites": "Solid Rust experience including lifetimes, traits, and unsafe code. Understanding of Solana accounts, instructions, and program structure. Anchor experience helpful but not required."
+    },
+    {
+      "id": "program-security",
+      "title": "Program Security",
+      "overview": "Master Solana-specific security vulnerabilities and learn to write exploit-resistant programs through real-world attack patterns and mitigation strategies. Solana's revolutionary parallel processing architecture creates an entirely new threat landscape where traditional smart contract security knowledge doesn't apply. This course covers all Sealevel attacks modeled on Coral's security repository, with practical examples of missing ownership checks, insufficient signer verification, arbitrary CPI attacks, and account data manipulation. You'll understand why Solana's stateless programs require explicit validation, how cross-program invocations introduce unique vulnerabilities, and what arithmetic overflow means in a blockchain context. Each lesson combines theory with exploitable code examples and proper mitigation techniques. Whether you're auditing existing programs or building new protocols, this security-first approach ensures your programs can safely handle millions of dollars at thousands of transactions per second.",
+      "what_you_will_learn": [
+        "Identify and prevent missing ownership checks in account validation",
+        "Implement proper signer verification to prevent unauthorized access",
+        "Defend against arbitrary CPI attacks and malicious cross-program calls",
+        "Handle account initialization and closure securely",
+        "Prevent arithmetic overflow and underflow vulnerabilities",
+        "Apply duplicate mutable account checks and data validation patterns"
+      ],
+      "who_this_is_for": "Essential for all Solana developers before deploying to mainnet. Whether using Anchor or native development, understanding these security patterns prevents costly exploits.",
+      "what_you_will_build": "You'll analyze vulnerable program code, identify security flaws, and implement proper mitigations. Through hands-on security auditing, you'll develop the skills to write and review secure Solana programs.",
+      "prerequisites": "Basic Solana program development experience. Understanding of accounts, instructions, and program structure. Familiarity with either Anchor or native Solana development."
+    },
+    {
+      "id": "secp256r1-on-solana",
+      "title": "Secp256r1 on Solana",
+      "overview": "Build seamless Web2-to-Web3 authentication flows using secp256r1, the elliptic curve powering passkeys, WebAuthn, and hardware security modules worldwide. Secp256r1 (also known as NIST P-256) is the most widely adopted elliptic curve in modern cryptography, used in TLS connections, secure enclaves, and authentication systems across billions of devices. Solana's native secp256r1 precompile, activated at slot 800 through SIMD-0075, enables developers to leverage existing hardware security infrastructure for blockchain authentication. This course covers the mathematical foundations of secp256r1 including pseudo-Mersenne primes, short Weierstrass curves, and verifiably random parameter generation. You'll understand why this specific curve dominates despite alternatives, how its field arithmetic optimization enables efficient hardware implementation, and how to integrate passkey authentication into Solana programs using both Anchor and Pinocchio frameworks.",
+      "what_you_will_learn": [
+        "Understand secp256r1 mathematical foundations including prime fields and elliptic curves",
+        "Implement passkey-based authentication in Solana programs",
+        "Integrate WebAuthn signature verification for seamless user onboarding",
+        "Leverage hardware security modules for cryptographic operations",
+        "Build programs that accept signatures from secure enclaves and TPMs",
+        "Create Web2-compatible authentication flows that eliminate seed phrases"
+      ],
+      "who_this_is_for": "Developers building consumer-facing Solana applications who want to eliminate seed phrase onboarding friction through familiar authentication methods like Face ID and Touch ID.",
+      "what_you_will_build": "Solana programs with passkey authentication using both Anchor and Pinocchio. You'll implement secp256r1 signature verification for WebAuthn credentials and hardware security key integration.",
+      "prerequisites": "Basic Solana program development. Understanding of digital signatures helpful but not required. Familiarity with either Anchor or Pinocchio frameworks."
+    },
+    {
+      "id": "tokens-on-solana",
+      "title": "Tokens on Solana",
+      "overview": "Master Solana's unified token architecture and understand how a single SPL Token Program creates consistency across the entire ecosystem. Unlike Ethereum where each token is a separate smart contract with potential inconsistencies, Solana uses one standardized program for all token operations. This course explains Solana's account-based model where every token holding is a specific account storing balance and ownership. You'll learn the relationship between Mint accounts (token configuration), Token accounts (individual balances), and Associated Token accounts (standardized derivation). Understand why Solana chose this architecture over Ethereum's mapping-based approach, how it eliminates the need for token factory contracts, and why it creates seamless wallet and dApp integration. Whether you're building DeFi protocols, NFT marketplaces, or payment systems, understanding Solana's token model is fundamental to blockchain development on this platform.",
+      "what_you_will_learn": [
+        "Master Solana's account-based token model and unified SPL Token Program",
+        "Understand Mint, Token, and Associated Token account relationships",
+        "Compare Solana's token architecture to Ethereum and Bitcoin approaches",
+        "Learn token functionalities including decimals, authorities, and freezing",
+        "Explore Metaplex Token Metadata for rich token information",
+        "Understand when to use fungible tokens versus NFTs based on properties"
+      ],
+      "who_this_is_for": "Essential foundation for all Solana developers working with tokens, whether building DeFi protocols, NFT platforms, or payment applications. No prior blockchain experience required.",
+      "what_you_will_build": "Conceptual understanding of Solana's token architecture through analysis of real token accounts, mint configurations, and metadata structures. Prepares you for practical token courses.",
+      "prerequisites": "Basic understanding of Solana accounts. No specific programming experience required for this conceptual course."
+    },
+    {
+      "id": "nfts-on-solana",
+      "title": "NFTs on Solana",
+      "overview": "Create and manage Non-Fungible Tokens on Solana using Metaplex protocols, learning the properties that make tokens truly unique and valuable. This course covers the essential NFT properties including indivisibility (no decimals), uniqueness (supply of 1), fixed supply (no mint authority), rich metadata, and collection grouping. You'll understand why NFTs enable provable digital ownership without intermediaries, how they improve upon physical assets through programmable logic, and what makes them composable across applications. Learn both mpl-token-metadata and mpl-core approaches to NFT creation, understand collection verification for authentic membership, and explore metadata standards that make NFTs displayable in wallets and marketplaces. Whether you're building digital art platforms, gaming assets, or proof-of-membership systems, this course teaches the technical implementation and economic implications of non-fungible tokens on Solana.",
+      "what_you_will_learn": [
+        "Create NFTs with proper indivisibility, uniqueness, and fixed supply properties",
+        "Implement collection verification and on-chain authenticity checks",
+        "Structure metadata following Metaplex standards for wallet compatibility",
+        "Use mpl-token-metadata and mpl-core for different NFT use cases",
+        "Build NFTs with programmable royalties and transfer restrictions",
+        "Understand storage tradeoffs between on-chain, IPFS, and centralized metadata"
+      ],
+      "who_this_is_for": "Developers building NFT platforms, digital collectibles, gaming assets, or any application requiring unique digital items. Requires understanding of Solana tokens.",
+      "what_you_will_build": "Complete NFT implementations using Metaplex protocols including individual NFTs with metadata, verified collections, and proper authority management for production applications.",
+      "prerequisites": "Understanding of Solana token basics from the Tokens on Solana course. Basic Solana program development or web3.js experience depending on chosen implementation path."
+    },
+    {
+      "id": "spl-token-with-web3js",
+      "title": "SPL Token with Web3.js",
+      "overview": "Build client-side token applications using @solana/spl-token library, mastering mint creation, transfers, approvals, and account management through TypeScript. This course teaches practical token operations from the client side, showing you both the low-level instruction construction and the convenient helper functions that abstract complexity. You'll learn to create mint accounts with proper rent-exemption and initialization, manage token accounts and associated token accounts, execute transfers with proper validation, implement delegation for third-party approvals, and handle account closure and authority management. Each lesson shows the raw instruction approach before introducing the abstraction, ensuring you understand what's happening under the hood. Whether you're building wallets, DEXs, or token-based applications, this course provides the client-side skills needed to interact with Solana's token program from TypeScript.",
+      "what_you_will_learn": [
+        "Create and initialize mint accounts with proper configuration",
+        "Manage token accounts and associated token accounts programmatically",
+        "Execute token transfers with amount validation and error handling",
+        "Implement approve and revoke for delegation-based transfers",
+        "Handle mint, burn, freeze, and thaw operations",
+        "Set and update authorities for mints and token accounts"
+      ],
+      "who_this_is_for": "Frontend developers and full-stack engineers building token applications who need client-side token interaction skills. Requires JavaScript/TypeScript knowledge.",
+      "what_you_will_build": "Complete token application features including wallet creation, token transfers, approval flows, and account management. You'll build the client-side infrastructure for token-based applications.",
+      "prerequisites": "JavaScript/TypeScript proficiency. Basic understanding of Solana tokens and accounts. Familiarity with @solana/web3.js library helpful."
+    },
+    {
+      "id": "spl-token-with-anchor",
+      "title": "SPL Token with Anchor",
+      "overview": "Integrate SPL Token operations into Anchor programs using the anchor-spl crate for secure, type-safe token interactions within smart contracts. This course teaches you to work with tokens on the program side rather than the client side. You'll learn to use Anchor's convenient macros for initializing mint, token, and associated token accounts with proper validation. Master cross-program invocations to the token program for minting, transferring, burning, and managing tokens within your program logic. Understand how to implement proper authority checks, handle delegation and approval flows, and manage account closure. Each operation demonstrates both the high-level anchor-spl functions and the underlying mechanisms they abstract. Whether you're building DeFi protocols, NFT minting programs, or token-gated applications, this course provides the foundation for secure token integration in Anchor programs.",
+      "what_you_will_learn": [
+        "Initialize mint and token accounts using Anchor macros and constraints",
+        "Execute token program CPIs for minting, transferring, and burning",
+        "Implement proper authority validation for token operations",
+        "Handle delegation with approve and revoke instructions",
+        "Manage freeze and thaw capabilities for token accounts",
+        "Update authorities and close accounts securely within programs"
+      ],
+      "who_this_is_for": "Anchor developers building programs that need token functionality, such as DeFi protocols, NFT minting, or token-gated features. Requires Anchor framework knowledge.",
+      "what_you_will_build": "Anchor programs with full token integration including minting mechanisms, transfer logic, approval systems, and authority management for production token applications.",
+      "prerequisites": "Solid understanding of Anchor framework from the Anchor for Dummies course. Basic knowledge of SPL Token Program structure and token concepts."
+    },
+    {
+      "id": "token-2022-program",
+      "title": "Token-2022 Program",
+      "overview": "Master Solana's next-generation token program with advanced extensions for transfer fees, metadata, interest-bearing tokens, and sophisticated access control. Token-2022 (Token Extensions) is a superset of the SPL Token Program that adds 16+ specialized extensions while maintaining backward compatibility. This course covers the architectural differences including account discriminators, extension headers, and storage patterns that enable modular functionality. You'll understand which extensions attach to Mint accounts versus Token accounts, how to calculate proper account sizes with extensions, and the serialization format that allows selective deserialization. Learn about transfer fees for automated revenue, confidential transfers for privacy, permanent delegates for compliance, transfer hooks for custom logic, and much more. Whether you're building the next generation of stablecoins, gaming tokens, or DeFi primitives, Token-2022 provides the advanced features that production applications require.",
+      "what_you_will_learn": [
+        "Understand Token-2022 architecture including discriminators and extension headers",
+        "Calculate account sizes for mints and tokens with multiple extensions",
+        "Implement transfer fees with configurable rates and fee collection",
+        "Add metadata directly to mint accounts without external programs",
+        "Create interest-bearing tokens with programmable rate calculations",
+        "Apply advanced extensions like permanent delegates and transfer hooks"
+      ],
+      "who_this_is_for": "Developers building advanced token applications requiring features beyond basic SPL Token functionality. Best for experienced Solana developers ready for production token features.",
+      "what_you_will_build": "Understanding of Token-2022 architecture, extension types, and use cases. Prepares you for implementing specific extensions in the Token-2022 with Anchor and Web3.js courses.",
+      "prerequisites": "Solid understanding of SPL Token Program from the Tokens on Solana course. Experience with either Anchor or web3.js token operations."
+    },
+    {
+      "id": "token-2022-with-web3js",
+      "title": "Token-2022 with Web3.js",
+      "overview": "Build Token-2022 applications from the client side using @solana/spl-token library, implementing advanced token extensions through TypeScript. This practical course teaches you to create Token-2022 mints and accounts with extensions including transfer fees, CPI guard, default account state, metadata, interest-bearing configuration, and more. You'll learn to calculate proper account sizes using getMintLen and getAccountLen functions, initialize extensions in the correct order, and interact with extended functionality. Each lesson covers a specific extension with complete implementation examples showing account creation, extension configuration, and ongoing management. Whether you're building DeFi frontends, wallet applications, or token management tools, this course provides the client-side skills for Token-2022 integration including proper error handling and transaction construction for complex token operations.",
+      "what_you_will_learn": [
+        "Create Token-2022 mints with transfer fees, metadata, and other extensions",
+        "Initialize token accounts with CPI guard, default state, and custom extensions",
+        "Calculate correct account sizes for multiple extension combinations",
+        "Configure and manage transfer fee collection and withdrawal",
+        "Implement interest-bearing tokens with rate calculations",
+        "Build applications using group, member, and memo transfer extensions"
+      ],
+      "who_this_is_for": "Frontend and full-stack developers building modern token applications with advanced features. Requires TypeScript and basic Token-2022 understanding.",
+      "what_you_will_build": "Complete Token-2022 client applications implementing transfer fees, metadata, interest calculations, and other extensions with proper initialization and management flows.",
+      "prerequisites": "JavaScript/TypeScript proficiency. Understanding of Token-2022 architecture from the Token-2022 Program course. Experience with @solana/web3.js and basic SPL Token operations."
+    },
+    {
+      "id": "token-2022-with-anchor",
+      "title": "Token-2022 with Anchor",
+      "overview": "Integrate Token-2022 extensions into Anchor programs using anchor-spl's token_interface module for type-safe, framework-supported token operations. This course teaches you to use InterfaceAccount types that work seamlessly with both legacy and Token-2022 programs, implement extension initialization through Anchor macros, and execute CPIs to extended token accounts. You'll learn which extensions can be added during initialization via macros (metadata pointer, group pointer, transfer hooks) and which require post-initialization instructions. Master extension-specific operations like transfer fee collection, CPI guard enforcement, and default account state management within your program logic. Each lesson provides complete Anchor implementations showing proper account validation, extension configuration, and secure token operations. Essential for building sophisticated token programs with modern features while maintaining Anchor's security guarantees and developer ergonomics.",
+      "what_you_will_learn": [
+        "Use InterfaceAccount types for compatibility with Token-2022 and legacy tokens",
+        "Initialize Token-2022 mints with extensions using Anchor macros",
+        "Configure transfer fees, permanent delegates, and close authorities",
+        "Implement CPI guard protection and default account state enforcement",
+        "Execute token operations with extension-aware validation",
+        "Handle group and member pointer extensions for token collections"
+      ],
+      "who_this_is_for": "Anchor developers building production token programs with advanced features. Requires solid Anchor framework knowledge and Token-2022 architecture understanding.",
+      "what_you_will_build": "Anchor programs with Token-2022 integration including extension initialization, transfer fee mechanisms, CPI guard enforcement, and other advanced token features.",
+      "prerequisites": "Strong Anchor framework skills. Understanding of Token-2022 architecture and extensions. Experience with anchor-spl and basic token operations in Anchor."
+    },
+    {
+      "id": "instruction-introspection",
+      "title": "Instruction Introspection",
+      "overview": "Master Solana's instruction introspection capability to analyze and validate other instructions within the same transaction for sophisticated composability. Instruction introspection enables programs to examine instructions that haven't executed yet through the Instructions sysvar, opening possibilities for dynamic safeguards, validation layers, and complex multi-instruction protocols. This course teaches you to use load_current_index_checked and load_instruction_at_checked functions to safely inspect instruction data, program IDs, and accounts. You'll learn essential validation patterns including discriminator verification, variable validation, and account structure checks that prevent malicious behavior. Understand how transaction atomicity combines with introspection to create powerful conditional logic, position-based validation, and cross-program coordination. Whether you're building security layers, complex protocols, or innovative DeFi primitives, instruction introspection enables entirely new patterns impossible without this capability.",
+      "what_you_will_learn": [
+        "Use Instructions sysvar to analyze transaction instructions programmatically",
+        "Implement discriminator and program ID verification for instruction validation",
+        "Validate instruction variables and account structures before execution",
+        "Build conditional logic based on other instructions in the transaction",
+        "Create security layers that enforce expected instruction patterns",
+        "Leverage transaction atomicity for safe cross-instruction coordination"
+      ],
+      "who_this_is_for": "Advanced Solana developers building sophisticated protocols requiring instruction coordination, validation layers, or conditional execution based on other transaction instructions.",
+      "what_you_will_build": "Programs with instruction introspection including validation layers, conditional execution logic, and cross-instruction coordination using both Anchor and Pinocchio implementations.",
+      "prerequisites": "Strong Solana program development skills. Understanding of instruction structure, transaction processing, and syscalls. Experience with either Anchor or Pinocchio."
+    },
+    {
+      "id": "testing-with-mollusk",
+      "title": "Testing with Mollusk",
+      "overview": "Achieve lightning-fast Solana program testing with Mollusk, a lightweight test harness that provides direct SVM access without validator overhead. Mollusk, created by Joe Caulfield at Anza, constructs program execution pipelines using low-level Solana Virtual Machine components while excluding heavyweight AccountsDB and Bank implementations. This design delivers exceptional performance for rapid development cycles while maintaining comprehensive testing capabilities. You'll learn to provision accounts explicitly with precise state control, configure compute budgets and feature sets, and use validation checks for comprehensive result verification. The course covers single and multi-instruction testing, compute unit profiling, and edge case validation through Mollusk's flexible API. Whether you're testing complex DeFi logic, optimizing compute usage, or ensuring security properties, Mollusk provides the speed and control needed for professional Solana program development.",
+      "what_you_will_learn": [
+        "Set up lightweight test harnesses with direct SVM access",
+        "Provision accounts with precise state control for comprehensive testing",
+        "Execute single instructions and instruction chains with validation",
+        "Profile compute unit consumption for optimization insights",
+        "Test edge cases and failure conditions with explicit error checking",
+        "Configure feature sets and sysvars for specific testing scenarios"
+      ],
+      "who_this_is_for": "Solana developers seeking faster test execution and more control over testing scenarios. Ideal for TDD workflows and compute optimization.",
+      "what_you_will_build": "Comprehensive test suites for Solana programs using Mollusk including account state validation, compute profiling, edge case coverage, and failure condition testing.",
+      "prerequisites": "Solana program development experience with Rust. Understanding of program structure, accounts, and instructions. Familiarity with Rust testing patterns."
+    },
+    {
+      "id": "testing-with-litesvm",
+      "title": "Testing with LiteSVM",
+      "overview": "Test Solana programs at dramatically faster speeds with LiteSVM, an in-process Solana Virtual Machine supporting Rust, TypeScript, and Python. Created by Aursen at Exotic Markets, LiteSVM runs directly in your test process rather than spawning external validators, delivering lightning-fast execution without sacrificing accuracy. This course teaches you to set up LiteSVM testing environments, manipulate account state directly for edge case testing, and profile performance for optimization opportunities. You'll learn to test in multiple languages with the same underlying VM, execute complex transaction chains with full runtime compatibility, and iterate rapidly during development. The library offers intuitive APIs with smart defaults for quick setup plus extensive configuration for advanced scenarios. Whether you're building DeFi protocols, NFT platforms, or custom programs, LiteSVM provides the testing speed and flexibility that professional development demands.",
+      "what_you_will_learn": [
+        "Set up in-process Solana VM testing in Rust, TypeScript, and Python",
+        "Execute program instructions with full runtime compatibility",
+        "Manipulate account state directly for comprehensive edge case testing",
+        "Profile performance and identify optimization opportunities",
+        "Test complex transaction chains with multiple programs",
+        "Configure VM parameters for specific testing scenarios"
+      ],
+      "who_this_is_for": "Developers wanting faster test execution than solana-program-test or solana-test-validator. Useful for multi-language projects needing consistent testing across Rust and TypeScript/Python.",
+      "what_you_will_build": "Fast, comprehensive test suites using LiteSVM across multiple programming languages with proper account state manipulation and performance profiling.",
+      "prerequisites": "Solana program development experience. Rust skills for Rust testing, TypeScript/JavaScript for TypeScript testing, or Python with solders for Python testing."
+    },
+    {
+      "id": "testing-with-surfpool",
+      "title": "Testing with Surfpool",
+      "overview": "Test complex Solana programs with mainnet state using Surfpool, the comprehensive SDK that fetches accounts on-demand and provides time travel capabilities. Testing programs that rely on complex cross-program invocations traditionally requires dumping 40+ accounts and 8+ programs from mainnet - Surfpool solves this by simulating programs locally with mainnet accounts fetched automatically. This course covers Surfnet, the local network created by Surfpool that serves as a drop-in replacement for solana-test-validator with enhanced development features. You'll learn to time travel to any historical slot or timestamp, pause block production for debugging, modify account data and SOL supply dynamically, and profile transactions for compute units and state changes. Developed by the TxTx team with Infrastructure as Code integration for reproducible deployments, Surfpool enables testing scenarios impossible with traditional validators while maintaining full compatibility with Anchor-based projects.",
+      "what_you_will_learn": [
+        "Set up Surfnet for local development with mainnet state access",
+        "Test programs with complex CPI dependencies without account dumping",
+        "Time travel to any slot or timestamp for historical testing",
+        "Profile transactions for compute usage and account changes",
+        "Modify system variables, account data, and token balances dynamically",
+        "Deploy and test programs with Infrastructure as Code integration"
+      ],
+      "who_this_is_for": "Developers building programs with complex mainnet dependencies, DeFi integrations, or sophisticated cross-program interactions requiring realistic testing environments.",
+      "what_you_will_build": "Test environments for complex programs using Surfpool with mainnet state, time travel capabilities, and transaction profiling for comprehensive validation and debugging.",
+      "prerequisites": "Solana program development experience. Understanding of cross-program invocations and mainnet program interactions. Anchor framework knowledge helpful for IaC features."
+    },
+    {
+      "id": "introduction-to-assembly",
+      "title": "Introduction to Assembly",
+      "overview": "Understand sBPF assembly and unlock Solana program optimization through low-level virtual machine knowledge and instruction-level analysis. While you'll never write programs directly in sBPF assembly, understanding how Rust compiles to sBPF instructions reveals optimization opportunities invisible at higher levels. This course teaches the sBPF virtual machine architecture including its 64-bit register machine, load-store design, and just-in-time compilation pipeline. You'll learn why certain Rust operations are expensive (compute units), how the verifier ensures safety before execution, and what makes sBPF deterministic across all validators worldwide. Explore instruction formats, memory addressing modes, and the syscall interface that bridges programs to runtime functionality. Whether you're debugging unexpected behavior, optimizing compute usage, or contributing to the Solana ecosystem, assembly-level knowledge provides the foundation for deep understanding and expert-level optimization of Solana programs.",
+      "what_you_will_learn": [
+        "Understand sBPF virtual machine architecture and 64-bit register design",
+        "Analyze how Rust code compiles to sBPF instructions",
+        "Identify compute-expensive operations at the instruction level",
+        "Master the JIT compilation pipeline and program verification process",
+        "Understand syscall interfaces and runtime interaction mechanisms",
+        "Debug programs by analyzing sBPF instruction execution"
+      ],
+      "who_this_is_for": "Advanced developers seeking deep Solana optimization skills, or anyone wanting to understand how high-level code becomes executable bytecode. Strong technical foundation required.",
+      "what_you_will_build": "Understanding of sBPF assembly through code analysis and instruction-level exploration. You'll analyze compiled programs to understand performance characteristics and optimization opportunities.",
+      "prerequisites": "Solid Solana development experience. Strong understanding of computer architecture helpful. Assembly language experience beneficial but not required."
+    },
+    {
+      "id": "introduction-to-low-level-solana",
+      "title": "Introduction to Low-Level Solana",
+      "overview": "Build a complete Solana program from scratch without any dependencies to understand exactly what frameworks like Anchor and Pinocchio do under the hood. This course creates a fully hand-rolled, zero-dependency vault program that handles deposits and withdrawals using only unsafe Rust and syscalls. You'll learn about eBPF's architectural constraints including compute unit limits, no heap allocation, and 4KB stack limits. Master repr(C) and extern C for proper ABI compatibility, understand memory layout management and alignment requirements, and implement raw entrypoints that unpack transaction data from the input page. The course demonstrates manual account validation, instruction parsing, PDA verification, and cross-program invocations without any helper crates. While you shouldn't write production code this way, understanding these fundamentals makes you dramatically better at using frameworks, debugging issues, and optimizing programs regardless of which tools you choose.",
+      "what_you_will_learn": [
+        "Understand eBPF constraints and why Rust features don't work on Solana",
+        "Implement raw entrypoints with manual input parsing and validation",
+        "Master memory layout management with repr(C) and alignment rules",
+        "Execute syscalls directly for hashing, logging, and cross-program invocations",
+        "Validate accounts and instructions without framework abstractions",
+        "Build complete program logic using only unsafe Rust and raw pointers"
+      ],
+      "who_this_is_for": "Advanced developers who want to deeply understand Solana program execution. Best for those with strong Rust skills who want to master low-level program mechanics.",
+      "what_you_will_build": "A complete, dependency-free vault program with deposit and withdraw functionality implemented through raw pointer manipulation, manual validation, and direct syscalls.",
+      "prerequisites": "Strong Rust skills including unsafe code, pointers, and memory management. Solid Solana development experience. Not for beginners - this is advanced low-level programming."
+    },
+    {
+      "id": "solana-pay",
+      "title": "Solana Pay",
+      "overview": "Integrate instant, near-zero fee payments into your applications using Solana Pay, the open-source framework trusted by millions through Shopify integration. Solana Pay standardizes payments through simple URLs that work across every Solana wallet automatically, eliminating complex wallet integrations entirely. This course covers both transfer requests for predetermined transactions and transaction requests for dynamic server-side composition. You'll learn to create QR codes for in-person payments, shareable links for any platform, and embedded buttons for seamless checkout experiences. Master reference tracking for payment verification, implement custom transaction flows with business logic, and build payment systems that settle instantly without intermediaries. Whether you're building e-commerce checkout, subscription services, NFT sales, or complex multi-party transactions, Solana Pay provides the infrastructure for direct customer-to-merchant transactions that replace the entire traditional payment stack with simple, standardized URLs.",
+      "what_you_will_learn": [
+        "Create transfer requests for simple, predetermined token payments",
+        "Build transaction requests with dynamic server-side logic",
+        "Generate QR codes for instant in-person payments",
+        "Implement reference tracking for payment verification and confirmation",
+        "Handle complex payment flows with custom business logic",
+        "Integrate Solana Pay into e-commerce platforms and checkout systems"
+      ],
+      "who_this_is_for": "Developers building payment features for e-commerce, subscriptions, donations, or any application requiring customer payments. Works with existing web infrastructure.",
+      "what_you_will_build": "Complete Solana Pay integrations including QR code payments, shareable payment links, transaction request endpoints, and reference-based payment verification systems.",
+      "prerequisites": "Basic TypeScript/JavaScript skills. Understanding of HTTP APIs for transaction request endpoints. Basic Solana knowledge helpful but not strictly required for simple integrations."
+    },
+    {
+      "id": "create-your-sdk-with-codama",
+      "title": "Create Your SDK with Codama",
+      "overview": "Generate type-safe client SDKs for any Solana program across multiple languages using Codama, the fastest way to create tooling from a standardized IDL. Codama eliminates tedious client maintenance by describing your program once in the Codama IDL format and generating JavaScript, Rust, Python clients, CLI tools, documentation, and explorer integrations automatically. This course teaches Codama's three-layer architecture: Nodes that represent program structure, Visitors that traverse and transform the node tree, and Renderers that generate language-specific output. You'll learn to create Codama IDLs from scratch or convert from Anchor IDLs, apply transformations for customization, and configure renderers for @solana/kit, @solana/web3.js, and @metaplex-foundation/umi compatibility. Whether you're building protocols that need multi-language support or maintaining client libraries across framework versions, Codama provides the infrastructure for synchronized, type-safe program interfaces.",
+      "what_you_will_learn": [
+        "Create Codama IDLs that describe your program structure",
+        "Generate type-safe JavaScript, Rust, and Python clients automatically",
+        "Apply visitor transformations for IDL customization and cleanup",
+        "Configure renderers for multiple framework compatibilities",
+        "Set up CLI-based workflows for automated client generation",
+        "Maintain synchronized documentation and testing utilities"
+      ],
+      "who_this_is_for": "Protocol developers who need multi-language SDKs or anyone maintaining client libraries for Solana programs. Essential for teams supporting multiple frameworks.",
+      "what_you_will_build": "Complete SDK generation workflows using Codama including IDL creation, transformation pipelines, and multi-language client output with proper type safety and documentation.",
+      "prerequisites": "Solana program development experience. Understanding of TypeScript for JavaScript client usage. Familiarity with program IDLs and client libraries."
+    },
+    {
+      "id": "winternitz-signatures-on-solana",
+      "title": "Winternitz Signatures on Solana",
+      "overview": "Implement post-quantum secure signatures in Solana programs using Winternitz signatures, the hash-based cryptography resistant to quantum computer attacks. While Solana's base layer relies on Ed25519 signatures vulnerable to Shor's algorithm, developers can build quantum-resistant applications today using Winternitz One-Time Signatures. This course covers the mathematical foundations including hash chains, checksum mechanisms, and base representation that make WOTS secure against quantum attacks through hash function preimage resistance alone. You'll learn the key generation process, signing and verification algorithms, and critical one-time usage limitations that prevent forgery. Understand why quantum computers can break ECDSA but not cryptographic hash functions, and how the checksum mechanism maintains the hash budget constraint. Implement Winternitz signatures in both Anchor and Pinocchio frameworks to future-proof applications against quantum threats while Solana's core protocol remains vulnerable.",
+      "what_you_will_learn": [
+        "Understand post-quantum cryptography and quantum computing threats to ECDSA",
+        "Master Winternitz signature mathematics including hash chains and checksums",
+        "Implement key generation with proper Winternitz parameter selection",
+        "Execute signing operations with discriminator and variable validation",
+        "Verify Winternitz signatures securely within Solana programs",
+        "Apply one-time signature constraints to prevent forgery attacks"
+      ],
+      "who_this_is_for": "Advanced developers building long-term secure applications or anyone interested in post-quantum cryptography. Requires comfort with cryptographic concepts and security analysis.",
+      "what_you_will_build": "Solana programs implementing Winternitz signature verification in both Anchor and Pinocchio, demonstrating post-quantum secure authentication mechanisms.",
+      "prerequisites": "Strong Solana development skills. Understanding of digital signatures and hash functions. Experience with either Anchor or Pinocchio frameworks. Cryptography background helpful."
+    },
+    {
+      "id": "quantum-vault",
+      "title": "Quantum Vault",
+      "overview": "Build quantum-resistant vault applications on Solana by combining Winternitz signatures with secure storage patterns for post-quantum cryptography implementation. This practical course demonstrates how to apply Winternitz One-Time Signatures from theory to production-ready vault programs that remain secure even when quantum computers become practical. You'll implement quantum-resistant authentication, key management systems that handle one-time signature constraints, and vault operations including deposits and withdrawals with post-quantum security guarantees. Learn to manage key rotation properly given WOTS's one-time limitation, implement secure state management for signature tracking, and build applications ready for the post-quantum era. While Solana's base protocol remains quantum-vulnerable, this course shows how to build quantum-resistant applications on top of it today, providing forward security for long-term value storage and high-security use cases.",
+      "what_you_will_learn": [
+        "Implement quantum-resistant vault programs using Winternitz signatures",
+        "Manage one-time signature constraints with proper key rotation",
+        "Build secure deposit and withdrawal flows with post-quantum authentication",
+        "Handle signature state tracking to prevent one-time key reuse",
+        "Integrate Winternitz signatures into production program architecture",
+        "Design key management systems for post-quantum applications"
+      ],
+      "who_this_is_for": "Developers building high-security applications requiring long-term value storage with quantum resistance. Best for those who completed the Winternitz Signatures course.",
+      "what_you_will_build": "A complete quantum-resistant vault program implementing Winternitz signatures for authentication with proper key management, state tracking, and secure operations.",
+      "prerequisites": "Completion of Winternitz Signatures on Solana course. Strong Solana program development skills. Understanding of secure state management patterns."
+    },
+    {
+      "id": "research-crateless-program",
+      "title": "Research: Crateless Program",
+      "overview": "Explore the absolute limits of Solana program development by building a complete hand-rolled program without any crates or dependencies. This deep research course demonstrates every aspect of crateless development from raw entrypoint implementation to manual syscall invocation. You'll work with unsafe Rust at the lowest possible level, understanding eBPF constraints, repr(C) memory layout requirements, and explicit ABI compatibility. Learn to parse the raw input page structure, validate accounts through pointer arithmetic, implement instruction dispatch without macros, and execute cross-program invocations through direct syscall interfaces. While this approach isn't recommended for production, it reveals exactly what all frameworks and crates do under the hood. The knowledge gained enables expert-level debugging, radical optimization for compute-constrained scenarios, and deep contributions to the Solana tooling ecosystem by understanding the absolute foundations of program execution.",
+      "what_you_will_learn": [
+        "Implement complete programs using only unsafe Rust without dependencies",
+        "Parse raw entrypoint input through manual pointer arithmetic",
+        "Validate accounts and instructions without any framework abstractions",
+        "Execute syscalls directly for hashing, logging, and CPIs",
+        "Understand the exact memory layout of entrypoint data structures",
+        "Master low-level program optimization and compute unit minimization"
+      ],
+      "who_this_is_for": "Expert Rust developers and Solana researchers who want to understand the absolute fundamentals. Not for production use - purely educational and research-oriented.",
+      "what_you_will_build": "A fully functional vault program with zero dependencies, implemented through raw pointer manipulation, manual validation, and direct syscall invocation.",
+      "prerequisites": "Expert Rust skills including unsafe code, raw pointers, and memory management. Deep Solana knowledge. Completion of Introduction to Low-Level Solana recommended. This is advanced research-level content."
+    }
+  ]
+}

@@ -1,0 +1,838 @@
+{
+  "metadata": {
+    "title": "Blueshift Dashboard Internal Linking Strategy",
+    "version": "1.0",
+    "date": "2026-01-26",
+    "totalCourses": 21,
+    "description": "Comprehensive internal linking strategy mapping prerequisites, related courses, and learning paths for all Blueshift courses"
+  },
+  "prerequisites": {
+    "description": "Courses that should be completed before starting another course",
+    "mappings": [
+      {
+        "course": "anchor-for-dummies",
+        "prerequisites": ["introduction-to-blockchain-and-solana"],
+        "reasoning": "Students need basic blockchain and Solana understanding before learning the Anchor framework"
+      },
+      {
+        "course": "pinocchio-for-dummies",
+        "prerequisites": ["introduction-to-blockchain-and-solana"],
+        "reasoning": "Native development requires understanding Solana fundamentals"
+      },
+      {
+        "course": "tokens-on-solana",
+        "prerequisites": ["introduction-to-blockchain-and-solana"],
+        "reasoning": "Token concepts build on blockchain fundamentals"
+      },
+      {
+        "course": "spl-token-with-anchor",
+        "prerequisites": ["anchor-for-dummies", "tokens-on-solana"],
+        "reasoning": "Requires knowledge of Anchor framework and token concepts"
+      },
+      {
+        "course": "spl-token-with-web3js",
+        "prerequisites": ["tokens-on-solana"],
+        "reasoning": "Requires understanding of token concepts"
+      },
+      {
+        "course": "token-2022-program",
+        "prerequisites": ["tokens-on-solana"],
+        "reasoning": "Token Extensions are a superset of standard token functionality"
+      },
+      {
+        "course": "token-2022-with-anchor",
+        "prerequisites": ["anchor-for-dummies", "tokens-on-solana", "token-2022-program"],
+        "reasoning": "Requires Anchor knowledge, token concepts, and understanding of Token Extensions"
+      },
+      {
+        "course": "token-2022-with-web3js",
+        "prerequisites": ["tokens-on-solana", "token-2022-program"],
+        "reasoning": "Requires token concepts and understanding of Token Extensions"
+      },
+      {
+        "course": "nfts-on-solana",
+        "prerequisites": ["tokens-on-solana"],
+        "reasoning": "NFTs are specialized tokens with unique properties"
+      },
+      {
+        "course": "program-security",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Security concepts apply to both Anchor and native programs, but students should understand program development first"
+      },
+      {
+        "course": "testing-with-mollusk",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Testing framework applies to both Anchor and native programs"
+      },
+      {
+        "course": "testing-with-litesvm",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Testing framework supports multiple development approaches"
+      },
+      {
+        "course": "testing-with-surfpool",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Testing framework applies to program development"
+      },
+      {
+        "course": "secp256r1-on-solana",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Cryptographic signature implementation requires program development knowledge"
+      },
+      {
+        "course": "instruction-introspection",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Advanced program technique requiring solid understanding of instructions"
+      },
+      {
+        "course": "winternitz-signatures-on-solana",
+        "prerequisites": ["anchor-for-dummies"],
+        "optionalPrerequisites": ["pinocchio-for-dummies"],
+        "reasoning": "Post-quantum cryptography implementation requires program development knowledge"
+      },
+      {
+        "course": "solana-pay",
+        "prerequisites": ["tokens-on-solana"],
+        "reasoning": "Payment framework works with SOL and SPL tokens"
+      },
+      {
+        "course": "create-your-sdk-with-codama",
+        "prerequisites": ["anchor-for-dummies"],
+        "reasoning": "SDK generation works with Anchor IDLs and program interfaces"
+      },
+      {
+        "course": "introduction-to-assembly",
+        "prerequisites": ["introduction-to-blockchain-and-solana"],
+        "optionalPrerequisites": ["anchor-for-dummies", "pinocchio-for-dummies"],
+        "reasoning": "Understanding sBPF assembly helps optimize programs but requires basic Solana knowledge"
+      }
+    ]
+  },
+  "relatedCourses": {
+    "description": "Courses that are topically related and complement each other",
+    "groups": [
+      {
+        "groupName": "Blockchain Foundations",
+        "courses": ["introduction-to-blockchain-and-solana"],
+        "description": "Fundamental blockchain and Solana concepts"
+      },
+      {
+        "groupName": "Framework Fundamentals",
+        "courses": ["anchor-for-dummies", "pinocchio-for-dummies"],
+        "description": "Core program development frameworks - Anchor (high-level) and Pinocchio (native)"
+      },
+      {
+        "groupName": "Token Basics",
+        "courses": ["tokens-on-solana", "spl-token-with-web3js", "spl-token-with-anchor"],
+        "description": "Standard token operations and implementations"
+      },
+      {
+        "groupName": "Token Extensions",
+        "courses": ["token-2022-program", "token-2022-with-anchor", "token-2022-with-web3js"],
+        "description": "Advanced token functionality with Token2022 extensions"
+      },
+      {
+        "groupName": "NFT Development",
+        "courses": ["nfts-on-solana", "tokens-on-solana"],
+        "description": "Non-fungible token creation and management"
+      },
+      {
+        "groupName": "Testing Frameworks",
+        "courses": ["testing-with-mollusk", "testing-with-litesvm", "testing-with-surfpool"],
+        "description": "Different testing approaches for Solana programs"
+      },
+      {
+        "groupName": "Cryptographic Signatures",
+        "courses": ["secp256r1-on-solana", "winternitz-signatures-on-solana"],
+        "description": "Alternative signature schemes for Solana programs"
+      },
+      {
+        "groupName": "Advanced Program Techniques",
+        "courses": ["instruction-introspection", "program-security"],
+        "description": "Advanced patterns and security considerations for program development"
+      },
+      {
+        "groupName": "Low-Level Development",
+        "courses": ["introduction-to-assembly", "pinocchio-for-dummies"],
+        "description": "Understanding low-level program execution and optimization"
+      },
+      {
+        "groupName": "Developer Tools",
+        "courses": ["create-your-sdk-with-codama", "solana-pay"],
+        "description": "Tools and frameworks for application development"
+      }
+    ]
+  },
+  "learningPaths": {
+    "description": "Recommended course sequences for different learning goals",
+    "paths": [
+      {
+        "pathName": "Complete Beginner Path",
+        "description": "For developers new to blockchain and Solana",
+        "difficulty": "Beginner",
+        "estimatedTime": "8-12 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Start with blockchain fundamentals"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "Learn the most popular Solana framework"
+          },
+          {
+            "order": 3,
+            "course": "tokens-on-solana",
+            "reasoning": "Understand token concepts"
+          },
+          {
+            "order": 4,
+            "course": "spl-token-with-anchor",
+            "reasoning": "Apply Anchor knowledge to token operations"
+          },
+          {
+            "order": 5,
+            "course": "program-security",
+            "reasoning": "Learn security best practices"
+          },
+          {
+            "order": 6,
+            "course": "testing-with-mollusk",
+            "reasoning": "Test programs efficiently"
+          }
+        ]
+      },
+      {
+        "pathName": "Anchor Developer Path",
+        "description": "Focus on Anchor framework development",
+        "difficulty": "Beginner to Intermediate",
+        "estimatedTime": "6-10 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Solana fundamentals"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "Core Anchor framework"
+          },
+          {
+            "order": 3,
+            "course": "tokens-on-solana",
+            "reasoning": "Token concepts"
+          },
+          {
+            "order": 4,
+            "course": "spl-token-with-anchor",
+            "reasoning": "Token operations with Anchor"
+          },
+          {
+            "order": 5,
+            "course": "token-2022-program",
+            "reasoning": "Learn Token Extensions"
+          },
+          {
+            "order": 6,
+            "course": "token-2022-with-anchor",
+            "reasoning": "Implement Token Extensions with Anchor"
+          },
+          {
+            "order": 7,
+            "course": "program-security",
+            "reasoning": "Security best practices"
+          },
+          {
+            "order": 8,
+            "course": "testing-with-mollusk",
+            "reasoning": "Efficient testing"
+          },
+          {
+            "order": 9,
+            "course": "create-your-sdk-with-codama",
+            "reasoning": "Generate client SDKs"
+          }
+        ]
+      },
+      {
+        "pathName": "Native Development Path",
+        "description": "For developers wanting to write native Solana programs",
+        "difficulty": "Intermediate to Advanced",
+        "estimatedTime": "8-12 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Solana fundamentals"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "Understand high-level concepts first"
+          },
+          {
+            "order": 3,
+            "course": "pinocchio-for-dummies",
+            "reasoning": "Learn native development with Pinocchio"
+          },
+          {
+            "order": 4,
+            "course": "introduction-to-assembly",
+            "reasoning": "Understand low-level execution"
+          },
+          {
+            "order": 5,
+            "course": "program-security",
+            "reasoning": "Critical for native programs"
+          },
+          {
+            "order": 6,
+            "course": "testing-with-mollusk",
+            "reasoning": "Test native programs"
+          }
+        ]
+      },
+      {
+        "pathName": "Token Specialist Path",
+        "description": "Deep dive into token development on Solana",
+        "difficulty": "Beginner to Intermediate",
+        "estimatedTime": "6-8 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Solana basics"
+          },
+          {
+            "order": 2,
+            "course": "tokens-on-solana",
+            "reasoning": "Token fundamentals"
+          },
+          {
+            "order": 3,
+            "course": "spl-token-with-web3js",
+            "reasoning": "Client-side token operations"
+          },
+          {
+            "order": 4,
+            "course": "anchor-for-dummies",
+            "reasoning": "Learn Anchor for on-chain development"
+          },
+          {
+            "order": 5,
+            "course": "spl-token-with-anchor",
+            "reasoning": "On-chain token operations"
+          },
+          {
+            "order": 6,
+            "course": "token-2022-program",
+            "reasoning": "Token Extensions overview"
+          },
+          {
+            "order": 7,
+            "course": "token-2022-with-web3js",
+            "reasoning": "Client-side Token Extensions"
+          },
+          {
+            "order": 8,
+            "course": "token-2022-with-anchor",
+            "reasoning": "On-chain Token Extensions"
+          },
+          {
+            "order": 9,
+            "course": "nfts-on-solana",
+            "reasoning": "NFT specialization"
+          }
+        ]
+      },
+      {
+        "pathName": "Testing Expert Path",
+        "description": "Master testing strategies for Solana programs",
+        "difficulty": "Intermediate",
+        "estimatedTime": "4-6 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Solana basics"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "Program development fundamentals"
+          },
+          {
+            "order": 3,
+            "course": "testing-with-mollusk",
+            "reasoning": "Lightweight testing framework"
+          },
+          {
+            "order": 4,
+            "course": "testing-with-litesvm",
+            "reasoning": "Fast in-process testing"
+          },
+          {
+            "order": 5,
+            "course": "testing-with-surfpool",
+            "reasoning": "Alternative testing approach"
+          },
+          {
+            "order": 6,
+            "course": "program-security",
+            "reasoning": "Test security vulnerabilities"
+          }
+        ]
+      },
+      {
+        "pathName": "Advanced Cryptography Path",
+        "description": "Explore alternative signature schemes on Solana",
+        "difficulty": "Advanced",
+        "estimatedTime": "4-6 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Solana fundamentals"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "Program development"
+          },
+          {
+            "order": 3,
+            "course": "secp256r1-on-solana",
+            "reasoning": "WebAuthn-compatible signatures"
+          },
+          {
+            "order": 4,
+            "course": "winternitz-signatures-on-solana",
+            "reasoning": "Post-quantum cryptography"
+          }
+        ]
+      },
+      {
+        "pathName": "Full-Stack Solana Developer",
+        "description": "Complete path from basics to production applications",
+        "difficulty": "Beginner to Advanced",
+        "estimatedTime": "12-16 weeks",
+        "courses": [
+          {
+            "order": 1,
+            "course": "introduction-to-blockchain-and-solana",
+            "reasoning": "Foundation"
+          },
+          {
+            "order": 2,
+            "course": "anchor-for-dummies",
+            "reasoning": "On-chain development"
+          },
+          {
+            "order": 3,
+            "course": "tokens-on-solana",
+            "reasoning": "Token concepts"
+          },
+          {
+            "order": 4,
+            "course": "spl-token-with-web3js",
+            "reasoning": "Client-side tokens"
+          },
+          {
+            "order": 5,
+            "course": "spl-token-with-anchor",
+            "reasoning": "On-chain tokens"
+          },
+          {
+            "order": 6,
+            "course": "nfts-on-solana",
+            "reasoning": "NFT development"
+          },
+          {
+            "order": 7,
+            "course": "program-security",
+            "reasoning": "Security practices"
+          },
+          {
+            "order": 8,
+            "course": "testing-with-mollusk",
+            "reasoning": "Testing strategy"
+          },
+          {
+            "order": 9,
+            "course": "create-your-sdk-with-codama",
+            "reasoning": "Client SDK generation"
+          },
+          {
+            "order": 10,
+            "course": "solana-pay",
+            "reasoning": "Payment integration"
+          }
+        ]
+      }
+    ]
+  },
+  "implementation": {
+    "description": "UI/UX recommendations for implementing internal linking",
+    "recommendations": [
+      {
+        "section": "Course Overview Page",
+        "location": "Top of each course page (before first lesson)",
+        "components": [
+          {
+            "name": "Prerequisites Section",
+            "priority": "High",
+            "placement": "Above course description",
+            "design": {
+              "style": "Card with warning/info styling",
+              "icon": "Prerequisite icon",
+              "title": "Prerequisites",
+              "content": "List of prerequisite courses with clickable links",
+              "example": "Before starting this course, we recommend completing: [Anchor for Dummies], [Tokens on Solana]"
+            },
+            "implementation": {
+              "component": "PrerequisiteCard",
+              "props": ["prerequisites: string[]", "optionalPrerequisites?: string[]"],
+              "styling": "Border with accent color, icon on left, course links as pills/chips"
+            }
+          },
+          {
+            "name": "Related Courses Section",
+            "priority": "Medium",
+            "placement": "After course description or in sidebar",
+            "design": {
+              "style": "Grid of course cards",
+              "title": "Related Courses",
+              "content": "3-5 topically related courses",
+              "cardContent": "Course title, difficulty badge, estimated time"
+            },
+            "implementation": {
+              "component": "RelatedCoursesGrid",
+              "props": ["relatedCourses: CourseMetadata[]", "maxDisplay?: number"],
+              "styling": "Grid layout, responsive (1 col mobile, 2-3 cols desktop)"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Lesson Footer",
+        "location": "End of each lesson (after content, before navigation)",
+        "components": [
+          {
+            "name": "Learning Path Progress",
+            "priority": "Medium",
+            "placement": "After lesson content, before next lesson button",
+            "design": {
+              "style": "Progress indicator with breadcrumb trail",
+              "title": "Your Learning Path",
+              "content": "Show current position in recommended learning path",
+              "example": "Introduction to Blockchain → Anchor for Dummies → [Current] → SPL Token with Anchor"
+            },
+            "implementation": {
+              "component": "LearningPathProgress",
+              "props": ["currentCourse: string", "pathName: string", "position: number", "totalCourses: number"],
+              "styling": "Horizontal timeline with progress indicator"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Course Completion Page",
+        "location": "After completing all lessons in a course",
+        "components": [
+          {
+            "name": "Next Recommended Courses",
+            "priority": "High",
+            "placement": "Primary CTA area",
+            "design": {
+              "style": "Large feature cards",
+              "title": "What's Next?",
+              "content": "2-3 suggested next courses based on learning path",
+              "reasoning": "Show why each course is recommended"
+            },
+            "implementation": {
+              "component": "NextRecommendedCourses",
+              "props": ["completedCourse: string", "recommendedCourses: CourseMetadata[]"],
+              "styling": "Large cards with course preview, CTAs, and reasoning text"
+            }
+          },
+          {
+            "name": "Learning Path Completion",
+            "priority": "Medium",
+            "placement": "Secondary area",
+            "design": {
+              "style": "Achievement/progress display",
+              "title": "Learning Path Progress",
+              "content": "Show completed courses in current path, highlight next steps"
+            },
+            "implementation": {
+              "component": "PathCompletionProgress",
+              "props": ["pathName: string", "completedCourses: string[]", "remainingCourses: string[]"],
+              "styling": "Checklist style with checkmarks and next steps highlighted"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Course Sidebar",
+        "location": "Right sidebar (desktop) or collapsible menu (mobile)",
+        "components": [
+          {
+            "name": "Quick Links Card",
+            "priority": "Low",
+            "placement": "Fixed position in sidebar",
+            "design": {
+              "style": "Compact card with icons",
+              "sections": ["Prerequisites (if any)", "Related Courses (2-3)", "Next Recommended (1-2)"],
+              "interactive": "Collapsible sections"
+            },
+            "implementation": {
+              "component": "CourseQuickLinks",
+              "props": ["courseSlug: string"],
+              "styling": "Sticky sidebar card with collapsible sections"
+            }
+          }
+        ]
+      },
+      {
+        "section": "Courses List Page",
+        "location": "Main courses listing (/courses)",
+        "components": [
+          {
+            "name": "Learning Path Filter",
+            "priority": "High",
+            "placement": "Top of page, filter/sort area",
+            "design": {
+              "style": "Tabs or dropdown selector",
+              "title": "View by Learning Path",
+              "options": ["All Courses", "Beginner Path", "Anchor Developer", "Native Development", etc.]
+            },
+            "implementation": {
+              "component": "LearningPathFilter",
+              "props": ["selectedPath: string", "onPathChange: (path: string) => void"],
+              "styling": "Tab navigation or dropdown with path descriptions"
+            }
+          },
+          {
+            "name": "Course Card Enhancements",
+            "priority": "Medium",
+            "placement": "Each course card",
+            "design": {
+              "additions": [
+                "Prerequisites badge (if any)",
+                "Part of X learning paths badge",
+                "Related courses count"
+              ]
+            },
+            "implementation": {
+              "component": "EnhancedCourseCard",
+              "props": ["course: CourseMetadata", "prerequisites: string[]", "pathsCount: number"],
+              "styling": "Add badges and metadata to existing card component"
+            }
+          }
+        ]
+      }
+    ],
+    "technicalConsiderations": [
+      {
+        "aspect": "Data Storage",
+        "recommendation": "Store linking data in a JSON file similar to courses.ts",
+        "example": "course-relationships.ts with exports for prerequisites, related courses, and paths",
+        "benefits": ["Easy to maintain", "Type-safe with TypeScript", "No database required"]
+      },
+      {
+        "aspect": "State Management",
+        "recommendation": "Track user progress through learning paths",
+        "implementation": "Use localStorage or user profile to store completed courses",
+        "features": ["Personalized recommendations", "Progress tracking", "Resume learning path"]
+      },
+      {
+        "aspect": "URL Structure",
+        "recommendation": "Support learning path context in URLs",
+        "example": "/paths/beginner/courses/anchor-for-dummies/lesson-1",
+        "benefits": ["Context-aware navigation", "Shareable learning path URLs", "Better analytics"]
+      },
+      {
+        "aspect": "Performance",
+        "recommendation": "Lazy load related course data and images",
+        "implementation": "Only fetch related course metadata when needed",
+        "benefits": ["Faster page loads", "Reduced initial bundle size"]
+      },
+      {
+        "aspect": "Internationalization",
+        "recommendation": "Ensure all linking text and descriptions are translatable",
+        "implementation": "Use next-intl for all UI text in linking components",
+        "benefits": ["Consistent with existing i18n", "Multi-language support"]
+      },
+      {
+        "aspect": "SEO",
+        "recommendation": "Add structured data for course relationships",
+        "implementation": "Use schema.org Course and LearningPath schemas",
+        "benefits": ["Better search visibility", "Rich snippets in search results"]
+      }
+    ],
+    "phasedRollout": [
+      {
+        "phase": 1,
+        "title": "Foundation - Core Data Structure",
+        "priority": "Critical",
+        "timeline": "Week 1",
+        "tasks": [
+          "Create course-relationships.ts with all prerequisite and related course data",
+          "Add TypeScript types for course relationships",
+          "Validate all course slug references",
+          "Write utility functions to query relationships"
+        ],
+        "deliverable": "Working data structure with type safety"
+      },
+      {
+        "phase": 2,
+        "title": "Prerequisites Display",
+        "priority": "High",
+        "timeline": "Week 2",
+        "tasks": [
+          "Create PrerequisiteCard component",
+          "Add prerequisites section to course overview pages",
+          "Implement logic to fetch prerequisite course metadata",
+          "Add i18n strings for prerequisites UI"
+        ],
+        "deliverable": "Prerequisites displayed on all relevant course pages"
+      },
+      {
+        "phase": 3,
+        "title": "Course Completion Recommendations",
+        "priority": "High",
+        "timeline": "Week 3",
+        "tasks": [
+          "Create NextRecommendedCourses component",
+          "Integrate with existing CourseFooter component",
+          "Implement recommendation logic based on prerequisites and learning paths",
+          "Add completion tracking (localStorage or user profile)"
+        ],
+        "deliverable": "Next course recommendations after course completion"
+      },
+      {
+        "phase": 4,
+        "title": "Related Courses",
+        "priority": "Medium",
+        "timeline": "Week 4",
+        "tasks": [
+          "Create RelatedCoursesGrid component",
+          "Add related courses section to course pages",
+          "Implement responsive grid layout",
+          "Add visual indicators for course difficulty and duration"
+        ],
+        "deliverable": "Related courses displayed on course pages"
+      },
+      {
+        "phase": 5,
+        "title": "Learning Paths",
+        "priority": "Medium",
+        "timeline": "Week 5-6",
+        "tasks": [
+          "Create LearningPathFilter component for courses list",
+          "Add learning path context to course pages",
+          "Create LearningPathProgress component",
+          "Implement path-aware URL routing",
+          "Add learning paths landing page"
+        ],
+        "deliverable": "Full learning path navigation and filtering"
+      },
+      {
+        "phase": 6,
+        "title": "Polish & Enhancement",
+        "priority": "Low",
+        "timeline": "Week 7",
+        "tasks": [
+          "Add CourseQuickLinks sidebar component",
+          "Implement progress tracking across learning paths",
+          "Add badges and visual indicators to course cards",
+          "Create learning path completion achievements",
+          "Add analytics tracking for link clicks"
+        ],
+        "deliverable": "Complete internal linking experience with all enhancements"
+      }
+    ]
+  },
+  "analyticsTracking": {
+    "description": "Events to track for measuring internal linking effectiveness",
+    "events": [
+      {
+        "event": "prerequisite_link_clicked",
+        "properties": ["from_course", "to_course", "link_location"]
+      },
+      {
+        "event": "related_course_clicked",
+        "properties": ["from_course", "to_course", "link_location"]
+      },
+      {
+        "event": "next_recommended_clicked",
+        "properties": ["completed_course", "recommended_course", "position"]
+      },
+      {
+        "event": "learning_path_selected",
+        "properties": ["path_name", "entry_point"]
+      },
+      {
+        "event": "learning_path_completed",
+        "properties": ["path_name", "duration_days", "courses_completed"]
+      }
+    ],
+    "metrics": [
+      "Internal link click-through rate",
+      "Course completion rate by learning path",
+      "Average courses per user session",
+      "Time between course completions",
+      "Most popular learning paths",
+      "Prerequisite adherence rate"
+    ]
+  },
+  "contentRecommendations": {
+    "description": "Content additions to support internal linking strategy",
+    "additions": [
+      {
+        "type": "Learning Path Landing Pages",
+        "location": "/paths/[path-name]",
+        "content": [
+          "Path overview and goals",
+          "Estimated completion time",
+          "Skill level requirements",
+          "Full course list with descriptions",
+          "Prerequisites for the path",
+          "Career outcomes or project ideas",
+          "CTA to start first course"
+        ]
+      },
+      {
+        "type": "Course Overview Enhancements",
+        "location": "First lesson of each course",
+        "content": [
+          "What you'll learn (specific outcomes)",
+          "Prerequisites explanation (why they matter)",
+          "Related courses context (how they connect)",
+          "Real-world applications",
+          "Estimated time to complete"
+        ]
+      },
+      {
+        "type": "Course Completion Pages",
+        "location": "After last lesson",
+        "content": [
+          "Summary of skills learned",
+          "Certificate or achievement",
+          "Next steps in learning journey",
+          "Project ideas to practice skills",
+          "Community resources"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,179 @@
+{
+  "anchor-for-dummies": {
+    "anchor-101": "Learn Anchor framework basics: set up your first Solana program, understand macros and account validation, and master the essential building blocks.",
+    "anchor-accounts": "Master Anchor account types and validation. Learn PDAs, discriminators, token accounts, remaining accounts, and advanced constraint patterns for secure programs.",
+    "anchor-instructions": "Build robust Anchor instructions with proper context, CPIs, and error handling. Learn instruction structure, parameters, and cross-program invocation patterns.",
+    "advanced-anchor": "Unlock advanced Anchor techniques: feature flags, zero-copy accounts, raw CPIs, and working with large accounts beyond standard limitations.",
+    "client-side-development": "Connect your Anchor program to TypeScript clients. Learn the Anchor SDK, fetch accounts, emit events, and build full-stack Solana applications.",
+    "program-deployment": "Deploy and upgrade Anchor programs to devnet and mainnet. Master deployment strategies, verified builds, IDL management, and program migration.",
+    "testing-your-program": "Test Anchor programs with TypeScript, Mollusk, and LiteSVM. Set up local validators, clone mainnet accounts, and use Surfnet for complex CPIs.",
+    "conclusion": "Complete your Anchor journey with next steps, challenge exercises, and resources to continue building secure Solana programs from scratch."
+  },
+  "create-your-sdk-with-codama": {
+    "introduction": "Discover Codama: generate type-safe clients for Solana programs across multiple languages. Learn nodes, visitors, renderers, and the Codama IDL architecture.",
+    "codama-from-scratch": "Build Codama IDLs from scratch using nodes. Learn value nodes, type nodes, discriminators, PDAs, accounts, instructions, and error definitions.",
+    "codama-with-anchor": "Convert Anchor IDLs to Codama with rootNodeFromAnchor. Bridge Anchor programs to multi-language SDK generation in seconds.",
+    "updating-codama-idl": "Transform Codama IDLs with visitors. Add PDAs, update accounts, enhance instructions, and customize types for production-ready SDKs.",
+    "conclusion": "Wrap up your Codama learning with best practices, advanced patterns, and next steps for building powerful multi-language Solana SDKs."
+  },
+  "instruction-introspection": {
+    "introduction": "Understand instruction introspection on Solana. Learn the Instructions sysvar, transaction analysis, and building composable cross-program safeguards.",
+    "introspection-with-anchor": "Implement instruction introspection in Anchor programs. Validate transaction instructions, enforce constraints, and build secure composable protocols.",
+    "introspection-with-pinocchio": "Add instruction introspection to Pinocchio programs. Parse Instructions sysvar, verify cross-program calls, and enforce transaction-level security.",
+    "conclusion": "Master instruction introspection patterns, common pitfalls, security best practices, and real-world use cases for composable Solana programs."
+  },
+  "introduction-to-assembly": {
+    "assembly-101": "Learn Solana assembly basics: understand SBPF architecture, registers, memory layout, and how Solana programs execute at the lowest level.",
+    "registers-and-memory": "Master SBPF registers and memory management. Learn stack, heap, frame pointers, and how Solana allocates memory during program execution.",
+    "instructions": "Decode SBPF instruction set: arithmetic, logic, memory operations, control flow, and the opcodes that power Solana program execution.",
+    "tooling": "Set up assembly development tools for Solana: compilers, debuggers, disassemblers, and techniques for inspecting compiled program bytecode.",
+    "program-example": "Build a complete assembly program from scratch. See real SBPF code in action with a working example that demonstrates core assembly patterns.",
+    "conclusion": "Finish your assembly journey with optimization techniques, debugging strategies, and resources for advanced low-level Solana development."
+  },
+  "introduction-to-blockchain-and-solana": {
+    "introduction": "Start your blockchain journey: understand distributed ledgers, consensus mechanisms, and why blockchain technology matters for the future of finance.",
+    "blockchain-fundamentals": "Learn blockchain core concepts: blocks, transactions, hashing, Merkle trees, consensus algorithms, and the technology behind decentralized networks.",
+    "blockchain-evolution": "Trace blockchain history from Bitcoin to Ethereum to Solana. See how each generation solved scalability, speed, and cost challenges.",
+    "introduction-to-solana": "Discover what makes Solana unique: Proof of History, parallel processing, 400ms blocks, and the architecture enabling thousands of TPS.",
+    "conclusion": "Complete your blockchain foundation with Solana's competitive advantages, ecosystem overview, and your next steps in Web3 development."
+  },
+  "introduction-to-low-level-solana": {
+    "low-level-101": "Understand low-level Solana program structure. Learn account models, program ownership, instruction processing, and native development fundamentals.",
+    "entrypoint": "Master Solana program entrypoints: deserialize accounts and instruction data, validate inputs, and dispatch instructions without framework abstractions."
+  },
+  "nfts-on-solana": {
+    "introduction": "Learn NFT fundamentals on Solana: what makes NFTs unique, their use cases, and why Solana's speed makes it ideal for digital collectibles.",
+    "metaplex-core": "Create NFTs with Metaplex Core: the modern standard for Solana NFTs with lower costs, better performance, and simplified asset management.",
+    "metaplex-token-metadata": "Build NFTs using Token Metadata: the original Metaplex standard with rich metadata, collections, and creator royalties for digital assets.",
+    "conclusion": "Master NFT creation on Solana with best practices, comparison of standards, marketplace integration, and next steps for building NFT projects."
+  },
+  "pinocchio-for-dummies": {
+    "pinocchio-101": "Start native Solana development with Pinocchio: zero-copy operations, manual account validation, and building programs without heavy frameworks.",
+    "pinocchio-accounts": "Handle accounts in Pinocchio: parse raw account data, implement zero-copy patterns, and validate account ownership manually.",
+    "pinocchio-instructions": "Build Pinocchio instructions: create discriminators, deserialize instruction data, and implement TryFrom patterns for type-safe validation.",
+    "pinocchio-errors": "Implement error handling in Pinocchio: define custom errors, return meaningful messages, and handle failure cases without macro abstractions.",
+    "reading-and-writing-data": "Master data operations in Pinocchio: read and write account data with zero-copy techniques, avoid unnecessary allocations, and optimize memory usage.",
+    "testing-your-program": "Test Pinocchio programs with Rust and TypeScript. Set up test environments, validate business logic, and ensure correctness before deployment.",
+    "batch-instructions": "Optimize Pinocchio programs with batch instructions: process multiple operations efficiently, reduce transaction costs, and improve program throughput.",
+    "middleware-entrypoint": "Build middleware entrypoints in Pinocchio: intercept instructions, add custom validation layers, and compose complex program behaviors.",
+    "performance": "Optimize Pinocchio program performance: reduce compute units, minimize memory usage, and achieve maximum efficiency in native Solana development.",
+    "conclusion": "Complete your Pinocchio journey with advanced patterns, security considerations, and next steps for expert-level native Solana programming."
+  },
+  "program-security": {
+    "introduction": "Understand Solana security fundamentals: account ownership, validation requirements, and common vulnerability patterns that threaten program safety.",
+    "signer-checks": "Prevent unauthorized access with signer checks. Learn why signature verification matters and how missing checks lead to account takeovers.",
+    "owner-checks": "Validate account ownership to prevent spoofing attacks. Understand why owner checks are critical when reading account data across programs.",
+    "data-matching": "Validate account data integrity: ensure fields match expected values, prevent data manipulation, and build robust validation logic in instructions.",
+    "type-cosplay": "Defend against type cosplay attacks where malicious accounts impersonate legitimate types. Learn account type validation and discriminator checks.",
+    "arbitrary-cpi": "Secure cross-program invocations: validate target programs, verify account relationships, and prevent attackers from injecting malicious CPIs.",
+    "duplicate-mutable-accounts": "Handle duplicate account attacks: detect when the same account appears multiple times and prevent double-spending or state corruption.",
+    "pda-sharing": "Secure PDAs from collision attacks: implement unique seeds, avoid predictable derivations, and prevent unauthorized access to program-derived accounts.",
+    "reinitialization-attacks": "Prevent account reinitialization exploits: check initialization state, use discriminators properly, and avoid resetting critical account data.",
+    "revival-attacks": "Defend against account revival attacks where closed accounts are reopened maliciously. Implement proper account closure and validation patterns.",
+    "conclusion": "Master Solana security with a comprehensive checklist, audit strategies, and resources for building production-grade secure programs."
+  },
+  "quantum-vault": {
+    "introduction-to-quantum-vault": "Build Quantum Vault: a complete Solana program showcasing accounts, instructions, PDAs, and security patterns in a real-world vault application."
+  },
+  "research-crateless-program": {
+    "lesson": "Build Solana programs without external crates: minimize dependencies, reduce binary size, and achieve ultimate control with crateless development patterns."
+  },
+  "secp256r1-on-solana": {
+    "introduction": "Discover secp256r1 on Solana: enable WebAuthn, passkey authentication, and integrate with existing elliptic curve systems using secp256r1 signatures.",
+    "secp256r1-with-anchor": "Implement secp256r1 in Anchor programs: verify signatures, integrate WebAuthn, and build passwordless authentication with the secp256r1 syscall.",
+    "secp256r1-with-pinocchio": "Add secp256r1 to Pinocchio programs: use native syscalls for signature verification and build lightweight passkey authentication without frameworks.",
+    "conclusion": "Complete your secp256r1 journey with security considerations, best practices, and next steps for WebAuthn integration in Solana applications."
+  },
+  "solana-pay": {
+    "introduction": "Learn Solana Pay basics: understand payment requests, QR codes, and how to accept instant, low-cost payments on Solana without intermediaries.",
+    "transfer-request": "Implement Solana Pay transfer requests: generate payment links, specify recipients and amounts, and accept direct SOL or token transfers via QR codes.",
+    "transaction-request": "Build transaction requests with Solana Pay: trigger custom program instructions, combine payments with actions, and create rich payment experiences.",
+    "conclusion": "Master Solana Pay integration with production tips, mobile wallet compatibility, and strategies for accepting payments in real-world applications."
+  },
+  "spl-token-with-anchor": {
+    "introduction": "Master SPL Token Program with Anchor: create tokens, manage mints, and build token operations using Anchor's convenient CPI helpers.",
+    "mint-to": "Mint new tokens with Anchor: create token supply, distribute to token accounts, and manage mint authority using SPL Token CPIs.",
+    "transfer": "Transfer SPL tokens in Anchor programs: move tokens between accounts, validate balances, and implement secure token transfer logic.",
+    "burn": "Burn tokens to reduce supply: permanently remove tokens from circulation using Anchor CPI helpers and proper authority checks.",
+    "approve-and-revoke": "Manage token delegates in Anchor: approve spending limits, delegate authority, and revoke permissions with SPL Token instructions.",
+    "freeze-and-thaw": "Freeze and thaw token accounts: temporarily lock token transfers using freeze authority and restore access when needed.",
+    "set-authority": "Update token authorities in Anchor: transfer mint authority, freeze authority, and implement secure authority management patterns.",
+    "close-account": "Close token accounts to recover rent: properly close empty token accounts, reclaim lamports, and clean up unused account state.",
+    "conclusion": "Complete your SPL Token journey with best practices, security patterns, and advanced token program integration strategies for production apps."
+  },
+  "spl-token-with-web3js": {
+    "introduction": "Use SPL Token Program with web3.js: interact with tokens from JavaScript, build token operations, and integrate tokens into web applications.",
+    "mint-to": "Mint tokens using web3.js: create token supply, send to token accounts, and manage minting operations from TypeScript clients.",
+    "transfer": "Transfer SPL tokens with web3.js: send tokens between accounts, validate balances, and build token transfer functionality in web apps.",
+    "burn": "Burn tokens from JavaScript: reduce token supply permanently using web3.js and proper burn instruction construction.",
+    "approve-and-revoke": "Manage delegates with web3.js: set spending allowances, grant token permissions, and revoke delegated access from TypeScript.",
+    "freeze-and-thaw": "Control token account freezing from web3.js: lock and unlock token transfers using freeze authority and JavaScript clients.",
+    "set-authority": "Change token authorities in web3.js: update mint and freeze authorities programmatically from TypeScript applications.",
+    "close-account": "Close token accounts with web3.js: reclaim rent by closing empty accounts and cleaning up token account state from clients.",
+    "conclusion": "Master SPL Token integration in web applications with client-side best practices, error handling, and production-ready token patterns."
+  },
+  "testing-with-litesvm": {
+    "litesvm-101": "Discover LiteSVM: ultra-fast Solana testing with embedded VM, account manipulation, and instant test execution without validator overhead.",
+    "rust": "Test Solana programs in Rust with LiteSVM: write unit tests, manipulate accounts, and validate program logic at blazing speed.",
+    "typescript": "Test from TypeScript using LiteSVM: run fast integration tests, validate client interactions, and test Anchor programs with anchor-litesvm.",
+    "conclusion": "Master LiteSVM testing with advanced techniques, performance optimization, debugging strategies, and best practices for comprehensive test coverage."
+  },
+  "testing-with-mollusk": {
+    "mollusk-101": "Learn Mollusk testing for Solana: write Rust-native tests, set up complex account states, and validate program logic without network overhead.",
+    "advanced-functionalities": "Unlock Mollusk advanced features: simulate sysvars, test CPIs in isolation, mock program accounts, and create sophisticated test scenarios.",
+    "conclusion": "Complete your Mollusk journey with test organization patterns, debugging techniques, and strategies for comprehensive program test coverage."
+  },
+  "testing-with-surfpool": {
+    "surfpool-101": "Start with Surfnet and Surfpool: fetch mainnet accounts on-demand, test complex CPIs, and simulate production environments locally.",
+    "advanced-functionalities": "Master Surfpool advanced features: cache strategies, account overrides, custom RPC endpoints, and optimization for faster test execution.",
+    "conclusion": "Finish your Surfpool learning with production testing patterns, CI/CD integration, and strategies for realistic mainnet simulation."
+  },
+  "token-2022-program": {
+    "introduction": "Discover Token Extensions (Token-2022): the next-generation token standard with built-in compliance, transfer fees, metadata, and advanced features.",
+    "token-extensions": "Explore all Token-2022 extensions: transfer fees, confidential transfers, metadata, interest-bearing tokens, and choosing the right extensions.",
+    "conclusion": "Master Token-2022 with migration strategies from SPL Token, compatibility considerations, and building next-gen token applications."
+  },
+  "token-2022-with-anchor": {
+    "introduction": "Use Token-2022 in Anchor programs: work with token extensions, handle interface accounts, and build modern token functionality in Anchor.",
+    "transfer-fee-extension": "Implement transfer fees with Token-2022 in Anchor: charge fees on transfers, collect revenue, and manage fee accounts in programs.",
+    "metadata-extension": "Add onchain metadata with Token-2022: store token names, symbols, and URIs directly in mint accounts using Anchor helpers.",
+    "mint-close-authority-extension": "Enable mint closing with Token-2022: recover rent from mint accounts after token lifecycle ends using Anchor extensions.",
+    "interest-bearing-extension": "Create interest-bearing tokens in Anchor: automatically accrue interest, calculate yields, and build DeFi primitives with Token-2022.",
+    "permanent-delegate-extension": "Implement permanent delegates with Token-2022: grant irrevocable transfer authority for compliance and specialized token use cases.",
+    "non-transferable-extension": "Build non-transferable tokens in Anchor: create soulbound tokens, credentials, and locked assets using Token-2022 extensions.",
+    "default-account-state-extension": "Set default account states with Token-2022: automatically freeze new token accounts for compliance and controlled distribution.",
+    "cpi-guard-extension": "Add CPI protection to tokens: prevent unauthorized CPI access, protect users from malicious programs, and enhance token security.",
+    "memo-transfer-extension": "Require transfer memos with Token-2022: enforce transaction documentation, comply with regulations, and track token movement reasons.",
+    "immutable-owner-extension": "Lock token account ownership: prevent owner changes, create secure token accounts, and eliminate ownership manipulation risks.",
+    "group-and-member-extension": "Build token groups and members: create token families, manage collections, and implement hierarchical token structures in Anchor.",
+    "conclusion": "Master Token-2022 in Anchor with extension combinations, migration patterns, and building production token programs with advanced features."
+  },
+  "token-2022-with-web3js": {
+    "introduction": "Integrate Token-2022 in web apps: use token extensions from JavaScript, handle extension accounts, and build modern token UIs.",
+    "transfer-fee-extension": "Handle transfer fees in web3.js: calculate fees, display costs to users, and implement fee-aware token transfers in applications.",
+    "metadata-extension": "Read token metadata with web3.js: fetch names, symbols, URIs from Token-2022 mints and display rich token information.",
+    "mint-close-authority-extension": "Close mints from TypeScript: recover rent from exhausted tokens and handle mint lifecycle in web applications.",
+    "interest-bearing-extension": "Display interest-bearing tokens: calculate accrued interest, show APY to users, and build DeFi interfaces with Token-2022.",
+    "permanent-delegate-extension": "Work with permanent delegates in web3.js: check delegation status, validate permissions, and integrate compliant tokens.",
+    "non-transferable-extension": "Handle non-transferable tokens from JavaScript: validate transfer restrictions and build UIs for soulbound tokens.",
+    "default-account-state-extension": "Manage frozen accounts with web3.js: check freeze status, request thaws, and handle compliance workflows in applications.",
+    "cpi-guard-extension": "Implement CPI guard in web apps: check protection status, educate users about security features, and validate token operations.",
+    "memo-transfer-extension": "Add transfer memos in JavaScript: prompt users for transaction notes, comply with regulations, and track payment purposes.",
+    "immutable-owner-extension": "Verify immutable ownership from web3.js: validate account security, display protection status, and build safer token interfaces.",
+    "group-and-member-extension": "Display token groups in web apps: show token families, visualize relationships, and build collection browsers with Token-2022.",
+    "conclusion": "Build production Token-2022 applications with client-side patterns, user experience best practices, and comprehensive extension handling."
+  },
+  "tokens-on-solana": {
+    "introduction": "Understand tokens on Solana: learn token fundamentals, why they matter, and how Solana's account model differs from Ethereum and Bitcoin.",
+    "mint-and-token-accounts": "Master mint and token accounts: understand the SPL Token Program architecture, associated token accounts, and account relationships.",
+    "functionalities": "Explore SPL Token Program features: minting, transferring, burning, delegating, freezing, and all operations available for Solana tokens.",
+    "metaplex-token-metadata": "Add metadata to fungible tokens: use Metaplex Token Metadata for rich token information, logos, and integration with wallets.",
+    "conclusion": "Complete your token journey with best practices, Token-2022 overview, and next steps for building token-powered Solana applications."
+  },
+  "winternitz-signatures-on-solana": {
+    "introduction": "Learn Winternitz signatures on Solana: post-quantum cryptography, hash-based signatures, and preparing for quantum-resistant blockchain security.",
+    "winternitz-signatures-with-anchor": "Implement Winternitz signatures in Anchor: verify hash-based signatures, build quantum-resistant programs, and future-proof your applications.",
+    "winternitz-signatures-with-pinocchio": "Add Winternitz to Pinocchio programs: native hash-based signature verification, quantum resistance without frameworks.",
+    "conclusion": "Master post-quantum cryptography on Solana with security analysis, performance considerations, and strategies for quantum-resistant blockchain development."
+  }
+}

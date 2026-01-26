@@ -2,7 +2,7 @@
   "courses": {
     "introduction-to-blockchain-and-solana": {
       "title": "Introduction to Blockchain and Solana",
-      "description": "Discover the fundamentals of blockchain technology and explore how Solana revolutionizes decentralized computing with high-speed, low-cost transactions.",
+      "description": "Start from zero. Learn how blockchains work, why Solana can process 65,000 TPS, and what makes proof-of-history revolutionary. Perfect for beginners.",
       "lessons": {
         "introduction": "Introduction",
         "blockchain-fundamentals": "Blockchain Fundamentals",
@@ -13,10 +13,10 @@
     },
     "anchor-for-dummies": {
       "title": "Anchor for Dummies",
-      "description": "Master Anchor, the powerful Rust framework for Solana development, from basic setup to advanced patterns and deployment.",
+      "description": "Go from zero to deploying your first Solana program. Learn PDAs, CPIs, testing, and client integration. 8 lessons with real code you'll actually use.",
       "lessons": {
         "anchor-101": "Anchor 101",
-        "anchor-accounts": "Anchor Accounts", 
+        "anchor-accounts": "Anchor Accounts",
         "anchor-instructions": "Anchor Instructions",
         "testing-your-program": "Testing your Program",
         "program-deployment": "Program Deployment",
@@ -27,7 +27,7 @@
     },
     "pinocchio-for-dummies": {
       "title": "Pinocchio for Dummies",
-      "description": "Learn Pinocchio, the lightweight and high-performance framework for building efficient Solana programs with minimal overhead.",
+      "description": "Build Solana programs that are actually fast. Master zero-copy deserialization, batch multiple instructions, and squeeze every compute unit. Performance matters.",
       "lessons": {
         "pinocchio-101": "Pinocchio 101",
         "pinocchio-accounts": "Pinocchio Accounts",
@@ -43,7 +43,7 @@
     },
     "introduction-to-assembly": {
       "title": "Introduction to Assembly",
-      "description": "Understand sBPF Assembly and its role in Solana programs. Learn how low-level instructions drive blockchain execution.",
+      "description": "See what your Rust compiles to. Understand sBPF registers, memory operations, and how Solana actually executes your programs at the lowest level.",
       "lessons": {
         "assembly-101": "Assembly 101",
         "registers-and-memory": "Registers and Memory",
@@ -55,7 +55,7 @@
     },
     "program-security": {
       "title": "Program Security",
-      "description": "Protect your Solana programs from common vulnerabilities and attacks with essential security best practices and patterns.",
+      "description": "Don't get exploited. Learn how attackers hijack PDAs, forge signatures, and drain accounts. Then learn exactly how to prevent each attack. Essential reading.",
       "lessons": {
         "introduction": "Introduction",
         "signer-checks": "Signer Checks",
@@ -72,7 +72,7 @@
     },
     "secp256r1-on-solana": {
       "title": "Secp256r1 on Solana",
-      "description": "Implement Secp256r1 cryptographic signatures on Solana using both Anchor and Pinocchio frameworks.",
+      "description": "Enable passkey and WebAuthn support in your Solana programs. Implement Secp256r1 signatures with Anchor or Pinocchio. Let users sign with Face ID.",
       "lessons": {
         "introduction": "Secp256r1 on Solana",
         "secp256r1-with-anchor": "Secp256r1 with Anchor",
@@ -82,7 +82,7 @@
     },
     "tokens-on-solana": {
       "title": "Tokens on Solana",
-      "description": "Explore Solana's token standards, mint and token accounts, and learn to work with the SPL Token program.",
+      "description": "Everything you need to know about tokens on Solana. Mint accounts, token accounts, authorities, and metadata. How SPL Token actually works under the hood.",
       "lessons": {
         "introduction": "Introduction",
         "mint-and-token-accounts": "Mint and Token Accounts",
@@ -93,7 +93,7 @@
     },
     "nfts-on-solana": {
       "title": "NFTs on Solana",
-      "description": "Create and manage NFTs on Solana using Metaplex Token Metadata and Metaplex Core standards.",
+      "description": "Ship your NFT collection. Learn both Metaplex Token Metadata and the new Core standard. Collections, royalties, and everything between minting and marketplace.",
       "lessons": {
         "introduction": "Introduction",
         "metaplex-token-metadata": "Metaplex Token Metadata",
@@ -103,7 +103,7 @@
     },
     "spl-token-with-web3js": {
       "title": "SPL Token with Web3.js",
-      "description": "Master SPL Token operations with TypeScript and Web3.js, from minting to managing token authorities.",
+      "description": "Build token apps in TypeScript. Mint, transfer, burn, freeze, and manage authorities using web3.js. Every operation you need for a token frontend.",
       "lessons": {
         "introduction": "Introduction",
         "mint-to": "Mint To",
@@ -118,7 +118,7 @@
     },
     "spl-token-with-anchor": {
       "title": "SPL Token with Anchor",
-      "description": "Build robust token programs with Anchor framework, implementing all essential SPL Token functionalities.",
+      "description": "Control SPL tokens from your Anchor programs. CPI into token program for mints, transfers, burns, and authority changes. Build real token applications in Rust.",
       "lessons": {
         "introduction": "Introduction",
         "mint-to": "Mint To",
@@ -133,7 +133,7 @@
     },
     "token-2022-program": {
       "title": "Token2022 Program",
-      "description": "Discover Token Extensions, the next evolution of tokens on Solana with powerful new features and capabilities.",
+      "description": "Token-2022 has 16+ extensions that SPL Token doesn't. Transfer fees, confidential transfers, permanent delegates, and more. The future of Solana tokens.",
       "lessons": {
         "introduction": "Introduction",
         "token-extensions": "Token Extensions",
@@ -142,7 +142,7 @@
     },
     "token-2022-with-web3js": {
       "title": "Token2022 with Web3.js",
-      "description": "Implement Token-2022 extensions with TypeScript, including transfer fees, metadata, and advanced token features.",
+      "description": "Use Token-2022 extensions in your TypeScript app. Transfer fees, interest-bearing tokens, metadata, and 9 more extensions. Build the next generation of token apps.",
       "lessons": {
         "introduction": "Introduction",
         "transfer-fee-extension": "Transfer Fee Extension",
@@ -161,7 +161,7 @@
     },
     "token-2022-with-anchor": {
       "title": "Token2022 with Anchor",
-      "description": "Build advanced Token-2022 programs with Anchor, leveraging all extensions for maximum functionality.",
+      "description": "CPI into Token-2022 from Anchor programs. Work with transfer fees, metadata, and 11 extensions. Build revenue-generating tokens and advanced token mechanics.",
       "lessons": {
         "introduction": "Introduction",
         "transfer-fee-extension": "Transfer Fee Extension",
@@ -180,7 +180,7 @@
     },
     "instruction-introspection": {
       "title": "Instruction Introspection",
-      "description": "Learn to inspect and analyze instructions within your Solana programs using Anchor and Pinocchio.",
+      "description": "Read and validate other instructions in the same transaction. Essential for composability and security. Prevent malicious instructions from sneaking in.",
       "lessons": {
         "introduction": "Introduction",
         "introspection-with-anchor": "Introspection with Anchor",
@@ -190,7 +190,7 @@
     },
     "testing-with-mollusk": {
       "title": "Testing with Mollusk",
-      "description": "Write comprehensive tests for your Solana programs using Mollusk's powerful testing framework.",
+      "description": "Test your Solana programs in pure Rust. Mollusk gives you lightning-fast unit tests without spinning up validators. Mock accounts, test edge cases instantly.",
       "lessons": {
         "mollusk-101": "Mollusk 101",
         "advanced-functionalities": "Advanced Functionalities",
@@ -199,7 +199,7 @@
     },
     "solana-pay": {
       "title": "Solana Pay",
-      "description": "Build payment solutions with Solana Pay, enabling seamless transfer and transaction requests.",
+      "description": "Accept payments in your app with QR codes. Solana Pay lets users scan and pay instantly. Build transfer and transaction requests for real commerce.",
       "lessons": {
         "introduction": "Introduction",
         "transfer-request": "Transfer Request",
@@ -209,7 +209,7 @@
     },
     "create-your-sdk-with-codama": {
       "title": "Create your SDK with Codama",
-      "description": "Generate type-safe SDKs for your Solana programs using Codama's IDL-based code generation.",
+      "description": "Stop writing client code by hand. Codama generates type-safe TypeScript SDKs from your Anchor IDL. Update your program, regenerate, ship.",
       "lessons": {
         "introduction": "Introduction",
         "codama-from-scratch": "Codama IDL from Scratch",
@@ -220,7 +220,7 @@
     },
     "winternitz-signatures-on-solana": {
       "title": "Winternitz Signatures on Solana",
-      "description": "Implement quantum-resistant Winternitz signatures on Solana with Anchor and Pinocchio.",
+      "description": "Quantum computers will break most crypto signatures. Winternitz signatures won't. Learn post-quantum cryptography on Solana before you need it.",
       "lessons": {
         "introduction": "Introduction",
         "winternitz-signatures-with-anchor": "Winternitz Signatures with Anchor",
@@ -230,7 +230,7 @@
     },
     "testing-with-litesvm": {
       "title": "Testing with LiteSVM",
-      "description": "Accelerate your testing workflow with LiteSVM, supporting both TypeScript and Rust environments.",
+      "description": "Test Solana programs without running a validator. LiteSVM emulates the SVM in-process for instant feedback. Works in both TypeScript and Rust.",
       "lessons": {
         "litesvm-101": "LiteSVM 101",
         "typescript": "LiteSVM with Typescript",
@@ -240,11 +240,33 @@
     },
     "testing-with-surfpool": {
       "title": "Testing with Surfpool",
-      "description": "Master Surfpool's advanced testing capabilities for robust and reliable Solana program validation.",
+      "description": "Advanced testing for Solana programs. Surfpool handles parallel test execution and complex state management. For teams shipping production code.",
       "lessons": {
         "surfpool-101": "Surfpool 101",
         "advanced-functionalities": "Advanced Functionalities",
         "conclusion": "Conclusion"
+      }
+    },
+    "introduction-to-low-level-solana": {
+      "title": "Introduction to Low-Level Solana",
+      "description": "Write Solana programs with zero crates. Just you, raw Rust, and the eBPF instruction set. Understand what Anchor actually does for you by doing it yourself.",
+      "lessons": {
+        "low-level-101": "Low-level 101",
+        "entrypoint": "Entrypoint"
+      }
+    },
+    "quantum-vault": {
+      "title": "Quantum Vault",
+      "description": "Build a vault that quantum computers can't crack. Implement post-quantum signature schemes on Solana. Your assets, protected from future threats.",
+      "lessons": {
+        "introduction-to-quantum-vault": "Introduction to Quantum Vault"
+      }
+    },
+    "research-crateless-program": {
+      "title": "Research: Crateless Program",
+      "description": "Build a Solana program with literally zero dependencies. Not even solana-program. Just raw eBPF and manual memory management. For the truly curious.",
+      "lessons": {
+        "lesson": "Byte by Byte: The Anatomy of a Crateless Program"
       }
     }
   }

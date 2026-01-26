@@ -13,6 +13,8 @@ import { decodeCoreCollectionNumMinted } from "@/lib/nft/decodeCoreCollectionNum
 import ContentFallbackNotice from "@/app/components/ContentFallbackNotice";
 import CourseFooter from "@/app/components/CoursesContent/CourseFooter";
 import Breadcrumbs from "@/app/components/Breadcrumbs";
+import { URLS } from "@/constants/urls";
+import { difficulty } from "@/app/utils/common";
 
 interface LessonPageProps {
   params: Promise<{
@@ -40,9 +42,25 @@ export async function generateMetadata({
 
   const title = `${t("metadata.title")} | ${t(`courses.${courseName}.title`)} | ${t(`courses.${courseName}.lessons.${lessonName}`)}`;
 
+  // Build the relative path without locale for alternates
+  const basePath = `/courses/${courseName}/${lessonName}`;
+
   return {
     title: title,
     description: t("metadata.description"),
+    alternates: {
+      canonical: `/${locale}${basePath}`,
+      languages: {
+        en: `/en${basePath}`,
+        "zh-CN": `/zh-CN${basePath}`,
+        "zh-HK": `/zh-HK${basePath}`,
+        fr: `/fr${basePath}`,
+        id: `/id${basePath}`,
+        vi: `/vi${basePath}`,
+        uk: `/uk${basePath}`,
+        de: `/de${basePath}`,
+      },
+    },
     openGraph: {
       title: title,
       type: "website",
@@ -130,8 +148,114 @@ export default async function LessonPage({ params }: LessonPageProps) {
   const nextLesson = allLessons[currentLessonIndex + 1];
   const nextLessonSlug = nextLesson ? nextLesson.slug : "";
 
+  // Get course translations for schema
+  const courseDescription = t(`courses.${courseMetadata.slug}.description`);
+  const educationalLevel = difficulty[courseMetadata.difficulty];
+
+  // Build course URL
+  const courseUrl = `${URLS.BLUESHIFT_EDUCATION}/${locale}/courses/${courseName}/${lessonName}`;
+
+  // Generate Course JSON-LD Schema
+  const courseSchema = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: coursePageTitle,
+    description: courseDescription,
+    provider: {
+      "@type": "Organization",
+      name: "Blueshift",
+      url: URLS.BLUESHIFT_EDUCATION,
+    },
+    courseCode: courseMetadata.slug,
+    educationalLevel: educationalLevel,
+    inLanguage: locale,
+    hasCourseInstance: {
+      "@type": "CourseInstance",
+      courseMode: "online",
+      courseWorkload: `PT${allLessons.length}H`,
+    },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  };
+
+  // Generate LearningResource JSON-LD Schema for the individual lesson
+  const lessonTitle = t(`courses.${courseMetadata.slug}.lessons.${lessonName}`);
+  const learningResourceSchema = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    name: lessonTitle,
+    description: `${lessonTitle} - Part of ${coursePageTitle}`,
+    educationalLevel: educationalLevel,
+    learningResourceType: "Lesson",
+    inLanguage: locale,
+    isPartOf: {
+      "@type": "Course",
+      name: coursePageTitle,
+      url: `${URLS.BLUESHIFT_EDUCATION}/${locale}/courses/${courseName}`,
+    },
+    provider: {
+      "@type": "Organization",
+      name: "Blueshift",
+      url: URLS.BLUESHIFT_EDUCATION,
+    },
+  };
+
+  // Generate BreadcrumbList JSON-LD Schema
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${URLS.BLUESHIFT_EDUCATION}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Courses",
+        item: `${URLS.BLUESHIFT_EDUCATION}/${locale}/courses`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: coursePageTitle,
+        item: `${URLS.BLUESHIFT_EDUCATION}/${locale}/courses/${courseName}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: lessonTitle,
+        item: courseUrl,
+      },
+    ],
+  };
+
   return (
-    <div className="flex flex-col w-full border-b border-b-border">
+    <>
+      {/* JSON-LD Course Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(courseSchema) }}
+      />
+      {/* JSON-LD LearningResource Schema for individual lesson */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(learningResourceSchema),
+        }}
+      />
+      {/* JSON-LD BreadcrumbList Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="flex flex-col w-full border-b border-b-border">
       <div className="relative max-w-app mx-auto w-full app:border-x border-border-light">
         <Breadcrumbs
           items={[
@@ -176,5 +300,6 @@ export default async function LessonPage({ params }: LessonPageProps) {
         </div>
       </div>
     </div>
+    </>
   );
 }
