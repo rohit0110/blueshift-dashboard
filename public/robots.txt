@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Sitemap: https://learn.blueshift.gg/sitemap.xml
+
+# Block dev/admin paths
+Disallow: /api/
+Disallow: /_next/static/

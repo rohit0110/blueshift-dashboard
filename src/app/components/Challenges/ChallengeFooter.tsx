@@ -1,7 +1,7 @@
 "use client";
 
 import { ChallengeMetadata } from "@/app/utils/challenges";
-import { Icon, Button } from "@blueshift-gg/ui-components";
+import { Icon, Button, CrosshairCorners } from "@blueshift-gg/ui-components";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { usePathContent } from "@/app/hooks/usePathContent";
@@ -32,66 +32,78 @@ export default function ChallengeFooter({
       ? `/paths/${pathSlug}/challenges/${challengeSlug}/verify`
       : `/challenges/${challengeSlug}/verify`;
 
-  return nextPage ? (
-    <>
-      <Link
-        href={getChallengeHref(nextPage.slug)}
-        className="flex justify-between items-center w-full bg-card-solid border border-border group py-5 px-5"
-      >
-        <div className="flex items-center gap-x-2">
-          <span className="text-mute text-sm font-mono text-shade-tertiary">
-            Next Page
-          </span>
-          <span className="font-medium text-shade-primary">
-            {t(
-              `challenges.${challengeMetadata.slug}.pages.${nextPage.slug}.title`
-            )}
-          </span>
-        </div>
-        <Icon
-          name="ArrowRight"
-          className="text-mute text-sm group-hover:text-shade-primary group-hover:translate-x-1 transition"
+  return (
+    <div className="flex flex-col w-[calc(100%+42px)] lg:w-[calc(100%+50px)]">
+      <div className="flex flex-col gap-y-6 bg-background relative">
+        <div className="h-px w-full bg-border"></div>
+        <div className="h-px w-full bg-border"></div>
+        <CrosshairCorners
+          corners={["top-left", "top-right"]}
+          className="z-10 hidden xl:block"
+          animationDelay={0}
+          size={8}
+          thickness={1}
+          spacingY={-24}
+          spacingX={0}
         />
-      </Link>
-      <div className="relative w-full">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-border"></div>
-        </div>
-        <div className="relative flex justify-center">
-          <span className="bg-background px-4 text-xs text-mute font-mono">
-            {t("lessons.skip_lesson_divider_title").toUpperCase()}
-          </span>
-        </div>
       </div>
-      <div className="w-[calc(100%+32px)] md:w-[calc(100%+64px)] lg:w-[calc(100%+48px)] gap-y-6 md:gap-y-0 flex flex-col md:flex-row justify-between items-center gap-x-12 group px-8">
-        <span className="text-shade-primary w-auto shrink-0 font-mono">
-          {t("lessons.take_challenge_cta")}
-        </span>
-        <Link href={getVerifyHref()} className="w-max">
-          <Button
-            variant="primary"
-            size="lg"
-            label={t("lessons.take_challenge")}
-            icon={{ name: "Challenge" }}
-            className="disabled:opacity-40 w-full disabled:cursor-default"
-          ></Button>
-        </Link>
+      <div className="w-full flex items-center flex-col gap-y-10">
+        {nextPage ? (
+          <Link
+            href={getChallengeHref(nextPage.slug)}
+            className="flex justify-between items-center w-full bg-card-solid border-x border-border-light group py-5 px-5"
+          >
+            <div className="flex items-center gap-x-2">
+              <span className="text-mute text-sm font-mono text-shade-tertiary">
+                Next Page
+              </span>
+              <span className="font-medium text-shade-primary">
+                {t(
+                  `challenges.${challengeMetadata.slug}.pages.${nextPage.slug}.title`
+                )}
+              </span>
+            </div>
+            <Icon
+              name="ArrowRight"
+              className="text-mute text-sm group-hover:text-shade-primary group-hover:translate-x-1 transition"
+            />
+          </Link>
+        ) : (
+          <div className="px-0 lg:px-0 w-full">
+            <div className="w-full bg-card-solid border-x border-border-light relative py-8 px-8">
+              <div className="max-w-[800px] mx-auto">
+                <div className="gap-y-6 md:gap-y-0 flex flex-col md:flex-row justify-between items-center gap-x-12">
+                  <span className="text-shade-primary w-auto shrink-0 font-mono">
+                    {t("lessons.take_challenge_cta")}
+                  </span>
+                  <Link href={getVerifyHref()} className="w-max">
+                    <Button
+                      variant="primary"
+                      size="md"
+                      label={t("lessons.take_challenge")}
+                      icon={{ name: "Challenge" }}
+                    />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-    </>
-  ) : (
-    <div className="w-[calc(100%+32px)] md:w-[calc(100%+64px)] lg:w-[calc(100%+48px)] gap-y-6 md:gap-y-0 flex flex-col md:flex-row justify-between items-center gap-x-12 group -mt-12 pt-24 pb-16 px-8 [background:linear-gradient(180deg,rgba(0,255,255,0)_0%,rgba(0,255,255,0.08)_50%,rgba(0,255,255,0)_100%)]">
-      <span className="text-shade-primary w-auto flex-shrink-0 font-mono">
-        {t("lessons.take_challenge_cta")}
-      </span>
-      <Link href={getVerifyHref()} className="w-max">
-        <Button
-          variant="primary"
-          size="lg"
-          label={t("lessons.take_challenge")}
-          icon={{ name: "Challenge" }}
-          className="disabled:opacity-40 w-full disabled:cursor-default"
-        ></Button>
-      </Link>
+
+      <div className="flex flex-col gap-y-6 bg-background relative">
+        <CrosshairCorners
+          corners={["bottom-left", "bottom-right"]}
+          className="z-10 hidden xl:block"
+          animationDelay={0}
+          size={8}
+          thickness={1}
+          spacingY={-24}
+          spacingX={0}
+        />
+        <div className="h-px w-full bg-border"></div>
+        <div className="h-px w-full bg-border"></div>
+      </div>
     </div>
   );
 }
