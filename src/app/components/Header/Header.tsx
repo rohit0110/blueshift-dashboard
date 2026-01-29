@@ -86,6 +86,7 @@ export default function HeaderContent() {
               </Link>
 
               <Tabs
+                isNavigation
                 items={[
                   {
                     label: t("header.paths"),
