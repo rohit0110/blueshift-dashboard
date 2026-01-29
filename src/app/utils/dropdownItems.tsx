@@ -51,7 +51,7 @@ const categoryDropdownItem = {
     {
       label: "Mobile",
       value: "mobile",
-      icon: { name: "Solana" as const },
+      icon: { name: "Mobile" as const },
     },
     {
       label: "Rust",

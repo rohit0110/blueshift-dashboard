@@ -19,7 +19,7 @@ export const languageColors = {
   Typescript: BRAND_COLOURS.typescript,
   Assembly: BRAND_COLOURS.assembly,
   General: BRAND_COLOURS.general,
-  Mobile: BRAND_COLOURS.general,
+  Mobile: BRAND_COLOURS.mobile,
 } as const;
 
 export const difficulty = {

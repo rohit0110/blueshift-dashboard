@@ -110,7 +110,7 @@ export default function CourseCard({
         />
 
         <Avatar
-          icon={{ name: language === "Mobile" ? "Solana" : language }}
+          icon={{ name: language }}
           className="mt-auto"
           thickness={1.5}
           variant={brandColorKey}

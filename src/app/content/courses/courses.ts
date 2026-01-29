@@ -312,7 +312,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "mobile-dapp-fundamentals",
     language: "Mobile",
-    color: BRAND_COLOURS.general,
+    color: BRAND_COLOURS.mobile,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -331,7 +331,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "mwa-deep-dive",
     language: "Mobile",
-    color: BRAND_COLOURS.general,
+    color: BRAND_COLOURS.mobile,
     difficulty: 2,
     isFeatured: true,
     lessons: [
@@ -348,7 +348,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "embedded-wallets",
     language: "Mobile",
-    color: BRAND_COLOURS.general,
+    color: BRAND_COLOURS.mobile,
     difficulty: 2,
     isFeatured: true,
     lessons: [
@@ -362,7 +362,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "on-chain-operations",
     language: "Mobile",
-    color: BRAND_COLOURS.general,
+    color: BRAND_COLOURS.mobile,
     difficulty: 2,
     isFeatured: true,
     lessons: [
@@ -377,7 +377,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "dapp-store-publishing",
     language: "Mobile",
-    color: BRAND_COLOURS.general,
+    color: BRAND_COLOURS.mobile,
     difficulty: 2,
     isFeatured: true,
     lessons: [
