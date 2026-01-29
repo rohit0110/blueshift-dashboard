@@ -154,7 +154,7 @@ let token_account = create_account_for_token_account(token_data)
 
 ```rust
 use spl_token::state::{TokenAccount, AccountState};
-use mollusk_svm_programs_token::associated_token::pub fn create_account_for_associated_token_account;
+use mollusk_svm_programs_token::associated_token::create_account_for_associated_token_account;
 
 let token_data = TokenAccount {
     mint: Pubkey::new_unique(),
@@ -458,6 +458,6 @@ fn test() {
     mollusk.sysvars.clock.unix_timestamp = 1234567890;
 
     // Jump to Slot 1000
-    warp_to_slot(&mut Mollusk, 1000)
+    mollusk.warp_to_slot(1000);
 }
 ```

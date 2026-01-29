@@ -2,6 +2,8 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 # Le Programme de Jetons
 
+![SPL Token with Anchor](/graphics/course-banners/spl-token-with-anchor.png)
+
 Sur Solana, tout ce qui concerne les jetons est géré par le [Programme SPL-Token](https://github.com/solana-program/token) et [Token2022 Program](/en/courses/token-2022-program) : framework de jeton natif de Solana qui définit la manière dont tous les jetons sont créés, gérés et transférés.
 
 Il s'agit d'un programme unique et unifié qui gère toutes les opérations liées aux jetons sur l'ensemble du réseau, garantissant ainsi la cohérence et l'interopérabilité.
@@ -9,7 +11,6 @@ Il s'agit d'un programme unique et unifié qui gère toutes les opérations lié
 > La décision d'avoir une interface unique et unifiée pour tous les jetons sur Solana permet une implémentation facile qui peut être reproduite dans toutes les dApps (applications décentralisées) et les intégrations (comme les portefeuilles, etc.)
 
 Pour Anchor, tout ce qui concerne les jetons se trouve dans la crate `anchor-spl`. Pour cette raison, après avoir initialisé un espace de travail `Anchor`, nous pouvons simplement faire :
-
 
 ```
 cargo add anchor-spl
@@ -68,6 +69,7 @@ pub struct CreateToken<'info> {
 ### Compte Associated Token
 
 Il en va de même pour le compte `Associated Token`. La création de comptes `Associated Token` à l'aide de macros est similaire à la création d'un compte de `Token`. La seule différence est dans la contrainte. Voici à quoi cela ressemble :
+
 ```rust
 #[derive(Accounts)]
 pub struct CreateToken<'info> {

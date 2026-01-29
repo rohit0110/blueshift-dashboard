@@ -2,7 +2,7 @@
 
 import Modal from "./Modal";
 import { useTranslations } from "next-intl";
-import Button from "../Button/Button";
+import { Button } from "@blueshift-gg/ui-components";
 import DecryptedText from "../HeadingReveal/DecryptText";
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
@@ -73,7 +73,7 @@ export default function ChallengeCompleted({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.75 }}
-        className="rounded-2xl overflow-hidden h-full absolute top-0"
+        className="overflow-hidden h-full absolute top-0"
       >
         <img src="/graphics/nft-stage.png"></img>
       </motion.div>
@@ -82,7 +82,7 @@ export default function ChallengeCompleted({
           <div className="text-xl font-medium">
             {t("ChallengePage.mint_modal_title")}
           </div>
-          <span className="text-secondary text-balance">
+          <span className="text-shade-secondary text-balance">
             {t("ChallengePage.mint_modal_description")}
           </span>
         </div>
@@ -98,7 +98,7 @@ export default function ChallengeCompleted({
                 }
                 variant="primary"
                 size="lg"
-                icon="Claimed"
+                icon={{ name: "Claimed" }}
                 className="!w-full !flex-shrink"
                 onClick={handleMint}
                 disabled={isLoading}
@@ -107,7 +107,7 @@ export default function ChallengeCompleted({
                 onClick={closeModal}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                className="hover:text-primary text-mute transition w-2/3 text-center text-sm font-medium mx-auto cursor-pointer"
+                className="hover:text-shade-primary text-mute transition w-2/3 text-center text-sm font-medium mx-auto cursor-pointer"
               >
                 <DecryptedText
                   text={t("ChallengePage.mint_modal_skip")}
@@ -117,15 +117,12 @@ export default function ChallengeCompleted({
             </>
           ) : (
             <>
-              <Link
-                href={challengeShareUrl}
-                target="_blank"
-              >
+              <Link href={challengeShareUrl} target="_blank">
                 <Button
                   label={t("ChallengePage.mint_modal_tweet")}
                   variant="primary"
                   size="lg"
-                  icon="X"
+                  icon={{ name: "X" }}
                   className="!w-full !flex-shrink"
                 />
               </Link>
@@ -133,7 +130,7 @@ export default function ChallengeCompleted({
                 onClick={closeModal}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
-                className="hover:text-primary text-mute transition w-2/3 text-center text-sm font-medium mx-auto cursor-pointer"
+                className="hover:text-shade-primary text-mute transition w-2/3 text-center text-sm font-medium mx-auto cursor-pointer"
               >
                 <DecryptedText
                   text={t("ChallengePage.mint_modal_skip")}

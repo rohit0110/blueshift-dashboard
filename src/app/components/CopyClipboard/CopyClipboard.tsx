@@ -1,4 +1,6 @@
-import Icon from "../Icon/Icon";
+"use client";
+
+import { Icon } from "@blueshift-gg/ui-components";
 import DecryptedText from "../HeadingReveal/DecryptText";
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -41,7 +43,7 @@ export default function CopyClipboard({
             animate={{ opacity: 1, scale: 1, y: -36, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, y: 0, filter: "blur(10px)" }}
             transition={{ duration: 0.4, ease: anticipate }}
-            className="absolute bg-background-card/50 backdrop-blur border border-border rounded-xl px-3 py-2 text-sm"
+            className="absolute bg-card-solid/50 backdrop-blur border border-border px-3 py-2 text-sm"
           >
             <DecryptedText
               speed={100}
@@ -55,7 +57,7 @@ export default function CopyClipboard({
       </AnimatePresence>
       <Icon
         name="Link"
-        className="transition text-mute hover:text-tertiary"
+        className="transition text-mute hover:text-shade-tertiary"
         size={iconSize as 18 | 14 | 12}
       />
     </div>

@@ -91,9 +91,9 @@ pub struct VaultAction<'info> {
 
 1. `signer`：需要 `mut` 約束，因為我們將在轉賬過程中修改其 lamports。
 2. `vault`：
-  - `mut`，因為我們將修改其 lamports
-  - `seeds` 和 `bumps` 定義了如何從種子派生出有效的 PDA
-3. `system_program`：檢查帳戶是否設置為可執行，並且地址是否為系統程序的地址
+    - `mut`，因為我們將修改其 lamports。
+    - `seeds` 和 `bumps` 定義了如何從種子派生出有效的 PDA。
+3. `system_program`：檢查帳戶是否設置為可執行，並且地址是否為系統程序的地址。
 
 <ArticleSection name="Errors" id="errors" level="h2" />
 

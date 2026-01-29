@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import { anticipate } from "motion";
-import Button from "../Button/Button";
+import { Button } from "@blueshift-gg/ui-components";
 import { motion } from "motion/react";
 import classNames from "classnames";
 import ChallengeBadge from "../ChallengeBadge/ChallengeBadge";
@@ -11,9 +11,10 @@ import {
   ChallengeRequirement,
   VerificationApiResponse,
 } from "@/hooks/useChallengeVerifier";
-import Icon from "../Icon/Icon";
+import { Icon } from "@blueshift-gg/ui-components";
 import Divider from "../Divider/Divider";
-import HeadingReveal from "../HeadingReveal/HeadingReveal";
+import { HeadingReveal } from "@blueshift-gg/ui-components";
+
 import { usePersistentStore } from "@/stores/store";
 import { Link } from "@/i18n/navigation";
 import { LogMessage } from "@/hooks/useEsbuildRunner";
@@ -75,12 +76,12 @@ export default function ChallengeTable({
   return (
     <motion.div
       className={classNames(
-        "w-[calc(100%-2px)] transition opacity-0 lg:opacity-100 mx-auto flex absolute lg:relative bg-background lg:bg-transparent h-[calc(100%-81px)] lg:h-full lg:w-full rounded-b-xl lg:rounded-none",
+        "w-[calc(100%-2px)] transition opacity-0 lg:opacity-100 mx-auto flex absolute lg:relative bg-background lg:bg-transparent h-[calc(100%-81px)] lg:h-full lg:w-full",
         isOpen && "opacity-100 z-10 lg:z-1",
         !isOpen && "pointer-events-none lg:pointer-events-auto"
       )}
     >
-      <div className="pb-24 bg-background-card/50 overflow-y-auto rounded-b-xl lg:rounded-none w-full min-w-full xl:min-w-[400px] px-2 lg:px-4 lg:right-4 lg:border-l lg:border-l-border lg:pt-6 flex flex-col lg:gap-y-8 justify-between overflow-hidden lg:pb-6 [mask:linear-gradient(to_bottom,black_85%,transparent_100%)]">
+      <div className="pb-24 bg-card-solid/50 overflow-y-auto w-full min-w-full xl:min-w-[400px] px-2 lg:px-4 lg:right-4 lg:border-l lg:border-l-border lg:pt-6 flex flex-col lg:gap-y-8 justify-between overflow-hidden lg:pb-6 [mask:linear-gradient(to_bottom,black_85%,transparent_100%)]">
         {(challengeStatuses[courseSlug] === "completed" ||
           challengeStatuses[courseSlug] === "claimed") &&
           !allowRedo && (
@@ -91,10 +92,10 @@ export default function ChallengeTable({
               className="absolute z-10 inset-0 w-full h-[20dvh] lg:h-full bg-background/80 backdrop-blur gap-y-5 flex flex-col items-center justify-center"
             >
               <div className="flex flex-col items-center justify-center gap-y-1">
-                <span className="text-lg font-medium text-primary">
+                <span className="text-lg font-medium text-shade-primary">
                   {t("ChallengePage.challenge_completed.title")}
                 </span>
-                <span className="text-tertiary">
+                <span className="text-shade-tertiary">
                   {t("ChallengePage.challenge_completed.body")}
                 </span>
               </div>
@@ -103,7 +104,7 @@ export default function ChallengeTable({
                 <Button
                   variant="primary"
                   size="md"
-                  icon="Lessons"
+                  icon={{ name: "Lessons" }}
                   label={t(
                     fromCourse
                       ? "ChallengePage.challenge_completed.view_other_courses"
@@ -122,7 +123,7 @@ export default function ChallengeTable({
               <Button
                 variant="secondary"
                 size="md"
-                icon="Refresh"
+                icon={{ name: "Refresh" }}
                 label={t("ChallengePage.challenge_completed.redo")}
                 onClick={onRedoChallenge}
               />
@@ -132,7 +133,7 @@ export default function ChallengeTable({
         <div className="order-2 lg:order-1 flex flex-col gap-y-4 pt-4 lg:pt-0 lg:border-t-0">
           {runnerLogs.length > 0 && (
             <div className="flex flex-col gap-y-2">
-              <div className="flex flex-col gap-y-4 items-start overflow-hidden bg-background pt-4 px-1 pb-1 rounded-xl border border-border">
+              <div className="flex flex-col gap-y-4 items-start overflow-hidden bg-background pt-4 px-1 pb-1 border border-border">
                 <HeadingReveal
                   baseDelay={0.1}
                   text="EXECUTION LOGS"
@@ -203,9 +204,9 @@ export default function ChallengeTable({
                 disabled={requirement.status === "incomplete"}
                 type="button"
                 className={classNames(
-                  "flex flex-col gap-y-4 group enabled:hover:cursor-pointer py-3 rounded-xl transition duration-200 enabled:hover:bg-background-card-foreground/50",
+                  "flex flex-col gap-y-4 group enabled:hover:cursor-pointer py-3 transition duration-200 enabled:hover:bg-card-solid-foreground/50",
                   selectedRequirement === requirement &&
-                    "pb-6 bg-background-card-foreground/50",
+                    "pb-6 bg-card-solid-foreground/50",
                   selectedRequirement !== null &&
                     selectedRequirement !== requirement &&
                     "opacity-40"
@@ -264,7 +265,7 @@ export default function ChallengeTable({
                         result.instruction === requirement.instructionKey
                     ) && (
                       <div className="flex flex-col gap-y-2 text-sm">
-                        <div className="flex flex-col gap-y-4 items-start overflow-hidden bg-background pt-4 px-1 pb-1 rounded-xl">
+                        <div className="flex flex-col gap-y-4 items-start overflow-hidden bg-background pt-4 px-1 pb-1">
                           <HeadingReveal
                             baseDelay={0.1}
                             text="VERIFICATION LOGS"
@@ -353,7 +354,7 @@ export default function ChallengeTable({
                                       delay: 1 + index * 0.1,
                                     }}
                                     key={index}
-                                    className="text-start font-fira-code font-medium text-nowrap text-secondary"
+                                    className="text-start font-fira-code font-medium text-nowrap text-shade-secondary"
                                   >
                                     {log.slice(7, log.length)}
                                   </motion.span>
@@ -361,15 +362,15 @@ export default function ChallengeTable({
                             </div>
                           </div>
 
-                          <div className="bg-background-card/80 rounded-lg px-4 py-2 flex gap-x-4 text-sm font-medium w-full justify-between items-center">
+                          <div className="bg-card-solid/80 px-4 py-2 flex gap-x-4 text-sm font-medium w-full justify-between items-center">
                             <Icon
-                              name="ShiftArrow"
+                              name="General"
                               size={14}
                               className="text-brand-primary"
                             />
                             <div className="flex items-center gap-x-2">
                               <div>
-                                <span className="text-text-tertiary">
+                                <span className="text-text-shade-tertiary">
                                   Compute Units:{" "}
                                 </span>
                                 <span className="font-medium text-brand-secondary">
@@ -383,7 +384,7 @@ export default function ChallengeTable({
                                 </span>
                               </div>
                               <div className="hidden lg:block">
-                                <span className="text-text-tertiary">
+                                <span className="text-text-shade-tertiary">
                                   Execution Time:{" "}
                                 </span>
                                 <span className="font-medium text-brand-secondary">

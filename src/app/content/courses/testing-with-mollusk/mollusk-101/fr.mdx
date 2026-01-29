@@ -222,6 +222,7 @@ La méthode d'exécution la plus simple traite une seule instruction sans valida
 ```rust
 mollusk.process_instruction(&instruction, &accounts);
 ```
+
 This returns execution results that you can inspect manually, but doesn't perform automatic validation.
 
 For comprehensive testing, use the validation method that allows you to specify expected outcomes:
@@ -276,6 +277,3 @@ mollusk.process_and_validate_instruction_chain(&[
     ]),
 ]);
 ```
-
-
-

@@ -1,18 +1,16 @@
 import { getTranslations } from "next-intl/server";
 import MdxLayout from "@/app/mdx-layout";
-import Divider from "@/app/components/Divider/Divider";
-import HeadingReveal from "@/app/components/HeadingReveal/HeadingReveal";
-import Icon from "@/app/components/Icon/Icon";
-import { challengeColors } from "@/app/utils/challenges";
 import ProgramChallengesContent from "@/app/components/Challenges/ProgramChallengesContent";
 import ClientChallengesContent from "@/app/components/Challenges/ClientChallengesContent";
-import CrosshairCorners from "@/app/components/Graphics/CrosshairCorners";
 import { notFound } from "next/navigation";
-import { getChallenge } from "@/app/utils/mdx";
-import BackToCourseButtonClient from "@/app/components/Challenges/BackToCourseButtonClient";
+import { getChallenge } from "@/app/utils/content";
+import { getCompiledMdx } from "@/app/utils/mdx";
 import ContentFallbackNotice from "@/app/components/ContentFallbackNotice";
 import { Metadata } from "next";
 import { getPathname } from "@/i18n/navigation";
+import ChallengeLayout from "@/app/components/Layout/ChallengeLayout";
+import { Connection, PublicKey } from "@solana/web3.js";
+import { decodeCoreCollectionNumMinted } from "@/lib/nft/decodeCoreCollectionNumMinted";
 
 interface ChallengePageProps {
   params: Promise<{
@@ -61,7 +59,6 @@ export async function generateMetadata({
 
 export default async function ChallengePage({ params }: ChallengePageProps) {
   const { challengeSlug, locale } = await params;
-  const t = await getTranslations();
   const challengeMetadata = await getChallenge(challengeSlug);
 
   if (!challengeMetadata) {
@@ -71,101 +68,89 @@ export default async function ChallengePage({ params }: ChallengePageProps) {
   let ChallengeContent;
   let challengeLocale = locale;
   try {
-    const challengeModule = await import(
-      `@/app/content/challenges/${challengeMetadata.slug}/${locale}/verify.mdx`
+    ChallengeContent = await getCompiledMdx(
+      `challenges/${challengeMetadata.slug}/${locale}/verify.mdx`
     );
-    ChallengeContent = challengeModule.default;
   } catch {
     try {
-      const challengeModule = await import(
-        `@/app/content/challenges/${challengeMetadata.slug}/en/verify.mdx`
+      ChallengeContent = await getCompiledMdx(
+        `challenges/${challengeMetadata.slug}/en/verify.mdx`
       );
-      ChallengeContent = challengeModule.default;
       challengeLocale = "en";
     } catch {
       notFound();
     }
   }
 
+  const rpcEndpoint = process.env.NEXT_PUBLIC_MAINNET_RPC_ENDPOINT;
+  if (!rpcEndpoint) {
+    throw new Error("NEXT_PUBLIC_MAINNET_RPC_ENDPOINT is not set");
+  }
+
+  let collectionSize: number | null = null;
+  const collectionMintAddress = challengeMetadata.collectionMintAddress;
+  if (collectionMintAddress) {
+    try {
+      const connection = new Connection(rpcEndpoint, { httpAgent: false });
+      const collectionPublicKey = new PublicKey(collectionMintAddress);
+      const accountInfo = await connection.getAccountInfo(collectionPublicKey);
+      if (accountInfo) {
+        collectionSize = decodeCoreCollectionNumMinted(accountInfo.data);
+        if (collectionSize === null) {
+          console.error(
+            `Failed to decode num_minted for collection ${collectionMintAddress}`
+          );
+        }
+      } else {
+        console.error(
+          `Failed to fetch account info for ${collectionMintAddress}`
+        );
+      }
+    } catch (error) {
+      console.error(
+        `Failed to fetch collection details for ${collectionMintAddress}:`,
+        error
+      );
+    }
+  }
+
   return (
-    <div className="flex flex-col w-full">
-      <div
-        className="w-full"
-        style={{
-          background: `linear-gradient(180deg, rgb(${challengeColors[challengeMetadata.language]},0.05) 0%, transparent 100%)`,
-        }}
-      >
-        <div className="px-4 py-14 lg:pb-20 max-w-app md:px-8 lg:px-14 mx-auto w-full flex lg:flex-row flex-col lg:items-center gap-y-12 lg:gap-y-0 justify-start lg:justify-between">
-          <div className="flex flex-col gap-y-2">
-            <div className="flex items-center gap-x-2 relative w-max">
-              <CrosshairCorners
-                size={5}
-                spacingTop={2}
-                spacingBottom={2}
-                spacingX={6}
-                style={{
-                  color: `rgb(${challengeColors[challengeMetadata.language]},1)`,
-                }}
-              />
-              <div
-                className="w-[24px] h-[24px] rounded-sm flex items-center justify-center"
-                style={{
-                  backgroundColor: `rgb(${challengeColors[challengeMetadata.language]},0.10)`,
-                }}
-              >
-                <Icon name={challengeMetadata.language} size={16 as 14} />
-              </div>
-              <span
-                className="font-medium text-lg font-mono relative top-0.25"
-                style={{
-                  color: `rgb(${challengeColors[challengeMetadata.language]})`,
-                }}
-              >
-                {challengeMetadata.language}
-              </span>
-            </div>
-            <span className="sr-only">
-              {t(`challenges.${challengeMetadata.slug}.title`)}
-            </span>
-            <HeadingReveal
-              text={t(`challenges.${challengeMetadata.slug}.title`)}
-              headingLevel="h1"
-              className="text-3xl font-semibold"
-            />
-
-            <BackToCourseButtonClient />
-          </div>
-        </div>
+    <ChallengeLayout
+      challengeMetadata={challengeMetadata}
+      collectionSize={collectionSize}
+      pagination={<></>}
+      footer={<></>}
+      isTestPage={true}
+    >
+      <div className="flex flex-col w-full">
+        {challengeMetadata.language === "Typescript" ? (
+          <ClientChallengesContent
+            currentChallenge={challengeMetadata}
+            content={
+              <MdxLayout>
+                <ContentFallbackNotice
+                  locale={locale}
+                  originalLocale={challengeLocale}
+                />
+                {ChallengeContent}
+              </MdxLayout>
+            }
+          />
+        ) : (
+          <ProgramChallengesContent
+            currentChallenge={challengeMetadata}
+            content={
+              <MdxLayout>
+                <ContentFallbackNotice
+                  locale={locale}
+                  originalLocale={challengeLocale}
+                />
+                {ChallengeContent}
+              </MdxLayout>
+            }
+          />
+        )}
       </div>
-      <Divider />
-
-      {challengeMetadata.language === "Typescript" ? (
-        <ClientChallengesContent
-          currentChallenge={challengeMetadata}
-          content={
-            <MdxLayout>
-              <ContentFallbackNotice
-                locale={locale}
-                originalLocale={challengeLocale}
-              />
-              <ChallengeContent />
-            </MdxLayout>
-          }
-        />
-      ) : (
-        <ProgramChallengesContent
-          currentChallenge={challengeMetadata}
-          content={
-            <MdxLayout>
-              <ContentFallbackNotice
-                locale={locale}
-                originalLocale={challengeLocale}
-              />
-              <ChallengeContent />
-            </MdxLayout>
-          }
-        />
-      )}
-    </div>
+    </ChallengeLayout>
   );
 }

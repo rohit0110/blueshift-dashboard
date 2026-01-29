@@ -4,15 +4,11 @@
     "description": "从 Solana 生态系统顶级讲师那里学习如何编写你自己的链上程序。",
     "keywords": "Solana, Blueshift, 学习, 资格认证, 金库, 托管, AMM, 原生, pinocchio, 量子, SPL 代币"
   },
-  "locales_native_name": {
-    "en": "English",
-    "zh-hant": "繁體中文",
-    "zh-cn": "简体中文"
-  },
   "header": {
     "lessons": "课程",
     "courses": "课程",
     "challenges": "挑战",
+    "paths": "Paths",
     "set_goal": "设定目标",
     "connect_wallet": "连接钱包"
   },
@@ -42,6 +38,66 @@
     "skip_lesson": "跳过课程",
     "lesson_completed": "恭喜，你已经完成了这门课程！",
     "view_other_courses": "查看其他课程"
+  },
+  "paths": {
+    "title": "Choose your learning path",
+    "subtitle": "Paths",
+    "learning_path": "Learning Path",
+    "get_started": "// Follow a structured learning journey",
+    "all_paths": "All Paths",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "start_path": "Start Path",
+    "continue_path": "Continue Path",
+    "review_path": "Review Path",
+    "course": "Course",
+    "courses": "Courses",
+    "challenge": "Challenge",
+    "challenges": "Challenges",
+    "steps": "Steps",
+    
+    "units": "Units",
+    "steps_completed": "steps completed",
+    "path_steps": "Path Steps",
+    "progress": "Progress",
+    "empty_title": "No paths found",
+    "empty_description": "Try changing your filters to see learning paths here.",
+    "solana-developer-foundations": {
+      "title": "Solana Developer Foundations",
+      "description": "Start your Solana journey with blockchain fundamentals, tokens, and NFTs."
+    },
+    "anchor-mastery": {
+      "title": "Anchor Mastery",
+      "description": "Master Anchor framework from basics to advanced program development with hands-on challenges."
+    },
+    "native-rust-developer": {
+      "title": "Native Rust Developer",
+      "description": "Build high-performance Solana programs using native Rust and Pinocchio with advanced testing."
+    },
+    "typescript-client-developer": {
+      "title": "TypeScript Client Developer",
+      "description": "Learn to build Solana client applications using TypeScript and web3.js."
+    },
+    "security-specialist": {
+      "title": "Security Specialist",
+      "description": "Deep dive into Solana program security, cryptography, and best practices."
+    },
+    "testing-and-tooling": {
+      "title": "Testing & Tooling",
+      "description": "Master various testing frameworks and developer tools for Solana programs."
+    },
+    "advanced-low-level": {
+      "title": "Advanced Low-Level Development",
+      "description": "Explore assembly, instruction introspection, and advanced optimization techniques."
+    },
+    "token-developer": {
+      "title": "Token Developer",
+      "description": "Comprehensive guide to SPL tokens and Token-2022 extensions across frameworks."
+    },
+    "payments-and-commerce": {
+      "title": "Payments & Commerce",
+      "description": "Build payment solutions using Solana Pay and token infrastructure."
+    }
   },
   "ui": {
     "search_placeholder": "按名称、类别或级别搜索...",
@@ -104,7 +160,8 @@
       "auth_unauthorized": "身份验证失败。请重试。",
       "network_error": "无法连接到服务器。请检查你的网络连接。",
       "auth_generic": "发生意外错误。请重试。"
-    }
+    },
+    "content_fallback": "此内容正在翻译中，完成后将会在此处提供。"
   },
   "course_levels": {
     "1": "初级",
@@ -118,7 +175,7 @@
     "connect_wallet_description": "完成挑战和解锁 NFT 需要 Solana 钱包",
     "back_to_lessons": "返回课程",
     "back_to_homepage": "返回首页",
-    "head_to_challenges": "返回挑战", 
+    "head_to_challenges": "返回挑战",
     "requirements_title": "挑战",
     "upload_program_btn": "上传程序",
     "run_program_btn": "执行",
@@ -147,7 +204,7 @@
     "mint_modal_skip_description": "你可以在挑战页面看到你的解锁内容。",
     "mint_modal_tweet": "在 X 上分享",
     "share_on_x": "在 X 上分享",
-    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift_gg.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
+    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
     "assistance_prompt": {
       "title": "需要帮助吗？",
       "body": "看起来你遇到了一些困难。如果你卡住了，请随时在我们的 Discord 社区寻求帮助。",
@@ -164,5 +221,10 @@
     "unsaved_changes": "未保存的更改",
     "saving": "保存中...",
     "loaded_from_auto_save": "从之前的会话加载代码"
+  },
+  "marketing_banner": {
+    "title": "考虑质押以帮助改进Blueshift",
+    "mobile": "考虑<link>质押</link>以帮助改进Blueshift",
+    "button": "质押"
   }
 }

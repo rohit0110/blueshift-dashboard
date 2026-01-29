@@ -95,3 +95,7 @@ pub struct WithdrawTokens<'info> {
     token_program: Program<'info, Token>,
 }
 ```
+
+Le même changement est effectué pour le gestionnaire d'instructions, une situation possible où cela peut s'appliquer est un programme de trading à effet de levier qui permet de liquider la position d'un utilisateur lorsqu'il a perdu un certain montant, par exemple s'il a lui-même défini un stop loss. Le code vérifierait alors la condition d'atteinte de ce montant et permettrait à n'importe qui d'arrêter la transaction et de retirer les fonds restants vers la destination, le compte de retrait.
+
+Un seul PDA contrôlant tous les fonds pour un jeton particulier créerait une situation où, si les conditions étaient remplies pour plusieurs utilisateurs simultanément, par exemple de nombreux utilisateurs proches du stop loss/liquidation, alors n'importe quel utilisateur pourrait retirer ces fonds pour tous ces utilisateurs, éventuellement en une ou plusieurs transactions contenant plusieurs instructions faisant cela pour différents utilisateurs.

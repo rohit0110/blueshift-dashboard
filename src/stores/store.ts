@@ -31,6 +31,12 @@ interface PersistentStore {
   // User's View Preference
   view: "grid" | "list";
   setView: (view: "grid" | "list") => void;
+  // Marketing Banner
+  marketingBannerViewed: boolean;
+  setMarketingBannerViewed: (viewed: boolean) => void;
+  // Store hydration state
+  _hasHydrated: boolean;
+  setHasHydrated: (state: boolean) => void;
 
   // Course Progress
   courseProgress: Record<string, number>; // key: course slug, value: current lesson number
@@ -39,7 +45,13 @@ interface PersistentStore {
   // Filters
   selectedLanguages: CourseLanguages[];
   toggleLanguage: (language: CourseLanguages) => void;
+  setLanguages: (languages: CourseLanguages[]) => void;
   clearLanguages: () => void;
+
+  selectedDifficulties: number[];
+  toggleDifficulty: (difficulty: number) => void;
+  setDifficulties: (difficulties: number[]) => void;
+  clearDifficulties: () => void;
 
   // Challenge Center
   selectedChallengeStatus: ReadonlyArray<ChallengeStatus>;
@@ -83,7 +95,7 @@ type V1PersistentStore = Omit<PersistentStore, "selectedLanguages"> & {
 
 const migrate = (
   persistedState: unknown,
-  version: number,
+  version: number
 ): Partial<PersistentStore> => {
   if (version === 0) {
     const oldState = persistedState as V0PersistentStore;
@@ -105,16 +117,30 @@ const migrate = (
     return { ...rest, challengeStatuses: newChallengeStatuses };
   }
 
-  if (version === 1) {
+    if (version === 1) {
     const oldState = persistedState as V1PersistentStore;
     // Migrate any "Research" language filters to "General"
     const migratedLanguages = oldState.selectedLanguages
       .map((lang) => (lang === "Research" ? "General" : lang))
       .filter((lang): lang is CourseLanguages =>
-        Object.keys(courseLanguages).includes(lang as string),
+        Object.keys(courseLanguages).includes(lang as string)
       );
 
-    return { ...oldState, selectedLanguages: migratedLanguages };
+    return {
+      ...oldState,
+      selectedLanguages: migratedLanguages,
+      selectedDifficulties: [],
+    };
+  }
+
+  if (version === 2) {
+    // V3 Migration: Reset selectedLanguages to empty (Empty = All)
+    // and initialize selectedDifficulties
+    return {
+      ...(persistedState as PersistentStore),
+      selectedLanguages: [],
+      selectedDifficulties: [],
+    };
   }
 
   return persistedState as Partial<PersistentStore>;
@@ -127,6 +153,15 @@ export const usePersistentStore = create<PersistentStore>()(
       view: "grid",
       setView: (view) => set({ view }),
 
+      // Marketing Banner
+      marketingBannerViewed: false,
+      setMarketingBannerViewed: (viewed) =>
+        set({ marketingBannerViewed: viewed }),
+
+      // Store hydration state
+      _hasHydrated: false,
+      setHasHydrated: (state) => set({ _hasHydrated: state }),
+
       // Course Progress
       courseProgress: {},
       setCourseProgress: (courseSlug, lessonNumber) =>
@@ -138,21 +173,33 @@ export const usePersistentStore = create<PersistentStore>()(
         })),
 
       // Filters
-      selectedLanguages: Object.keys(courseLanguages) as CourseLanguages[],
+      selectedLanguages: [],
       toggleLanguage: (language) =>
         set((state) => ({
           selectedLanguages: state.selectedLanguages.includes(language)
             ? state.selectedLanguages.filter((l) => l !== language)
             : [...state.selectedLanguages, language],
         })),
+      setLanguages: (languages) => set({ selectedLanguages: languages }),
       clearLanguages: () => set({ selectedLanguages: [] }),
+
+      selectedDifficulties: [],
+      toggleDifficulty: (difficulty) =>
+        set((state) => ({
+          selectedDifficulties: state.selectedDifficulties.includes(difficulty)
+            ? state.selectedDifficulties.filter((d) => d !== difficulty)
+            : [...state.selectedDifficulties, difficulty],
+        })),
+      setDifficulties: (difficulties) =>
+        set({ selectedDifficulties: difficulties }),
+      clearDifficulties: () => set({ selectedDifficulties: [] }),
 
       // Challenge Center
       selectedChallengeStatus: challengeStatus,
       toggleChallengeStatus: (status) =>
         set((state) => ({
           selectedChallengeStatus: state.selectedChallengeStatus.includes(
-            status,
+            status
           )
             ? state.selectedChallengeStatus.filter((s) => s !== status)
             : [...state.selectedChallengeStatus, status],
@@ -187,7 +234,7 @@ export const usePersistentStore = create<PersistentStore>()(
       claimChallenges: (slugs) =>
         set((state) => {
           const statusesToUpdate = Object.fromEntries(
-            slugs.map((slug) => [slug, "claimed" as const]),
+            slugs.map((slug) => [slug, "claimed" as const])
           );
           return {
             challengeStatuses: {
@@ -212,14 +259,17 @@ export const usePersistentStore = create<PersistentStore>()(
               }
               return acc;
             },
-            {} as Record<string, string>,
+            {} as Record<string, string>
           ),
         })),
     }),
     {
       name: "blueshift-storage",
-      version: 2,
+      version: 3,
       migrate,
-    },
-  ),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
+    }
+  )
 );

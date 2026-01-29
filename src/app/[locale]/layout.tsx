@@ -14,7 +14,9 @@ import { Fira_Code, Funnel_Display } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { headers } from "next/headers";
 import { Toaster } from "react-hot-toast";
-import Icon from "@/app/components/Icon/Icon";
+import { Toaster as SonnerToaster } from "sonner";
+import { Icon } from "@blueshift-gg/ui-components";
+import { URLS } from "@/constants/urls";
 
 const FiraCode = Fira_Code({
   subsets: ["latin"],
@@ -45,7 +47,7 @@ const Switzer = localFont({
 });
 
 const MontechV2 = localFont({
-  src: "../fonts/MontechV2-Medium.ttf",
+  src: "../../../node_modules/@blueshift-gg/ui-components/src/fonts/MONTECHV02-Medium.woff2",
   weight: "500",
   style: "normal",
   variable: "--font-montech",
@@ -69,7 +71,7 @@ export async function generateMetadata({ params }: RootLayoutProps) {
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
-    metadataBase: new URL("https://learn.blueshift.gg"),
+    metadataBase: new URL(URLS.BLUESHIFT_EDUCATION),
     title: t("title"),
     description: t("description"),
     keywords: t("keywords"),
@@ -81,7 +83,7 @@ export async function generateMetadata({ params }: RootLayoutProps) {
       siteName: t("title"),
       images: [
         {
-          url: "https://learn.blueshift.gg/graphics/meta-image.png",
+          url: `${URLS.BLUESHIFT_EDUCATION}/graphics/meta-image.png`,
           width: 1200,
           height: 628,
         },
@@ -109,7 +111,7 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${MontechV2.variable} ${FiraCode.variable} ${FunnelDisplay.variable} ${Switzer.variable} antialiased`}
+        className={`${MontechV2.variable} ${FiraCode.variable} ${Switzer.variable} ${FunnelDisplay.variable} antialiased`}
       >
         <NextIntlClientProvider>
           <TanstackProvider>
@@ -119,7 +121,7 @@ export default async function RootLayout({
                 {!pathname?.includes("/nft-generator") ? (
                   <>
                     <Header />
-                    <div className="pt-[69px] min-h-[calc(100dvh-69px)]">
+                    <div className="pt-[74px] min-h-[calc(100dvh-74px)]">
                       {children}
                     </div>
                     <Footer />
@@ -130,22 +132,18 @@ export default async function RootLayout({
                 <Toaster
                   position="top-center"
                   toastOptions={{
-                    style: {
-                      background: "var(--color-background-card)",
-                      color: "var(--color-primary)",
-                      border: "1px solid var(--color-border)",
-                      borderRadius: "12px",
-                      padding: "16px",
-                    },
+                    className:
+                      "bg-card-solid! rounded-none! text-shade-primary! border! border-border-light! p-4!",
                     error: {
                       icon: <Icon name="Close" className="text-error" />,
                       iconTheme: {
-                        primary: "var(--color-error)",
-                        secondary: "var(--color-primary)",
+                        primary: "var(--color-state-error)",
+                        secondary: "var(--color-shade-primary)",
                       },
                     },
                   }}
                 />
+                <SonnerToaster position="bottom-right" closeButton={false} />
               </AuthProvider>
             </WalletProvider>
           </TanstackProvider>

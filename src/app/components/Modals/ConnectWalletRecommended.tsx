@@ -2,11 +2,13 @@
 import Modal from "./Modal";
 import { useStore, usePersistentStore } from "@/stores/store";
 import { useTranslations } from "next-intl";
-import Button from "../Button/Button";
+import { Button } from "@blueshift-gg/ui-components";
+import classNames from "classnames";
 export default function ConnectWalletRecommended() {
   const t = useTranslations();
   const { openedModal, closeModal } = useStore();
   const { setConnectionRecommendedViewed } = usePersistentStore();
+  const { marketingBannerViewed } = usePersistentStore();
 
   return (
     <Modal
@@ -16,7 +18,9 @@ export default function ConnectWalletRecommended() {
       showBackdrop={true}
       width={360}
       closeOnClickOutside={false}
-      cardClassName="!top-20"
+      cardClassName={classNames("!top-20", {
+        "sm:!top-32 !top-36": !marketingBannerViewed,
+      })}
     >
       <div className="flex flex-col gap-y-8">
         <div className="flex flex-col gap-y-2 text-center">
@@ -27,7 +31,7 @@ export default function ConnectWalletRecommended() {
           <div className="text-xl font-medium">
             {t("wallet_recommended.title")}
           </div>
-          <span className="text-secondary">
+          <span className="text-shade-secondary">
             {t("wallet_recommended.description")}
           </span>
         </div>
@@ -37,11 +41,11 @@ export default function ConnectWalletRecommended() {
             variant="primary"
             size="lg"
             className="!w-full"
-            icon="Wallet"
+            icon={{ name: "Wallet" }}
             onClick={closeModal}
           />
           <div
-            className="text-mute transition hover:text-tertiary text-sm font-medium mx-auto cursor-pointer"
+            className="text-mute transition hover:text-shade-tertiary text-sm font-medium mx-auto cursor-pointer"
             onClick={() => {
               setConnectionRecommendedViewed(true);
               closeModal();

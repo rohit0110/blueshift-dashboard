@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode, useEffect, useState, useRef } from "react";
-import Button from "../Button/Button";
-import Icon from "../Icon/Icon";
+import { Button } from "@blueshift-gg/ui-components";
+import { Icon } from "@blueshift-gg/ui-components";
 import { useTranslations } from "next-intl";
 import ClientChallengeTable from "./ClientChallengeTable";
 import { motion, useDragControls } from "motion/react";
@@ -31,7 +31,7 @@ import ChallengeCompleted from "../Modals/ChallengeComplete";
 import { usePersistentStore } from "@/stores/store";
 
 const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL;
-const rpcEndpoint = process.env.NEXT_PUBLIC_RPC_ENDPOINT;
+const rpcEndpoint = process.env.NEXT_PUBLIC_MAINNET_RPC_ENDPOINT;
 
 /**
  * Props for the ChallengesContent component
@@ -471,17 +471,19 @@ export default function ChallengesContent({
         challenge={currentChallenge}
       />
       {!isUserConnected ? (
-        <div className="z-10 flex-col gap-y-8 pb-12 flex items-center justify-center top-0 left-0 w-full h-full bg-background/80 backdrop-blur-sm">
-          <div className="flex flex-col mt-12 gap-y-4 lg:mt-24 max-w-[90dvw]">
+        <div className="z-10 flex-col gap-y-8 flex py-12 items-center justify-center w-full min-h-[60vh]">
+          <div className="flex flex-col gap-y-0 max-w-[90dvw]">
             <img
               src="/graphics/connect-wallet.svg"
               className="sm:w-[360px] max-w-[80dvw] w-full mx-auto"
             />
-            <div className="text-center text-lg sm:text-xl font-medium leading-none">
-              {t("ChallengePage.connect_wallet")}
-            </div>
-            <div className="text-center text-secondary mx-auto sm:w-2/3 w-full">
-              {t("ChallengePage.connect_wallet_description")}
+            <div className="flex flex-col gap-y-3">
+              <div className="text-center text-lg sm:text-xl font-medium leading-none font-mono text-shade-primary">
+                {t("ChallengePage.connect_wallet")}
+              </div>
+              <div className="text-center text-shade-secondary mx-auto sm:w-2/3 w-full">
+                {t("ChallengePage.connect_wallet_description")}
+              </div>
             </div>
           </div>
           <WalletMultiButton disabled={isVerificationLoading} />
@@ -494,7 +496,7 @@ export default function ChallengesContent({
             transition: { duration: 0.4, ease: anticipate },
           }}
           exit={{ opacity: 0 }}
-          className="px-4 py-14 lg:pb-20 max-w-app grid grid-cols-1 md:px-8 lg:px-14 mx-auto w-full gap-y-12 lg:gap-x-24"
+          className="lg:pb-20 max-w-app grid grid-cols-1 mx-auto w-full gap-y-12 lg:gap-x-12"
         >
           <div className="flex flex-col relative w-full h-full">
             <motion.div
@@ -509,7 +511,7 @@ export default function ChallengesContent({
                 isDragging && "select-none"
               )}
             >
-              <div className="w-full h-full flex flex-col rounded-t-2xl lg:rounded-xl overflow-hidden border border-border">
+              <div className="w-full h-full flex flex-col overflow-hidden border border-border">
                 <motion.div
                   drag={isMobile ? "y" : false}
                   dragControls={dragControls}
@@ -519,29 +521,28 @@ export default function ChallengesContent({
                   dragMomentum={true}
                   dragConstraints={{ top: 0, bottom: 0 }}
                   dragElastic={0}
-                  className="z-10 w-full py-3 relative px-4 bg-background-card rounded-t-2xl lg:rounded-t-xl flex gap-y-4 lg:gap-y-0 flex-col lg:flex-row items-center justify-center lg:justify-start border-b border-border"
+                  className="z-10 w-full py-3 relative px-4 bg-card-solid flex gap-y-4 lg:gap-y-0 flex-col lg:flex-row items-center justify-center lg:justify-start border-b border-border"
                 >
                   {/* Mobile Thumb */}
-                  <div className="h-[8px] w-[72px] rounded-full bg-background-card-foreground mx-auto flex lg:hidden" />
+                  <div className="h-[8px] w-[72px]  bg-card-solid-foreground mx-auto flex lg:hidden" />
                   <div className="items-center gap-x-2 hidden lg:flex">
-                    <div className="w-[12px] h-[12px] bg-background-card-foreground rounded-full"></div>
-                    <div className="w-[12px] h-[12px] bg-background-card-foreground rounded-full"></div>
-                    <div className="w-[12px] h-[12px] bg-background-card-foreground rounded-full"></div>
+                    <div className="w-[12px] h-[12px] bg-card-solid-foreground"></div>
+                    <div className="w-[12px] h-[12px] bg-card-solid-foreground"></div>
+                    <div className="w-[12px] h-[12px] bg-card-solid-foreground"></div>
                   </div>
-                  <div className="text-sm font-medium text-secondary lg:absolute lg:left-1/2 lg:-translate-x-1/2 flex items-center gap-x-1.5">
+                  <div className="text-sm font-medium text-shade-secondary lg:absolute lg:left-1/2 lg:-translate-x-1/2 flex items-center gap-x-1.5">
                     <Icon name="Challenge" size={12} />
                     <span className="flex-shrink-0">
                       {t(`challenges.${currentChallenge.slug}.title`)}
                     </span>
                   </div>
                 </motion.div>
-                <div className="lg:left-[1px] w-full lg:w-[calc(100%-2px)] py-2 bg-background-card/20 backdrop-blur-xl border-b border-border z-20 justify-between px-4 flex items-center">
+                <div className="lg:left-[1px] w-full lg:w-[calc(100%-2px)] py-2 bg-card-solid/20 backdrop-blur-xl border-b border-border z-20 justify-between px-4 flex items-center">
                   <LogoGlyph width={16} />
                   <div className="flex items-center gap-x-2.5">
                     <Button
                       variant="link"
-                      icon={"Play"}
-                      iconSize={12}
+                      icon={{ name: "Play", size: 12 }}
                       size="sm"
                       label={
                         isCodeRunning
@@ -556,8 +557,7 @@ export default function ChallengesContent({
                     />
                     <Button
                       variant="link"
-                      icon={"Logs"}
-                      iconSize={12}
+                      icon={{ name: "Logs", size: 12 }}
                       size="sm"
                       label={t("ChallengePage.view_logs_btn")}
                       className={classNames(
@@ -572,8 +572,7 @@ export default function ChallengesContent({
 
                     <Button
                       variant="link"
-                      icon={"ArrowLeft"}
-                      iconSize={12}
+                      icon={{ name: "ArrowLeft", size: 12 }}
                       size="sm"
                       label={t("ChallengePage.back_to_editor_btn")}
                       className={classNames(

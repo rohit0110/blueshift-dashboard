@@ -2,6 +2,8 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 # Sécurité des Programmes
 
+![Program Security](/graphics/course-banners/program-security.png)
+
 > Un grand merci à [Unboxed Software](https://x.com/unboxedsoftware) pour avoir ouvert la voie et élaboré le contenu initial de ce cours grâce à leur guide !
 
 Chaque jour, des millions de dollars transitent à une vitesse fulgurante par les programmes Solana. Dans cet environnement à haut enjeu et haute performance, une seule ligne de code vulnérable peut vider un protocole en quelques secondes, tandis qu'un programme bien sécurisé peut traiter des milliers de transactions par seconde sans aucun problème.
@@ -20,11 +22,11 @@ Avant de déployer vos programmes sur le Mainnet, vous devez avoir au moins une 
 
 Les considérations de sécurité les plus critiques dans le développement sur Solana découlent du modèle de propriété des comptes et de la manière dont les programmes interagissent avec les comptes.
 
-Les programmes doivent soigneusement valider la propriété des comptes, mettre en œuvre des contrôles d'accès appropriés et gérer les complexités des Invocations de Programme Croisé (CPIs). 
+Les programmes doivent soigneusement valider la propriété des comptes, mettre en œuvre des contrôles d'accès appropriés et gérer les complexités des Invocations de Programme Croisé (CPIs).
 
 La nature sans état des programmes signifie que toute la logique de validation doit être explicitement implémentée car il n'existe aucune protection intégrée contre la manipulation malveillante des comptes.
 
-De plus, les vulnérabilités courantes dans les programmes Solana comprennent l'absence de vérification des droits de propriété, une vérification insuffisante des signataires, des dépassements arithmétiques (overflow/underflow) et une gestion inadéquate de l'initialisation et de la fermeture des comptes. 
+De plus, les vulnérabilités courantes dans les programmes Solana comprennent l'absence de vérification des droits de propriété, une vérification insuffisante des signataires, des dépassements arithmétiques (overflow/underflow) et une gestion inadéquate de l'initialisation et de la fermeture des comptes.
 
 > Anchor a été développé dans le but de rendre les programmes Solana plus sécurisés en obligeant les développeurs à utiliser des types spécifiques ou à faire des choix délibérés pour leurs programmes.
 

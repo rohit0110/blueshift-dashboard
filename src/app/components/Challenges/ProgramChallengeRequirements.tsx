@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import Icon from "../Icon/Icon";
+import { Icon } from "@blueshift-gg/ui-components";
 import React from "react";
 
 interface ChallengeRequirementsProps {
@@ -14,7 +14,7 @@ export default function ChallengeRequirements({
   const t = useTranslations();
 
   return (
-    <div className="flex flex-col gap-y-12">
+    <div className="flex flex-col gap-y-12 col-span-2">
       <div className="flex flex-col gap-y-2">
         <div className="flex items-center gap-x-2 text-brand-secondary mb-2">
           <Icon name="Challenge" />

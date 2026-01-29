@@ -5,7 +5,7 @@ import "./style.css";
 import Editor, { Monaco } from "@monaco-editor/react";
 import type { editor } from "monaco-editor";
 import classNames from "classnames";
-import Icon from "../Icon/Icon";
+import { Icon } from "@blueshift-gg/ui-components";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "motion/react";
 import { anticipate } from "motion";
@@ -362,7 +362,7 @@ export default function BlueshiftEditor({
       <div className="absolute py-4 bottom-0 z-10 right-0 px-6 flex items-center gap-x-4 w-full h-auto justify-end border-t border-border bg-background/80 lg:border-t-0 backdrop-blur lg:bg-transparent lg:backdrop-blur-none">
         {/* Loaded from auto-save indicator */}
         {loadedFromAutoSave && saveState === "saved" && (
-          <div className="flex items-center gap-x-1.5 text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded-lg">
+          <div className="flex items-center gap-x-1.5 text-xs text-blue-400 bg-blue-400/10 px-2 py-1">
             <Icon name="Progress" size={12} />
             <span>{t("ChallengePage.loaded_from_auto_save")}</span>
           </div>
@@ -370,26 +370,26 @@ export default function BlueshiftEditor({
 
         {/* Save status indicator */}
         {saveState === "unsaved" && (
-          <div className="flex items-center gap-x-1.5 text-xs text-orange-400 bg-orange-400/10 px-2 py-1 rounded-lg">
-            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse" />
+          <div className="flex items-center gap-x-1.5 text-xs text-orange-400 bg-orange-400/10 px-2 py-1">
+            <div className="w-2 h-2 bg-orange-400 animate-pulse" />
             <span>{t("ChallengePage.unsaved_changes")}</span>
           </div>
         )}
         {saveState === "saving" && (
-          <div className="flex items-center gap-x-1.5 text-xs text-blue-400 bg-blue-400/10 px-2 py-1 rounded-lg">
-            <div className="w-2 h-2 bg-blue-400 rounded-full animate-spin" />
+          <div className="flex items-center gap-x-1.5 text-xs text-blue-400 bg-blue-400/10 px-2 py-1">
+            <div className="w-2 h-2 bg-blue-400 animate-spin" />
             <span>{t("ChallengePage.saving")}</span>
           </div>
         )}
         {justSaved && (
-          <div className="flex items-center gap-x-1.5 text-xs text-green-400 bg-green-400/10 px-2 py-1 rounded-lg">
+          <div className="flex items-center gap-x-1.5 text-xs text-green-400 bg-green-400/10 px-2 py-1">
             <Icon name="Success" size={12} />
             <span>{t("ChallengePage.auto_saved")}</span>
           </div>
         )}
 
         <button
-          className="group/refresh font-medium flex items-center gap-x-2 text-sm text-tertiary cursor-pointer hover:text-secondary transition-colors"
+          className="group/refresh font-medium flex items-center gap-x-2 text-sm text-shade-tertiary cursor-pointer hover:text-shade-secondary transition-colors"
           onClick={handleRefreshClick}
         >
           <Icon
@@ -425,7 +425,7 @@ export default function BlueshiftEditor({
                 y: 20,
                 transition: { duration: 0.2 },
               }}
-              className="bg-background-card border border-border rounded-xl p-6 max-w-md mx-4 shadow-xl"
+              className="bg-card-solid border border-border  p-6 max-w-md mx-4 shadow-xl"
             >
               <div className="flex items-center gap-x-3 mb-4">
                 <Icon name="Warning" size={18} className="text-yellow-500" />
@@ -433,18 +433,18 @@ export default function BlueshiftEditor({
                   {t("ChallengePage.reset_code_modal.title")}
                 </h3>
               </div>
-              <p className="text-secondary mb-6">
+              <p className="text-shade-secondary mb-6">
                 {t("ChallengePage.reset_code_modal.description")}
               </p>
               <div className="flex gap-x-3 justify-end">
                 <button
-                  className="px-4 py-2 text-sm font-medium text-secondary hover:text-primary border border-border rounded-lg hover:bg-background-card-hover transition-colors cursor-pointer"
+                  className="px-4 py-2 text-sm font-medium text-shade-secondary hover:text-shade-primary border border-border  hover:bg-card-solid-hover transition-colors cursor-pointer"
                   onClick={handleCancelRefresh}
                 >
                   {t("ChallengePage.reset_code_modal.cancel")}
                 </button>
                 <button
-                  className="px-4 py-2 text-sm font-medium bg-[#ff285a] hover:bg-[#e6234f] text-white rounded-lg transition-colors cursor-pointer"
+                  className="px-4 py-2 text-sm font-medium bg-[#ff285a] hover:bg-[#e6234f] text-white transition-colors cursor-pointer"
                   onClick={handleConfirmRefresh}
                 >
                   {t("ChallengePage.reset_code_modal.confirm")}

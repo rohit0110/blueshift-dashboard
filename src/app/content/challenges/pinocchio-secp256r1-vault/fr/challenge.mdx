@@ -71,7 +71,6 @@ fn process_instruction(
 }
 ```
 
-
 <ArticleSection name="Deposit" id="deposit" level="h2" />
 
 L'instruction `deposit` effectue les étapes suivantes :
@@ -370,6 +369,7 @@ Le processus de retrait comprend plusieurs vérifications de sécurité afin de 
 - La vérification de signature pour Secp256r1 s'effectue toujours dans une instruction distincte
 
 2. **Vérification de Signature**
+
 ```rust
 let secp256r1_ix = Secp256r1Instruction::try_from(&ix)?;
 if secp256r1_ix.num_signatures() != 1 {
@@ -377,22 +377,26 @@ if secp256r1_ix.num_signatures() != 1 {
 }
 let signer: Secp256r1Pubkey = *secp256r1_ix.get_signer(0)?;
 ```
+
 - Nous vérifions qu'il n'y a qu'une seule signature
 - À des fins de vérification, nous extrayons la clé publique du signataire qui doit correspondre à celle utilisée pour créer le PDA du vault
 
 3. **Validation du Message**
+
 ```rust
 let (payer, expiry) = secp256r1_ix.get_message_data(0)?.split_at_checked(32)?;
 if self.accounts.payer.key().ne(payer) {
     return Err(ProgramError::InvalidAccountOwner);
 }
 ```
+
 - Le message signé contient deux informations essentielles :
     - L'adresse du destinataire prévu (32 octets)
     - Une date d'expiration pour la signature (8 octets)
 - Cela empêche les attaques MEV dans lesquelles quelqu'un pourrait intercepter et réutiliser une signature valide en passant un autre `payer` et en réclamant le solde qui se trouve dans le vault
 
 4. **Vérification de l'Expiration**
+
 ```rust
 let now = Clock::get()?.unix_timestamp;
 let expiry = i64::from_le_bytes(expiry.try_into()?);
@@ -400,11 +404,13 @@ if now > expiry {
     return Err(ProgramError::InvalidInstructionData);
 }
 ```
+
 - Nous vérifions que la signature n'a pas expiré
 - Cela ajoute une couche de sécurité basée sur le temps pour empêcher la réutilisation des signatures
 - Le délai d'expiration doit être considéré comme une "période réfractaire". Aucun nouveau vault ne peut être créé avant son expiration sinon elle pourrait être réutilisée à l'insu du propriétaire actuel.
 
 5. **Signature de PDA**
+
 ```rust
 let seeds = [
     Seed::from(b"vault"),
@@ -413,10 +419,9 @@ let seeds = [
     Seed::from(&self.instruction_data.bump),
 ];
 ```
+
 - Enfin, nous utilisons la clé publique vérifiée pour créer les seeds du PDA
 - Cela garantit que seul le détenteur légitime de la clé Secp256r1 peut signer la transaction de retrait
-
-
 
 <ArticleSection name="Conclusion" id="conclusion" level="h2" />
 

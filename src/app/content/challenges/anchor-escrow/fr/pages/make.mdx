@@ -23,6 +23,7 @@ Les comptes nécessaires dans ce contexte sont :
 Et avec toutes les contraintes, cela ressemblera à quelque chose comme ceci :
 
 ```rust
+#[derive(Accounts)]
 #[instruction(seed: u64)]
 pub struct Make<'info> {
     #[account(mut)]
@@ -140,7 +141,6 @@ Ici, nous ajoutons deux contrôles de validation. Un sur l'argument `amount` et 
 ### Avertissement
 
 Certaines extensions de SPL Token-2022, par exemple les hooks de transfert, les transferts confidentiels, les états de compte par défaut, peuvent introduire des vulnérabilités telles que le blocage des transferts, le verrouillage des fonds et provoquer des rug pulls dans la logique des escrows, des vaults ou des CPIs.
-
 
 - Assurez-vous que `mint_a` et `mint_b` appartiennent au même programme de jetons afin d'éviter les échecs de CPI.
 - Utilisez des jetons correctement audités (par exemple, USDC, wSOL) issus du programme standard SPL-Token.

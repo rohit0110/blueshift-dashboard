@@ -8,6 +8,7 @@
     "lessons": "Lektionen",
     "courses": "Kurse",
     "challenges": "Herausforderungen",
+    "paths": "Pfade",
     "set_goal": "Ziel setzen",
     "connect_wallet": "Wallet verbinden"
   },
@@ -37,6 +38,65 @@
     "skip_lesson": "Lektion überspringen",
     "lesson_completed": "Glückwunsch, du hast diesen Kurs abgeschlossen!",
     "view_other_courses": "Andere Kurse ansehen"
+  },
+  "paths": {
+    "title": "Wähle deinen Lernpfad",
+    "subtitle": "Pfade",
+    "learning_path": "Lernpfad",
+    "get_started": "// Folge einer strukturierten Lernreise",
+    "all_paths": "Alle Pfade",
+    "in_progress": "In Bearbeitung",
+    "completed": "Abgeschlossen",
+    "start_path": "Pfad starten",
+    "continue_path": "Pfad fortsetzen",
+    "review_path": "Pfad überprüfen",
+    "course": "Kurs",
+    "courses": "Kurse",
+    "challenge": "Herausforderung",
+    "challenges": "Herausforderungen",
+    "steps": "Schritte",
+    "units": "Einheiten",
+    "steps_completed": "Schritte abgeschlossen",
+    "path_steps": "Pfad-Schritte",
+    "progress": "Fortschritt",
+    "empty_title": "Keine Pfade gefunden",
+    "empty_description": "Ändere deine Filter, um hier Lernpfade zu sehen.",
+    "solana-developer-foundations": {
+      "title": "Solana Developer Foundations",
+      "description": "Starte deine Solana-Reise mit Blockchain-Grundlagen, Tokens und NFTs."
+    },
+    "anchor-mastery": {
+      "title": "Anchor Mastery",
+      "description": "Meistere das Anchor-Framework von den Grundlagen bis zur fortgeschrittenen Programmentwicklung."
+    },
+    "native-rust-developer": {
+      "title": "Native Rust Developer",
+      "description": "Baue hochperformante Solana-Programme mit nativem Rust und Pinocchio."
+    },
+    "typescript-client-developer": {
+      "title": "TypeScript Client Developer",
+      "description": "Lerne, Solana-Client-Anwendungen mit TypeScript und web3.js zu entwickeln."
+    },
+    "security-specialist": {
+      "title": "Security Specialist",
+      "description": "Tauche tief in Solana-Programmsicherheit, Kryptografie und Best Practices ein."
+    },
+    "testing-and-tooling": {
+      "title": "Testing & Tooling",
+      "description": "Beherrsche verschiedene Test-Frameworks und Entwicklertools für Solana-Programme."
+    },
+    "advanced-low-level": {
+      "title": "Advanced Low-Level Development",
+      "description": "Erkunde Assembly, Instruction Introspection und fortgeschrittene Optimierungstechniken."
+    },
+    "token-developer": {
+      "title": "Token Developer",
+      "description": "Umfassender Leitfaden zu SPL-Tokens und Token-2022-Erweiterungen."
+    },
+    "payments-and-commerce": {
+      "title": "Payments & Commerce",
+      "description": "Baue Zahlungslösungen mit Solana Pay und Token-Infrastruktur."
+    }
   },
   "ui": {
     "search_placeholder": "Suche nach Name, Kategorie oder Level...",
@@ -114,7 +174,7 @@
     "connect_wallet_description": "Ein Solana-Wallet wird benötigt, um die Herausforderung abzuschließen und NFTs freizuschalten",
     "back_to_lessons": "Zurück zu den Lektionen",
     "back_to_homepage": "Zurück zur Startseite",
-    "head_to_challenges": "Zurück zu den Herausforderungen", 
+    "head_to_challenges": "Zurück zu den Herausforderungen",
     "requirements_title": "Herausforderung",
     "upload_program_btn": "Programm hochladen",
     "run_program_btn": "Ausführen",
@@ -143,7 +203,7 @@
     "mint_modal_skip_description": "Du kannst deine freigeschalteten Belohnungen auf der Herausforderungsseite sehen.",
     "mint_modal_tweet": "Auf X teilen",
     "share_on_x": "Auf X teilen",
-    "challenge_share_tweet": "Ich habe gerade die Herausforderung {challengeTitle} von @blueshift_gg abgeschlossen.\n\nProbier es hier aus: {challengeUrl}\n\nMake the shift. Build on @solana.",
+    "challenge_share_tweet": "Ich habe gerade die Herausforderung {challengeTitle} von @blueshift abgeschlossen.\n\nProbier es hier aus: {challengeUrl}\n\nMake the shift. Build on @solana.",
     "assistance_prompt": {
       "title": "Brauchst du Hilfe?",
       "body": "Es sieht so aus, als hättest du Schwierigkeiten. Wenn du nicht weiterkommst, kannst du gerne in unserer Discord-Community um Hilfe bitten.",
@@ -160,5 +220,10 @@
     "unsaved_changes": "Ungespeicherte Änderungen",
     "saving": "Wird gespeichert...",
     "loaded_from_auto_save": "Code aus vorheriger Sitzung geladen"
+  },
+  "marketing_banner": {
+    "title": "Erwägen Sie Staking, um zur Verbesserung von Blueshift beizutragen",
+    "mobile": "Erwägen Sie <link>Staking</link>, um zur Verbesserung von Blueshift beizutragen",
+    "button": "Staken"
   }
 }

@@ -1,10 +1,11 @@
 import { CourseMetadata, withCourseNumber } from "@/app/utils/course";
+import { BRAND_COLOURS } from "@blueshift-gg/ui-components";
 
-const allCourses: CourseMetadata[] = withCourseNumber([
+export const courses: CourseMetadata[] = withCourseNumber([
   {
     slug: "introduction-to-blockchain-and-solana",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -18,7 +19,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "anchor-for-dummies",
     language: "Anchor",
-    color: "221,234,224",
+    color: BRAND_COLOURS.anchor,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -35,7 +36,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "pinocchio-for-dummies",
     language: "Rust",
-    color: "255,173,102",
+    color: BRAND_COLOURS.rust,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -54,7 +55,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "introduction-to-assembly",
     language: "Assembly",
-    color: "140,255,102",
+    color: BRAND_COLOURS.assembly,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -69,7 +70,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "program-security",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -89,7 +90,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "secp256r1-on-solana",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -102,7 +103,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "tokens-on-solana",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -116,7 +117,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "nfts-on-solana",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -129,7 +130,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "spl-token-with-web3js",
     language: "Typescript",
-    color: "105,162,241",
+    color: BRAND_COLOURS.typescript,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -147,7 +148,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "spl-token-with-anchor",
     language: "Anchor",
-    color: "221,234,224",
+    color: BRAND_COLOURS.anchor,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -165,7 +166,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "token-2022-program",
     language: "Rust",
-    color: "255,173,102",
+    color: BRAND_COLOURS.rust,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -177,7 +178,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "token-2022-with-web3js",
     language: "Typescript",
-    color: "105,162,241",
+    color: BRAND_COLOURS.typescript,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -199,7 +200,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "token-2022-with-anchor",
     language: "Anchor",
-    color: "221,234,224",
+    color: BRAND_COLOURS.anchor,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -221,7 +222,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "instruction-introspection",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -234,7 +235,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "testing-with-mollusk",
     language: "Rust",
-    color: "255,173,102",
+    color: BRAND_COLOURS.rust,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -246,7 +247,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "solana-pay",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -259,7 +260,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "create-your-sdk-with-codama",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -273,7 +274,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "winternitz-signatures-on-solana",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -286,7 +287,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "testing-with-litesvm",
     language: "Typescript",
-    color: "105,162,241",
+    color: BRAND_COLOURS.typescript,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -299,7 +300,7 @@ const allCourses: CourseMetadata[] = withCourseNumber([
   {
     slug: "testing-with-surfpool",
     language: "General",
-    color: "0,255,255",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     lessons: [
@@ -309,25 +310,3 @@ const allCourses: CourseMetadata[] = withCourseNumber([
     ],
   },
 ]);
-
-const releasedCoursesSetting = process.env.NEXT_PUBLIC_RELEASED_COURSES?.trim();
-
-export const courses = allCourses.filter((course) => {
-  // If the setting is undefined, null, or an empty string, release no courses.
-  if (!releasedCoursesSetting) {
-    return false;
-  }
-
-  // If the setting is "*", release all courses.
-  if (releasedCoursesSetting === "*") {
-    return true;
-  }
-
-  // Otherwise, treat the setting as a comma-separated list of course slugs.
-  const releasedSlugs = releasedCoursesSetting
-    .split(",")
-    .map((slug) => slug.trim())
-    .filter((slug) => slug.length > 0); // Ensure empty strings from trailing/multiple commas are ignored
-
-  return releasedSlugs.includes(course.slug);
-});

@@ -21,11 +21,11 @@ Sebelum kita dapat mendelegasikan atau mencabut akun token apa pun, kita perlu s
 Dengan menggunakan instruksi "raw" tanpa abstraksi apa pun, beginilah cara menyetujui token:
 
 ```ts
-const tokenAccount = Keypair.generate();
+const keypair = Keypair.generate();
 
 const tokenAccount = await getAssociatedTokenAddress(
     mint.publicKey,
-    tokenAccount.publicKey,
+    keypair.publicKey,
 );
 
 // Create ATA creation instruction
@@ -36,7 +36,7 @@ const createAtaInstruction = createAssociatedTokenAccountIdempotentInstruction(
     mint.publicKey, // mint
 );
 
-// Delegate an ATA 
+// Delegate an ATA
 const approveInstruction = createApproveInstruction(
     tokenAccount // account
     delegate.publicKey, // delegate
@@ -57,7 +57,7 @@ console.log(`Token accounts created and delegated! Check out your TX here: https
 Dengan menggunakan instruksi "raw" tanpa abstraksi apa pun, beginilah cara mencabut token:
 
 ```ts
-// Revoke the delegate of an ATA 
+// Revoke the delegate of an ATA
 const revokeInstruction = createRevokeInstruction(
     tokenAccount // account
     keypair.publickey // owner
@@ -85,7 +85,7 @@ const ata = await getOrCreateAssociatedTokenAccount(
 );
 
 console.log(`This is your ATA: ${ata.address}!`)
-  
+
 let tx = await approve(
     connection,
     keypair,

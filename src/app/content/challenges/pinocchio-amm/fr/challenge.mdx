@@ -1,3 +1,5 @@
+import ArticleSection from "../../../../components/ArticleSection/ArticleSection";
+
 ![Pinocchio Amm Challenge](/graphics/challenge-banners/pinocchio-amm.png)
 
 # L'Amm
@@ -48,7 +50,7 @@ Au cœur de la plupart des AMM se trouve une formule simple mais puissante connu
 
 ### La formule
 
-La formule AMM la plus courante est : `x * y = k` où : 
+La formule AMM la plus courante est : `x * y = k` où :
 - `x` = quantité de jetons X dans la *pool*
 - `y` = quantité de jetons Y dans la *pool*
 - `k` = une constante (ne change jamais)
@@ -59,7 +61,7 @@ Chaque fois qu'une personne échange un jeton contre un autre, la *pool* ajuste 
 
 Supposons que la *pool* commence avec 100 jetons X et 100 jetons Y : `100 * 100 = 10,000`.
 
-Si un utilisateur souhaite échanger 10 jetons X contre des jetons Y, la *pool* doit conserver `k = 10,000`. Donc, si `x_new` = 110 (après le dépôt), on résout `y_new`: `110 * y_new = 10,000` donc `y_new = 10,000 / 110 ≈ 90.91`. 
+Si un utilisateur souhaite échanger 10 jetons X contre des jetons Y, la *pool* doit conserver `k = 10,000`. Donc, si `x_new` = 110 (après le dépôt), on résout `y_new`: `110 * y_new = 10,000` donc `y_new = 10,000 / 110 ≈ 90.91`.
 
 L'utilisateur recevra `100 - 90.91 = 9.09` jetons Y (moins les frais éventuels).
 
@@ -69,7 +71,7 @@ Lorsque des utilisateurs déposent les deux jetons dans la *pool*, ils deviennen
 - Les jetons LP sont émis proportionnellement à la quantité de liquidités que vous ajoutez.
 - Lorsque vous effectuez un retrait, vous brûlez vos jetons LP afin de récupérer votre part des deux jetons (plus une part des frais perçus sur les échanges).
 
-Le premier fournisseur de liquidités fixe le ratio initial. Par exemple, si vous déposez 100 X et 100 Y, vous pourriez recevoir 100 jetons LP. 
+Le premier fournisseur de liquidités fixe le ratio initial. Par exemple, si vous déposez 100 X et 100 Y, vous pourriez recevoir 100 jetons LP.
 
 Ensuite, si la *pool* contient déjà 100 X et 100 Y, et que vous ajoutez 10 X et 10 Y, vous obtenez des jetons LP proportionnels à votre contribution : `share = deposit_x / total_x = 10 / 100 = 10%` donc l'Amm créera dans le portefeuille de l'utilisateur 10 % du total de l'offre du LP.
 
@@ -174,7 +176,7 @@ L'attribut `#[repr(C)]` garantit que notre structure dispose d'une disposition m
 Nous stockons `seed` (u64) et `fee` (u16) sous forme de tableaux d'octets plutôt que sous leur type natif afin de garantir une désérialisation sûre. Lorsque les données sont lues à partir du compte, il n'y a aucune garantie quant à l'alignement de la mémoire, et la lecture d'un `u64` à partir d'une adresse mémoire non alignée est un comportement indéfini. En utilisant des tableaux d'octets et en effectuant la conversion avec `from_le_bytes()`, nous garantissons que les données peuvent être lues en toute sécurité, quel que soit leur alignement, tout en assurant un ordre des octets *little-endian* cohérent sur toutes les plateformes.
 
 Chaque champ de la structure `Config` a une fonction spécifique :
-- **state**: Suit l'état actuel de l'AMM (par exemple, non initialisé (*uninitialized*), initialisé (*initialized*), désactivé (*disabled*), ou retrait uniquement (*withdraw-only*)). 
+- **state**: Suit l'état actuel de l'AMM (par exemple, non initialisé (*uninitialized*), initialisé (*initialized*), désactivé (*disabled*), ou retrait uniquement (*withdraw-only*)).
 - **seed**: Une valeur unique utilisée pour la génération d'Adresse Dérivées de Programme (PDA), permettant à plusieurs AMM d'exister avec différentes configurations.
 - **authority**: La clé publique avec contrôle administratif sur l'AMM (par exemple, pour mettre en pause ou mettre à jour la *pool*). Peut être défini comme immutable en passant `[0u8; 32]`.
 - **mint_x**: L'adresse de mint du jeton SPL pour le jeton X de la *pool*.

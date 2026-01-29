@@ -12,13 +12,13 @@ Bitcoin n'a pas été conçu pour être un ordinateur à usage général. En eff
 
 ### Consensus
 
-Bitcoin utilise l'implémentation originele de la preuve de travail conçue par Satoshi. Les mineurs rivalisent pour trouver un nonce (nombre aléatoire) qui, lorsqu'il est haché avec les données du bloc, produit un hachage commençant par un nombre spécifique de zéros. 
+Bitcoin utilise l'implémentation originele de la preuve de travail conçue par Satoshi. Les mineurs rivalisent pour trouver un nonce (nombre aléatoire) qui, lorsqu'il est haché avec les données du bloc, produit un hachage commençant par un nombre spécifique de zéros.
 
 Le réseau ajuste automatiquement la difficulté tous les 2 016 blocs (environ deux semaines) afin de maintenir un temps moyen de création de bloc de 10 minutes.
 
 Ce timing n'est pas arbitraire. Des blocs plus rapides entraîneraient des divisions du réseau, les mineurs travaillant alors sur différentes versions de la blockchain. Des blocs plus lents rendraient les transactions extrêmement lentes.
 
-### Le modèle UTXO 
+### Le modèle UTXO
 
 Bitcoin ne suit pas les soldes des comptes comme le font les banques. Au lieu de cela, il suit les "pièces" individuelles à l'aide d'UTXO (Unspent Transaction Outputs, ou sorties de transaction non dépensées), qui fonctionnent de manière similaire à l'argent liquide physique.
 
@@ -78,7 +78,7 @@ Tout cela est possible grâce à la Machine Virtuelle Ethereum (EVM), qui foncti
 
 <ArticleSection name="Solana" id="solana" level="h2" />
 
-Ethereum a démontré que les blockchains pouvaient prendre en charge des calculs à usage général, mais ce succès a révélé des contraintes en matière de scalabilité. À mesure que les applications décentralisées ont gagné en popularité, la congestion du réseau a entraîné des frais de transaction élevés et des délais de confirmation plus longs. 
+Ethereum a démontré que les blockchains pouvaient prendre en charge des calculs à usage général, mais ce succès a révélé des contraintes en matière de scalabilité. À mesure que les applications décentralisées ont gagné en popularité, la congestion du réseau a entraîné des frais de transaction élevés et des délais de confirmation plus longs.
 
 Ces limitations découlaient de décisions architecturales fondamentales prises lors de la conception d'Ethereum, auxquelles Solana tente de remédier grâce à des innovations architecturales en repensant les composants essentiels de la blockchain à partir des principes de base.
 
@@ -88,7 +88,7 @@ Solana utilise le Proof of Stake, mais y ajoute une innovation cruciale : le Pro
 
 Cet ordre temporel permet d'atteindre un consensus beaucoup plus rapidement : Solana produit des blocs toutes les 400 millisecondes, contre 12 secondes pour Ethereum.
 
-### Machine Virtuelle Solana 
+### Machine Virtuelle Solana
 
 L'EVM traite les transactions de manière séquentielle car les contrats intelligents partagent un état global : lorsqu'un contrat modifie des données partagées, toutes les autres transactions doivent attendre. Cela crée des goulots d'étranglement à mesure que l'utilisation du réseau augmente.
 

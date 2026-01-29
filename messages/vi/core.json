@@ -7,7 +7,9 @@
   "header": {
     "lessons": "Bài học",
     "courses": "Khóa học",
+    "perks": "Ưu đãi",
     "challenges": "Thử thách",
+    "paths": "Lộ trình",
     "set_goal": "Đặt mục tiêu của bạn",
     "connect_wallet": "Kết nối ví"
   },
@@ -38,6 +40,75 @@
     "lesson_completed": "Chúc mừng, bạn đã hoàn thành khóa học này!",
     "view_other_courses": "Xem khóa học khác"
   },
+  "paths": {
+    "title": "Chọn lộ trình học tập của bạn",
+    "subtitle": "Lộ trình",
+    "learning_path": "Lộ trình học",
+    "get_started": "// Tuân theo lộ trình học tập được thiết lập sẵn",
+    "all_paths": "Tất cả lộ trình",
+    "in_progress": "Đang tiến hành",
+    "completed": "Đã hoàn thành",
+    "start_path": "Bắt đầu lộ trình",
+    "continue_path": "Tiếp tục lộ trình",
+    "review_path": "Ôn tập lộ trình",
+    "course": "Khóa học",
+    "courses": "Các khóa học",
+    "challenge": "Thử thách",
+    "challenges": "Các thử thách",
+    "steps": "Bước",
+    "units": "Đơn vị",
+    "steps_completed": "Bước đã hoàn thành",
+    "path_steps": "Các bước trong lộ trình",
+    "progress": "Tiến độ",
+    "empty_title": "Không tìm thấy lộ trình",
+    "empty_description": "Hãy thử thay đổi bộ lọc để xem lộ trình học tập ở đây.",
+    "solana-developer-foundations": {
+      "title": "Lập trình Solana cơ bản",
+      "description": "Bắt đầu hành trình Solana của bạn với các kiến thức cơ bản về blockchain, token và NFT."
+    },
+    "anchor-mastery": {
+      "title": "Thành thạo Anchor",
+      "description": "Thành thạo framework Anchor từ cơ bản đến phát triển chương trình nâng cao với các thử thách thực hành."
+    },
+    "native-rust-developer": {
+      "title": "Lập trình Rust gốc",
+      "description": "Xây dựng các chương trình Solana hiệu suất cao bằng Rust gốc và Pinocchio với các bài kiểm thử nâng cao."
+    },
+    "typescript-client-developer": {
+      "title": "Lập trình client với TypeScript",
+      "description": "Học cách xây dựng ứng dụng client Solana sử dụng TypeScript và web3.js."
+    },
+    "security-specialist": {
+      "title": "Chuyên gia bảo mật",
+      "description": "Tìm hiểu sâu về bảo mật chương trình Solana, mật mã học và các phương pháp tốt nhất."
+    },
+    "testing-and-tooling": {
+      "title": "Kiểm thử và công cụ",
+      "description": "Thành thạo các framework kiểm thử và công cụ phát triển cho các chương trình Solana."
+    },
+    "advanced-low-level": {
+      "title": "Lập trình Low-Level nâng cao",
+      "description": "Tìm hiểu về assembly, instruction introspection lệnh và các kỹ thuật tối ưu hóa nâng cao."
+    },
+    "token-developer": {
+      "title": "Lập trình Token",
+      "description": "Hướng dẫn toàn diện về SPL tokens và các phần mở rộng Token-2022 qua các framework."
+    },
+    "payments-and-commerce": {
+      "title": "Thanh toán & Thương mại",
+      "description": "Xây dựng các giải pháp thanh toán sử dụng Solana Pay và hạ tầng token."
+    }
+  },
+  "perks": {
+    "title": "Đổi phần thưởng của bạn",
+    "subtitle": "Ưu đãi",
+    "faucet_title": "Faucet",
+    "rewards_title": "Phần thưởng",
+    "empty_title": "Không tìm thấy phần thưởng",
+    "empty_description": "Tiếp tục hoàn thành thử thách để nhận phần thưởng.",
+    "connect_wallet": "Kết nối ví",
+    "connect_wallet_description": "Cần có ví Solana để mở khóa và đổi ưu đãi."
+  },
   "ui": {
     "search_placeholder": "Tìm kiếm theo tên, danh mục hoặc cấp độ...",
     "search_language_filter__label": "Tất cả danh mục",
@@ -52,12 +123,13 @@
     "general": "Tổng quát"
   },
   "ChallengeCenter": {
-    "title": "Hoàn thành để nhận NFT",
+    "title": "Hoàn thành để nhận NFT và phần thưởng",
     "subtitle": "Thử thách",
     "Unclaimed": "Chưa nhận",
     "claimed": "Đã mint",
     "claim": "Mint",
     "locked": "Đã khóa",
+    "get_started": "// Áp dụng kiến thức mới của bạn vào thực tế",
     "empty_title": "Không tìm thấy thử thách",
     "empty_description": "Hãy thử thay đổi bộ lọc để xem thử thách ở đây.",
     "locked_description": "Kết nối ví để mint NFT của bạn",
@@ -66,7 +138,8 @@
     "complete_to_share": "Hoàn thành thử thách để chia sẻ",
     "filter__label": "Tất cả trạng thái",
     "filter__all_statuses": "Tất cả",
-    "filter__selected_statuses": "Trạng thái"
+    "filter__selected_statuses": "Trạng thái",
+    "complete_to_earn": "Hoàn thành để nhận"
   },
   "challenge_statuses": {
     "open": "Mở",
@@ -143,7 +216,7 @@
     "mint_modal_skip_description": "Bạn có thể xem các mở khóa trên trang Thử thách.",
     "mint_modal_tweet": "Chia sẻ trên X",
     "share_on_x": "Chia sẻ trên X",
-    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift_gg.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
+    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
     "assistance_prompt": {
       "title": "Cần trợ giúp?",
       "body": "Có vẻ như bạn đang gặp khó khăn. Nếu bạn bị kẹt, hãy thoải mái yêu cầu trợ giúp trong cộng đồng Discord của chúng tôi.",
@@ -160,5 +233,10 @@
     "unsaved_changes": "Thay đổi chưa lưu",
     "saving": "Đang lưu...",
     "loaded_from_auto_save": "Mã được tải từ phiên trước"
+  },
+  "marketing_banner": {
+    "title": "Hãy cân nhắc việc staking để giúp cải thiện Blueshift",
+    "mobile": "Hãy cân nhắc việc <link>staking</link> để giúp cải thiện Blueshift",
+    "button": "Stake"
   }
 }

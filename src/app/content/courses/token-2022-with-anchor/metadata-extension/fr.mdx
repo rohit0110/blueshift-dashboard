@@ -1,34 +1,56 @@
 import { ArticleSection } from "../../../../components/ArticleSection/ArticleSection";
 
-# L'Extension Metadata
+# L'extension Metadata
 
-L'extension `Metadata` (Métadonnées) est une extension de compte de `Mint` qui introduit la possibilité d'intégrer directement des métadonnées dans les comptes de Mint de manière native, sans avoir à utiliser un autre programme.
+L'extension `Metadata` est une extension de compte `Mint` qui introduit la possibilité d'intégrer des métadonnées directement dans les comptes de mint de manière native et sans avoir à utiliser un autre programme.
 
-<ArticleSection name="Initialisation du Compte de Mint" id="initializing-the-mint-account" level="h2" />
+<ArticleSection name="Initializing the Mint Account" id="initializing-the-mint-account" level="h2" />
 
-L'extension `Metadata` est un peu différente de ce à quoi nous sommes habitués car elle est composée de deux extensions différentes qui sont toutes deux associées à un compte `Mint` :
-- L'extension `Metadata` qui contient toutes les métadonnées telles que le nom, le symbole, l'URI et les comptes supplémentaires.
-- L'extension `MetadataPointer` qui fait référence au compte de `Mint` où se trouve l'extension `Metadata`.
+L'extension `Metadata` est un peu différente de ce que nous avons l'habitude de faire car elle est composée de 2 extensions différentes qui vont toutes les deux sur un compte `Mint` :
+- L'extension `Metadata` qui contient toutes les informations de métadonnées comme le nom, le symbole, l'URI et les comptes supplémentaires.
+- L'extension `MetadataPointer` qui fait référence au compte `Mint` où réside l'extension `Metadata`.
 
-En général, lorsqu'elles sont utilisées, ces 2 extensions se trouvent dans le même compte de `Mint`. C'est ce que nous allons faire dans cet exemple.
+Habituellement, lorsqu'elles sont utilisées, ces 2 extensions résident sur le même compte `Mint` ; et nous allons faire de même pour cet exemple.
 
-Commençons par quelques notions de base avant de nous plonger dans le code :
+Commençons par quelques bases avant de plonger dans le code :
 
-Bien que l'extension `MetadataPointer` se trouve dans la crate `anchor-spl`, pour initialiser les `Metadata` nous devons utiliser la crate `spl_token_metadata_interface`.
+Bien que l'extension `MetadataPointer` se trouve dans le crate `anchor-spl`, pour initialiser le `Metadata` nous devons utiliser le crate `spl_token_metadata_interface`.
 
-Installons donc la crate nécessaire :
+Installons donc le package requis :
 
 ```
 cargo add spl_token_metadata_interface
 ```
 
-De plus, l'extension `Metadata` est l'une des "seules" extensions qui nécessite d'initialiser l'extension après avoir initialisé le compte de `Mint`.
+De plus, l'extension `Metadata` est l'une des "seules" extensions qui nécessite que vous initialisiez l'extension après avoir initialisé le compte `Mint`.
 
-Cela s'explique par le fait que l'instruction d'initialisation des métadonnées alloue de manière dynamique l'espace nécessaire au contenu des métadonnées de longueur variable.
+C'est parce que l'instruction d'initialisation des métadonnées alloue dynamiquement l'espace nécessaire pour le contenu des métadonnées de longueur variable.
 
-Dans le même temps, cela signifie que nous allons devoir initialiser le compte de `Mint` avec suffisamment de lamports pour être exempt de rente avec l'extension `Metadata` incluse mais en allouant suffisamment d'espace uniquement pour l'extension `MetadataPointer` car l'instruction `token_metadata_initialize()` augmente automatiquement l'espace de manière correcte.
+En même temps, cela signifie que nous allons devoir initialiser le compte `Mint` avec suffisamment de lamports pour être exempt de loyer avec l'extension `Metadata` incluse, mais en allouant assez d'espace uniquement pour l'extension `MetadataPointer` puisque l'instruction `initializeMetadata()` augmente correctement l'espace.
 
-Voici à quoi cela ressemble :
+Dans le code, cela ressemble à ceci :
+
+```ts
+// Metadata struct
+const metadata: TokenMetadata = {
+    mint: mint.publicKey,
+    name: "Test Token",
+    symbol: "TST",
+    uri: "https://example.com/metadata.json",
+    additionalMetadata: [["customField", "customValue"]],
+};
+
+// Size of Mint Account with extensions
+const mintLen = getMintLen([ExtensionType.MetadataPointer]);
+
+// Size of the Metadata Extension
+const metadataLen = TYPE_SIZE + LENGTH_SIZE + pack(metadata).length;
+
+// Minimum lamports required for Mint Account
+const lamports = await connection.getMinimumBalanceForRentExemption(mintLen + metadataLen);
+```
+
+Maintenant que nous sommes familiers avec ces concepts, plongeons dans l'ajout de l'extension `MetadataPointer` et `Metadata` sur le compte de mint.
 
 ```rust
 use anchor_lang::prelude::*;
@@ -117,15 +139,15 @@ pub struct TokenMetadataArgs {
 }
 ```
 
-> L'instruction `initialize` de `metadata-interface` n'autorise pas des `additionalMetdata`. Pour cette raison, si nous voulons créer un `asset` qui en possède, nous devrons utiliser l'instruction `token_metadata_update_field()` que nous verrons dans la section suivante
+> L'instruction `initialize` pour le `metadata-interface` ne permet pas le `additionalMetdata`. Pour cette raison, si nous voulons créer un `asset` qui en possède, nous devrons utiliser l'instruction `updateField` comme nous l'avons fait dans cet exemple
 
-<ArticleSection name="Mise à Jour des Métadonnées" id="updating-the-metadata" level="h2" />
+<ArticleSection name="Mise à jour des métadonnées" id="updating-the-metadata" level="h2" />
 
-Il est possible de mettre à jour tous les champs des métadonnées à l'aide de la même instruction `token_metadata_update_field()`.
+Il est possible de mettre à jour tous les champs des métadonnées en utilisant la même instruction `updateField()`.
 
-Pour les `additionalMetadata` cela fonctionne un peu différemment car nous pouvons mettre à jour un champ existant en transmettant juste le même `Field` avec une nouvelle valeur ou juste ajouter un nouveau champ aux `Metadata`.
+Pour le `additionalMetadata`, cela fonctionne un peu différemment car nous pouvons mettre à jour un champ existant en passant simplement le même `Field` avec une nouvelle valeur ou simplement ajouter un nouveau champ au `Metadata`.
 
-Le programme utilise la même instruction mais avec différents drapeaux (flag) en fonction de ce que nous essayons de modifier. Cela signifie que nous pouvons modifier tous les champs comme ceci :
+En coulisses, le programme utilise la même instruction avec différents drapeaux selon ce que nous essayons de modifier. Cela signifie que nous pouvons changer tous les champs comme ceci :
 
 ```rust
 use anchor_lang::prelude::*;
@@ -258,9 +280,9 @@ impl AnchorField {
 }
 ```
 
-> Comme vous pouvez le constater, nous devons toujours nous assurer que le compte est exempt de rente. C'est pourquoi nous effectuons tous les calculs relatifs à la rente dès le début et transférons des lamports supplémentaires si nécessaire.
+> Comme vous pouvez le voir, nous devons toujours nous assurer que le compte est exempt de loyer, c'est pourquoi nous effectuons tous les calculs concernant le loyer au début et transférons des lamports supplémentaires si nécessaire.
 
-Nous pouvons également supprimer `Field` dans la structure `additionalMetadata` à l'aide de l'instruction `removeKey` comme ceci :
+Nous pouvons également supprimer des `Field` dans la structure `additionalMetadata` en utilisant l'instruction `removeKey` comme ceci :
 
 ```rust
 use anchor_lang::prelude::*;
@@ -303,4 +325,4 @@ pub fn process_remove_key(ctx: Context<RemoveKey>, key: String) -> Result<()> {
 }
 ```
 
-> Nous invoquons directement l'instruction `remove_key` à partir de `spl_token_metadata_interface` car il n'existe pas de `CpiContext` Anchor pour cette instruction.
+> Nous invoquons l'instruction `remove_key` depuis `spl_token_metadata_interface` directement puisqu'il n'y a pas d'`CpiContext` anchor pour cette instruction

@@ -8,6 +8,7 @@
     "lessons": "Pelajaran",
     "courses": "Kursus",
     "challenges": "Tantangan",
+    "paths": "Paths",
     "set_goal": "Tetapkan Tujuan",
     "connect_wallet": "Sambungkan Dompet"
   },
@@ -37,6 +38,65 @@
     "skip_lesson": "Lewati Pelajaran",
     "lesson_completed": "Selamat, Anda telah menyelesaikan kursus ini!",
     "view_other_courses": "Lihat Kursus Lain"
+  },
+  "paths": {
+    "title": "Choose your learning path",
+    "subtitle": "Paths",
+    "learning_path": "Learning Path",
+    "get_started": "// Follow a structured learning journey",
+    "all_paths": "All Paths",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "start_path": "Start Path",
+    "continue_path": "Continue Path",
+    "review_path": "Review Path",
+    "course": "Course",
+    "courses": "Courses",
+    "challenge": "Challenge",
+    "challenges": "Challenges",
+    "steps": "Steps",
+    "units": "Units",
+    "steps_completed": "steps completed",
+    "path_steps": "Path Steps",
+    "progress": "Progress",
+    "empty_title": "No paths found",
+    "empty_description": "Try changing your filters to see learning paths here.",
+    "solana-developer-foundations": {
+      "title": "Solana Developer Foundations",
+      "description": "Start your Solana journey with blockchain fundamentals, tokens, and NFTs."
+    },
+    "anchor-mastery": {
+      "title": "Anchor Mastery",
+      "description": "Master Anchor framework from basics to advanced program development with hands-on challenges."
+    },
+    "native-rust-developer": {
+      "title": "Native Rust Developer",
+      "description": "Build high-performance Solana programs using native Rust and Pinocchio with advanced testing."
+    },
+    "typescript-client-developer": {
+      "title": "TypeScript Client Developer",
+      "description": "Learn to build Solana client applications using TypeScript and web3.js."
+    },
+    "security-specialist": {
+      "title": "Security Specialist",
+      "description": "Deep dive into Solana program security, cryptography, and best practices."
+    },
+    "testing-and-tooling": {
+      "title": "Testing & Tooling",
+      "description": "Master various testing frameworks and developer tools for Solana programs."
+    },
+    "advanced-low-level": {
+      "title": "Advanced Low-Level Development",
+      "description": "Explore assembly, instruction introspection, and advanced optimization techniques."
+    },
+    "token-developer": {
+      "title": "Token Developer",
+      "description": "Comprehensive guide to SPL tokens and Token-2022 extensions across frameworks."
+    },
+    "payments-and-commerce": {
+      "title": "Payments & Commerce",
+      "description": "Build payment solutions using Solana Pay and token infrastructure."
+    }
   },
   "ui": {
     "search_placeholder": "Cari berdasarkan nama, kategori, atau tingkat...",
@@ -99,7 +159,8 @@
       "auth_unauthorized": "Autentikasi gagal. Silakan coba lagi.",
       "network_error": "Tidak dapat terhubung ke server. Periksa koneksi internet Anda.",
       "auth_generic": "Terjadi kesalahan tak terduga. Silakan coba lagi."
-    }
+    },
+    "content_fallback": "Konten ini sedang diterjemahkan dan akan tersedia di sini ketika siap."
   },
   "course_levels": {
     "1": "Pemula",
@@ -142,7 +203,7 @@
     "mint_modal_skip_description": "Anda dapat melihat semua hadiah Anda di halaman Tantangan.",
     "mint_modal_tweet": "Bagikan di X",
     "share_on_x": "Bagikan di X",
-    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift_gg.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
+    "challenge_share_tweet": "I just completed the {challengeTitle} challenge from @blueshift.\n\nTry it out here: {challengeUrl}\n\nMake the shift. Build on @solana.",
     "assistance_prompt": {
       "title": "Butuh Bantuan?",
       "body": "Tantangan ini cukup sulit! Jika Anda mengalami kesulitan, jangan ragu untuk bertanya kepada komunitas Discord kami.",
@@ -159,5 +220,10 @@
     "unsaved_changes": "Perubahan belum disimpan",
     "saving": "Menyimpan...",
     "loaded_from_auto_save": "Kode dimuat dari sesi sebelumnya"
+  },
+  "marketing_banner": {
+    "title": "Pertimbangkan untuk melakukan staking untuk membantu meningkatkan Blueshift",
+    "mobile": "Pertimbangkan untuk melakukan <link>staking</link> untuk membantu meningkatkan Blueshift",
+    "button": "Stake"
   }
 }

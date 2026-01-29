@@ -89,6 +89,7 @@ pub fn initialize(ctx: Context<Transfer>, amount: u64) -> Result<()> {
     Ok(())
 }
 ```
+
 2. **Implantation d'un Module Séparé**
 
 Pour les programmes très complexes, vous pouvez organiser la logique en modules dédiés :
@@ -194,6 +195,7 @@ pub fn custom_type_instruction(
    - Ajouter une documentation appropriée
 
 3. **Gestion des Erreurs** : Il faut toujours gérer correctement les erreurs et renvoyer des messages d'erreur pertinents :
+
 ```rust
 #[error_code]
 pub enum TransferError {
@@ -218,6 +220,7 @@ impl<'info> Transfer<'info> {
 ```
 
 4. **Documentation** : Documentez toujours votre logique d'instruction, en particulier lorsque vous utilisez une implémentation du contexte :
+
 ```rust
 impl<'info> Transfer<'info> {
     /// # Transfers tokens
@@ -308,4 +311,3 @@ pub fn handle_errors(ctx: Context<HandleErrors>, value: u64) -> Result<()> {
     Ok(())
 }
 ```
-

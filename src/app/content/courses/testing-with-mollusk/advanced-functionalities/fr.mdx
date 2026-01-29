@@ -1,10 +1,10 @@
 import { ArticleSection } from "../../../../components/ArticleSection/ArticleSection";
 
-# Fonctionnalités Avancées
+# Fonctionnalités avancées
 
-Mollusk offre des options d'initialisation flexibles pour s'adapter à différents scénarios de test. Vous pouvez créer des instances préchargées avec votre programme ou démarrer avec un environnement minimal et ajouter des composants selon vos besoins.
+Mollusk offre des options d'initialisation flexibles pour s'adapter à différents scénarios de test. Vous pouvez créer des instances préchargées avec votre programme ou commencer avec un environnement minimal et ajouter des composants selon vos besoins.
 
-Lorsque vous testez un programme en particulier, lancez Mollusk avec votre programme pré-chargé :
+Lors du test d'un programme spécifique, initialisez Mollusk avec votre programme préchargé :
 
 ```rust
 use mollusk_svm::Mollusk;
@@ -18,9 +18,9 @@ fn test() {
 }
 ```
 
-Cette approche charge automatiquement votre programme compilé et le rend disponible pour les tests, ce qui simplifie le processus de configuration des suites de tests spécifiques au programme.
+Cette approche charge automatiquement votre programme compilé et le rend disponible pour les tests, simplifiant ainsi le processus de configuration pour les suites de tests spécifiques à un programme.
 
-Pour des scénarios de test plus larges ou lorsque vous devez ajouter des programmes de manière dynamique, commencez par l'instance par défaut :
+Pour des scénarios de test plus larges ou lorsque vous devez ajouter des programmes dynamiquement, commencez avec l'instance par défaut :
 
 ```rust
 use mollusk_svm::Mollusk;
@@ -32,15 +32,15 @@ fn test() {
 }
 ```
 
-L'instance par défaut comprend des programmes intégrés essentiels tels que le programme système qui constituent la base de la plupart des opérations sur Solana sans surcharge liée aux programmes dont vous n'avez pas besoin.
+L'instance par défaut inclut des programmes intégrés essentiels comme le System Program, fournissant une base pour la plupart des opérations Solana sans la surcharge des programmes dont vous n'avez pas besoin.
 
-Lorsque vos tests nécessitent le programme système, Mollusk fournit des fonctions d'aide pour générer les références de compte nécessaires :
+Lorsque vos tests nécessitent le System Program, Mollusk fournit un assistant pratique pour générer les références de compte nécessaires :
 
 ```rust
 let (system_program, system_program_account) = keyed_account_for_system_program();
 ```
 
-Pour reproduire la fonctionnalité de chargement de programme ou pour charger des programmes personnalisés qui ne sont pas présents par défaut, vous pouvez utiliser ces fonctions d'aides :
+Pour reproduire la fonctionnalité de chargement de programme ou charger des programmes personnalisés qui ne sont pas présents par défaut, vous pouvez utiliser ces assistants :
 
 ```rust
 use mollusk_svm::Mollusk;
@@ -63,11 +63,13 @@ fn test() {
 }
 ```
 
-<ArticleSection name="Programme de Jetons" id="token-program" level="h2" />
+<ArticleSection name="Token Program" id="token-program" level="h2" />
 
-Les fonctions d'aide pour le programme de jetons de Mollusk simplifient considérablement les scénarios de test impliquant des jetons SPL. La crate `mollusk-svm-programs-token` fournit une prise en charge préconfigurée pour les programmes `Token`, `Token2022` et `Associated Token`.
+Les assistants de programme de jetons de Mollusk simplifient considérablement les scénarios de test impliquant des jetons SPL. La crate `mollusk-svm-programs-token` fournit un support préconfiguré pour les programmes `Token`, `Token2022` et `Associated Token`.
 
-Après avoir inclus la crate d'aide aux jetons, ajoutez les programmes de jetons spécifiques requis par vos tests :
+### Comptes de programme
+
+Après avoir inclus la crate d'assistant de jetons, ajoutez les programmes de jetons spécifiques dont vos tests ont besoin :
 
 ```rust
 use mollusk_svm::Mollusk;
@@ -103,117 +105,82 @@ let (associated_token_program, associated_token_program_account) =
     mollusk_svm_programs_token::associated_token::keyed_account();
 ```
 
-Ces aides garantissent que les tests liés aux jetons ont accès aux comptes de programme corrects avec une configuration appropriée, ce qui permet de tester de manière exhaustive les opérations liées aux jetons sans configuration manuelle du programme.
+Ces assistants garantissent que les tests liés aux jetons ont accès aux comptes de programme corrects avec une configuration appropriée, permettant des tests complets des opérations de jetons sans configuration manuelle du programme.
 
-Si nous voulions ensuite créer des comptes de `State` à partir du programme de jetons déjà initialisés, nous devrions les créer à l'aide de la méthode `Account` et les charger dans la structure de compte de l'instance Mollusk.
+### Comptes d'état
 
-La création manuelle de comptes de jetons initialisés implique un travail fastidieux pour sérialiser les données des comptes et calculer l'exonération de rente. Voici des fonctions d'aide qui simplifient ce processus :
+Pendant nos tests, nous pourrions avoir besoin d'un compte `Mint`, `Token` ou `Associated Token` qui a déjà été initialisé. Heureusement pour nous, Mollusk dispose de quelques assistants pratiques.
+
+Pour créer un compte `Mint` nous pouvons utiliser la fonction `create_account_for_mint()` comme ceci :
 
 ```rust
-use spl_token::{state::{Mint, Account as TokenAccount, AccountState}, ID as token};
-use spl_associated_token_account::get_associated_token_address_with_program_id;
+use spl_token::state::Mint;
+use mollusk_svm_programs_token::token::create_account_for_mint;
 
-// Create a Keyed Account for a Mint with default data
-#[allow(dead_code)]
-pub fn keyed_account_for_mint_default(
-    mollusk: &Mollusk,
-    authority: &Pubkey,
-    decimals: u8,
-    pubkey: Option<Pubkey>,
-    token_program: Option<Pubkey>,
-) -> (Pubkey, Account) {
-    let mint_data = Mint {
-        mint_authority: Some(*authority).into(),
-        supply: 0,
-        decimals,
-        is_initialized: true,
-        freeze_authority: None.into(),
-    };
+let mint_data = Mint {
+    mint_authority: Pubkey::new_unique(),
+    supply: 10_000_000_000,
+    decimals: 6,
+    is_initialized: true,
+    freeze_authority: None,
+};
 
-    let mut data = vec![0u8; Mint::LEN];
-    Mint::pack(mint_data, &mut data).unwrap();
-
-    let account = Account {
-        lamports: mollusk.sysvars.rent.minimum_balance(Mint::LEN),
-        data,
-        owner: token_program.unwrap_or(token::ID),
-        executable: false,
-        rent_epoch: 0,
-    };
-
-    (pubkey.unwrap_or(Pubkey::new_unique()), account)
-}
-
-// Create a Keyed Account for a Token Account with default data
-#[allow(dead_code)]
-pub fn keyed_account_for_token_account_default(
-    mollusk: &Mollusk,
-    mint: &Pubkey,
-    owner: &Pubkey,
-    amount: u64,
-    pubkey: Option<Pubkey>,
-    token_program: Option<Pubkey>,
-) -> (Pubkey, Account) {
-    let account_data = TokenAccount {
-        mint: *mint,
-        owner: *owner,
-        amount,
-        delegate: None.into(),
-        state: AccountState::Initialized,
-        is_native: None.into(),
-        delegated_amount: 0,
-        close_authority: None.into(),
-    };
-
-    let mut data = vec![0u8; TokenAccount::LEN];
-    TokenAccount::pack(account_data, &mut data).unwrap();
-
-    let account = Account {
-        lamports: mollusk.sysvars.rent.minimum_balance(TokenAccount::LEN),
-        data,
-        owner: token_program.unwrap_or(token::ID),
-        executable: false,
-        rent_epoch: 0,
-    };
-
-    (pubkey.unwrap_or(Pubkey::new_unique()), account)
-}
-
-// Create a Keyed Account for an Associated Token Account with default data
-#[allow(dead_code)]
-pub fn keyed_account_for_associated_token_account_default(
-    mollusk: &Mollusk,
-    mint: &Pubkey,
-    owner: &Pubkey,
-    amount: u64,
-    token_program: Option<Pubkey>,
-) -> (Pubkey, Account) {
-    let associated_token_address = get_associated_token_address_with_program_id(
-        owner,
-        mint,
-        &token_program.unwrap_or(token::ID),
-    );
-
-    keyed_account_for_token_account_default(
-        mollusk,
-        mint,
-        owner,
-        amount,
-        Some(associated_token_address),
-        Some(token_program.unwrap_or(token::ID)),
-    )
-}
+let mint_account = create_account_for_mint(mint_data)
 ```
 
-<ArticleSection name="Benchmark des Unités de Calcul" id="benchmarking-compute-units" level="h2" />
+Pour créer un compte `Token` nous pouvons utiliser la fonction `create_account_for_token_account()` comme ceci :
 
-Mollusk comprend un système dédié de benchmarking des unités de calcul (*Compute Units*) qui permet de mesurer et de suivre avec précision l'efficacité de calcul de votre programme. `MolluskComputeUnitBencher` fournit une API simplifiée pour créer des benchmarks complets qui surveillent la consommation des unités de calcul dans différents scénarios d'instructions.
+```rust
+use spl_token::state::{TokenAccount, AccountState};
+use mollusk_svm_programs_token::token::create_account_for_token_account;
 
-Ce système de benchmarking est particulièrement utile pour l'optimisation des performances, car il génère des rapports détaillés indiquant à la fois l'utilisation actuelle des unités de calcul et les écarts par rapport aux exécutions précédentes.
+let token_data = TokenAccount {
+    mint: Pubkey::new_unique(),
+    owner: Pubkey::new_unique(),
+    amount: 1_000_000,
+    delegate: None,
+    state: AccountState::Initialized,
+    is_native: None,
+    delegated_amount: 0,
+    close_authority: None,
+};
 
-Cela vous permet de voir immédiatement l'impact des modifications apportées au code sur l'efficacité de votre programme, ce qui vous aide à optimiser les goulots d'étranglement critiques en matière de performances.
+let token_account = create_account_for_token_account(token_data)
+```
 
-Le *bencher* s'intègre parfaitement à votre configuration de test Mollusk existante :
+> Remarque : ces exemples concernent le programme SPL-Token. Si vous souhaitez créer des comptes `Mint` et `Token` appartenant au programme Token2022, utilisez simplement `mollusk_svm_programs_token::token2022::...`.
+
+Pour créer un compte `Associated Token` nous pouvons utiliser la fonction `create_account_for_associated_token_account()` comme ceci :
+
+```rust
+use spl_token::state::{TokenAccount, AccountState};
+use mollusk_svm_programs_token::associated_token::create_account_for_associated_token_account;
+
+let token_data = TokenAccount {
+    mint: Pubkey::new_unique(),
+    owner: Pubkey::new_unique(),
+    amount: 1_000_000,
+    delegate: None,
+    state: AccountState::Initialized,
+    is_native: None,
+    delegated_amount: 0,
+    close_authority: None,
+};
+
+let associated_token_account = create_account_for_associated_token_account(token_data)
+```
+
+> Remarque : cet exemple concerne le programme SPL-Token. Si vous souhaitez créer un compte `Associated Token` appartenant au programme Token2022, utilisez simplement la fonction `create_account_for_associated_token_2022_account`.
+
+<ArticleSection name="Évaluation comparative des unités de calcul" id="benchmarking-compute-units" level="h2" />
+
+Mollusk inclut un système dédié d'évaluation comparative des unités de calcul qui permet de mesurer et de suivre avec précision l'efficacité computationnelle de votre programme. Le `MolluskComputeUnitBencher` fournit une API simplifiée pour créer des benchmarks complets qui surveillent la consommation d'unités de calcul dans différents scénarios d'instructions.
+
+Ce système d'évaluation comparative est particulièrement précieux pour l'optimisation des performances, car il génère des rapports détaillés montrant à la fois l'utilisation actuelle des unités de calcul et les écarts par rapport aux exécutions précédentes.
+
+Cela vous permet de voir immédiatement l'impact des modifications de code sur l'efficacité de votre programme, vous aidant à optimiser les goulots d'étranglement critiques de performance.
+
+Le système d'évaluation s'intègre parfaitement à votre configuration de test Mollusk existante :
 
 ```rust
 use {
@@ -239,15 +206,15 @@ MolluskComputeUnitBencher::new(mollusk)
     .execute();
 ```
 
-### Options de Configuration
+### Options de configuration
 
-Le *bencher* offre plusieurs options de configuration :
-- `must_pass(true)`: Déclenche une alerte si un test de performance échoue, garantissant ainsi la validité de vos tests de performance malgré les modifications apportées au code
-- `out_dir("../target/benches")`: Spécifie l'emplacement où le rapport sera généré, permettant l'intégration avec les systèmes CI/CD et les workflows de documentation.
+Le système d'évaluation offre plusieurs options de configuration :
+- `must_pass(true)` : déclenche une panique si un benchmark ne s'exécute pas correctement, garantissant que vos benchmarks restent valides lors des modifications de code
+- `out_dir("../target/benches")` : spécifie où le rapport markdown sera généré, permettant l'intégration avec les systèmes CI/CD et les flux de travail de documentation
 
 ### Intégration avec Cargo
 
-Pour exécuter des benchmarks à l'aide de `cargo bench`, ajoutez une configuration de benchmark à votre fichier `Cargo.toml` :
+Pour exécuter des benchmarks en utilisant `cargo bench`, ajoutez une configuration de benchmark à votre `Cargo.toml` :
 
 ```
 [[bench]]
@@ -255,9 +222,9 @@ name = "compute_units"
 harness = false
 ```
 
-### Rapports de Benchmark
+### Rapports de benchmark
 
-Le *bencher* génère des rapports *markdown* qui fournissent à la fois les indicateurs de performance actuels et une comparaison historique :
+Le benchmarker génère des rapports en markdown qui fournissent à la fois des métriques de performance actuelles et des comparaisons historiques :
 
 ```
 | Name   | CUs   | Delta  |
@@ -269,21 +236,21 @@ Le *bencher* génère des rapports *markdown* qui fournissent à la fois les ind
 ```
 
 Le format du rapport comprend :
-- Name: L'identifiant de benchmark que vous avez spécifié
-- CUs: Consommation d'unités de calcul actuelle pour ce scénario
-- Delta: Changement par rapport à l'exécution précédente du benchmark (une valeur positive indique une augmentation de l'utilisation, une valeur négative indique une optimisation)
+- Nom : L'identifiant de benchmark que vous avez spécifié
+- CUs : Consommation actuelle d'unités de calcul pour ce scénario
+- Delta : Changement par rapport à l'exécution précédente du benchmark (positif indique une utilisation accrue, négatif indique une optimisation)
 
-<ArticleSection name="Syscalls Personnalisés" id="custom-syscalls" level="h2" />
+<ArticleSection name="Custom Syscalls" id="custom-syscalls" level="h2" />
 
-Mollusk prend en charge la création et le test de syscalls personnalisés, vous permettant d'étendre la Machine Virtuelle Solana avec des fonctionnalités spécialisées pour les scénarios de test.
+Mollusk prend en charge la création et le test d'appels système personnalisés, vous permettant d'étendre la machine virtuelle Solana avec des fonctionnalités spécialisées pour les scénarios de test.
 
-Cette fonctionnalité est particulièrement utile pour tester la création de nouveaux Syscall pouvant être ajoutés via SIMD en simulant des comportements d'exécution spécifiques ou en créant des environnements contrôlés pour les tests.
+Cette capacité est particulièrement précieuse pour tester la création de nouveaux appels système qui peuvent être ajoutés via SIMD en simulant des comportements d'exécution spécifiques, ou en créant des environnements contrôlés pour les tests.
 
-> Les syscalls personnalisés fonctionnent au niveau de la machine virtuelle, offrant un accès direct au contexte invoqué et à l'environnement d'exécution
+> Les appels système personnalisés fonctionnent au niveau de la VM, fournissant un accès direct au contexte d'invocation et à l'environnement d'exécution.
 
-### Définition de Syscalls Personnalisés
+### Définition des appels système personnalisés
 
-Les syscalls personnalisés sont définis à l'aide de la macro `declare_builtin_function!`, qui crée un syscall pouvant être enregistré dans l'environnement d'exécution de Mollusk :
+Les appels système personnalisés sont définis à l'aide de la macro `declare_builtin_function!`, qui crée un appel système pouvant être enregistré dans l'environnement d'exécution de Mollusk :
 
 ```rust
 use {
@@ -315,19 +282,19 @@ declare_builtin_function!(
 );
 ```
 
-> Voici un exemple de syscall personnalisé qui "brûle" simplement les CUs
+> Ceci est un exemple d'un appel système personnalisé qui "brûle" simplement des CUs.
 
-La signature de la fonction syscall suit un modèle précis :
-- `invoke_context`: Fournit l'accès au contexte d'exécution et à l'état d'exécution
-- Arguments 1-5: Jusqu'à cinq arguments de 64 bits peuvent être passés depuis le programme
-- memory_mapping: Permet d'accéder à l'espace mémoire du programme.
-- Return value: Un `Result<u64, Box<dyn std::error::Error>>` indiquant le succès ou l'échec
+La signature de la fonction d'appel système suit un modèle spécifique :
+- `invoke_context` : Fournit un accès au contexte d'exécution et à l'état d'exécution
+- Arguments 1-5 : Jusqu'à cinq arguments de 64 bits peuvent être passés depuis le programme
+- memory_mapping : Fournit un accès à l'espace mémoire du programme
+- Valeur de retour : Un `Result<u64, Box<dyn std::error::Error>>` indiquant le succès ou l'échec
 
-> C'est ainsi que tous les Syscalls sont créés
+> C'est ainsi que tous les appels système sont créés en interne
 
-### Enregistrement de Syscalls Personnalisés
+### Enregistrement des appels système personnalisés
 
-Une fois définis, les syscalls personnalisés doivent être enregistrés dans l'environnement d'exécution du programme de Mollusk avant de pouvoir être utilisés :
+Une fois définis, les appels système personnalisés doivent être enregistrés dans l'environnement d'exécution du programme Mollusk avant de pouvoir être utilisés :
 
 ```rust
 #[test]
@@ -357,11 +324,11 @@ fn test_custom_syscall() {
 }
 ```
 
-Le syscall est enregistré avec un nom (dans cet exemple "sol_burn_cus") auquel votre programme peut faire référence lorsqu'il effectue le syscall.
+L'appel système est enregistré avec un nom ("sol_burn_cus" dans cet exemple) que votre programme peut référencer lors de l'exécution de l'appel système.
 
-### Test du Comportement des Syscalls Personnalisés
+### Test du comportement des appels système personnalisés
 
-Les syscalls personnalisés peuvent être testés comme n'importe quelle autre fonctionnalité du programme, avec l'avantage supplémentaire d'un contrôle précis sur leur comportement :
+Les appels système personnalisés peuvent être testés comme n'importe quelle autre fonctionnalité du programme, avec l'avantage supplémentaire d'un contrôle précis sur leur comportement :
 
 ```rust
 fn instruction_burn_cus(program_id: &Pubkey, to_burn: u64) -> Instruction {
@@ -395,11 +362,11 @@ fn test_custom_syscall() {
 }
 ```
 
-> Cet exemple montre comment tester un syscall qui brûle des unités de calcul en vérifiant que le nombre exact d'unités demandées est bien consommé. La possibilité de vérifier des données précises fait de Mollusk le meilleur moyen de tester les syscalls personnalisés avant leur implémentation.
+> Cet exemple démontre le test d'un appel système qui consomme des unités de calcul, en validant que le nombre exact d'unités demandées est consommé. La capacité à vérifier des données précises fait de Mollusk la meilleure façon de tester les appels système personnalisés avant l'implémentation.
 
-<ArticleSection name="Méthodes de Configuration" id="configuration-methods" level="h2" />
+<ArticleSection name="Configuration Methods" id="configuration-methods" level="h2" />
 
-Mollusk offre des options de configuration complètes qui vous permettent de personnaliser l'environnement d'exécution afin de répondre à des exigences de test précises, comme le montre le `Context` de Mollusk :
+Mollusk fournit des options de configuration complètes qui vous permettent de personnaliser l'environnement d'exécution pour répondre à des exigences de test spécifiques, comme nous pouvons le voir dans Mollusk `Context` : 
 
 ```rust
 /// Instruction context fixture.
@@ -421,9 +388,9 @@ pub struct Context {
 }
 ```
 
-Ces méthodes de configuration permettent un contrôle précis des budgets de calcul, de la disponibilité des fonctionnalités et des variables système, ce qui permet de tester les programmes dans diverses conditions d'exécution.
+Ces méthodes de configuration permettent un contrôle précis des budgets de calcul, de la disponibilité des fonctionnalités et des variables système, rendant possible le test des programmes dans diverses conditions d'exécution.
 
-### Configuration de Base
+### Configuration de base
 
 ```rust
 use mollusk_svm::Mollusk;
@@ -443,14 +410,14 @@ fn test() {
 }
 ```
 
-Le budget de calcul détermine le nombre d'unités de calcul disponibles pour l'exécution du programme. Ceci est crucial pour tester les programmes qui approchent ou dépassent les limites de calcul :
+Le budget de calcul détermine combien d'unités de calcul sont disponibles pour l'exécution du programme. C'est crucial pour tester les programmes qui approchent ou dépassent les limites de calcul :
 
 ```rust
 // Test with standard compute budget
 mollusk.set_compute_budget(200_000);
 ```
 
-L'ensemble de fonctionnalités de Solana contrôle quelles fonctionnalités de la blockchain sont actives pendant l'exécution du programme. Mollusk vous permet de configurer ces fonctionnalités afin de tester la compatibilité entre différents états du réseau :
+L'ensemble des fonctionnalités de Solana contrôle quelles fonctionnalités de la blockchain sont actives pendant l'exécution du programme. Mollusk vous permet de configurer ces fonctionnalités pour tester la compatibilité à travers différents états du réseau :
 
 ```rust
 use solana_sdk::feature_set::FeatureSet;
@@ -462,9 +429,9 @@ mollusk.set_feature_set(FeatureSet::all_enabled());
 mollusk.set_feature_set(FeatureSet::default());
 ```
 
-Pour obtenir la liste complète des fonctionnalités disponibles, consultez la [documentation](https://docs.rs/agave-feature-set/2.3.6/agave_feature_set/) de la crate `agave-feature-set` qui détaille toutes les fonctionnalités configurables de la blockchain et leurs implications.
+Pour une liste complète des fonctionnalités disponibles, consultez la documentation du crate `agave-feature-set` [documentation](https://docs.rs/agave-feature-set/2.3.6/agave_feature_set/), qui détaille toutes les fonctionnalités configurables de la blockchain et leurs implications.
 
-Mollusk donne accès à toutes les variables système (sysvars) que les programmes peuvent interroger pendant leur exécution. Bien que ces paramètres soient automatiquement configurés avec des valeurs par défaut raisonnables, vous pouvez les personnaliser pour des scénarios de test précis :
+Mollusk fournit un accès à toutes les variables système (sysvars) que les programmes peuvent interroger pendant l'exécution. Bien que celles-ci soient automatiquement configurées avec des valeurs par défaut raisonnables, vous pouvez les personnaliser pour des scénarios de test spécifiques :
 
 ```rust
 /// Mollusk sysvars wrapper for easy manipulation
@@ -479,7 +446,7 @@ pub struct Sysvars {
 }
 ```
 
-Vous pouvez personnaliser certains sysvars pour tester la logique dépendante du temps, les calculs de rente ou d'autres comportements dépendants du système, ou utiliser certaines fonctions d'aide :
+Vous pouvez personnaliser des variables système spécifiques pour tester la logique dépendante du temps, les calculs de loyer, ou d'autres comportements dépendants du système ou utiliser certains des assistants :
 
 ```rust
 #[test]
@@ -491,6 +458,6 @@ fn test() {
     mollusk.sysvars.clock.unix_timestamp = 1234567890;
 
     // Jump to Slot 1000
-    warp_to_slot(&mut Mollusk, 1000)
+    mollusk.warp_to_slot(1000);
 }
 ```

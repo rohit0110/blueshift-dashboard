@@ -31,7 +31,7 @@ const createAtaInstruction = createAssociatedTokenAccountIdempotentInstruction(
     mint.publicKey, // mint
 );
 
-// Transfer tokens to ATA 
+// Transfer tokens to ATA
 const transferInstruction = createTransferInstruction(
     sourceTokenAccount, // source token account pubkey
     destinationTokenAccount, // destination token account pubkey
@@ -63,8 +63,8 @@ const destinationAta = await getOrCreateAssociatedTokenAccount(
     destination.publicKey
 );
 
-console.log(`This is your ATA: ${ata.address}!`)
-  
+console.log(`This is your ATA: ${destinationAta.address}!`)
+
 let tx = await transfer(
     connection, // connection
     keypair, // payer

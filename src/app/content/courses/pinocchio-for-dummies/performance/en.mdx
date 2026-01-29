@@ -2,7 +2,7 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 # Performance
 
-While many developers turn to Pinocchio for its fine-grained control over account fields, its true strength lies in enabling maximum performance. 
+While many developers turn to Pinocchio for its fine-grained control over account fields, its true strength lies in enabling maximum performance.
 
 In this section, we’ll explore practical strategies to achieve optimal efficiency in your Solana programs.
 
@@ -41,7 +41,7 @@ By minimizing unnecessary checks and account requirements, you reduce compute co
 
 <ArticleSection name="Perf Flag" id="perf-flag" level="h2" />
 
-Rust’s feature flags provide a powerful way to conditionally compile code, enabling you to toggle functionality for different build profiles; such as development, testing, or maximum performance in production. 
+Rust’s feature flags provide a powerful way to conditionally compile code, enabling you to toggle functionality for different build profiles; such as development, testing, or maximum performance in production.
 
 This is especially useful in Solana programs, where every compute unit counts.
 
@@ -69,7 +69,7 @@ pub fn process(ctx: Context<'info>) -> ProgramResult {
 }
 ```
 
-Most programs return the name of the instruction as a log to make debugging easier and to ensure that the correct instruction is called. 
+Most programs return the name of the instruction as a log to make debugging easier and to ensure that the correct instruction is called.
 
 However, this is expensive and not actually needed except to make the explorer more readable and to enhance debugging.
 
@@ -116,7 +116,7 @@ Define flags as bit positions using left-shift operations:
 
 ```rust
 const FLAG_ACTIVE: u8 = 1 << 0;     // 0000_0001
-const FLAG_VERIFIED: u8 = 1 << 1;   // 0000_0010  
+const FLAG_VERIFIED: u8 = 1 << 1;   // 0000_0010
 const FLAG_PREMIUM: u8 = 1 << 2;    // 0000_0100
 const FLAG_LOCKED: u8 = 1 << 3;     // 0000_1000
 ```
@@ -156,7 +156,7 @@ if flags & (FLAG_VERIFIED | FLAG_PREMIUM) != 0 {
 
 The `&` (AND operator) is perfect for "masking" specific bits to check their values since when you AND with 0, the result is always 0 and when you AND with 1, the original bit is preserved
 
-To clear or toggle flags, instead we can do something like this: 
+To clear or toggle flags, instead we can do something like this:
 
 ```rust
 let mut flags = 0b0000_1111u8;      // All flags set
@@ -177,13 +177,13 @@ flags ^= FLAG_PREMIUM | FLAG_LOCKED;        // flags = 0000_1011
 
 <ArticleSection name="Memory on Solana" id="memory-on-solana" level="h2" />
 
-The Solana Virtual Machine (SVM) uses a three-tier memory architecture that strictly separates stack memory (local variables), heap memory (dynamic structures), and account space (persistent storage). 
+The Solana Virtual Machine (SVM) uses a three-tier memory architecture that strictly separates stack memory (local variables), heap memory (dynamic structures), and account space (persistent storage).
 
 Understanding this architecture is crucial for writing high-performance Solana programs.
 
 Programs operate within fixed virtual address spaces with predictable memory mapping:
 - **Program Code**: `0x100000000` - Where your compiled program bytecode lives
-- **Stack Data**: `0x200000000` - Local variables and function call frames  
+- **Stack Data**: `0x200000000` - Local variables and function call frames
 - **Heap Data**: `0x300000000` - Dynamic allocations (expensive!)
 
 This deterministic layout enables powerful optimizations but also creates strict performance constraints.
@@ -192,11 +192,11 @@ This deterministic layout enables powerful optimizations but also creates strict
 
 ### The Zero-Allocation Advantage
 
-Pinocchio's main performance breakthrough comes from using references instead of heap allocations for everything. 
+Pinocchio's main performance breakthrough comes from using references instead of heap allocations for everything.
 
 This approach leverages a key insight: **the SVM already loads all your program inputs into memory**, so copying that data into new heap allocations is pure waste.
 
-Heap allocation isn't inherently bad, but on Solana it's expensive and complex because every allocation consumes precious compute units: each allocation fragments the limited heap space and cleanup operations consume additional compute units.  
+Heap allocation isn't inherently bad, but on Solana it's expensive and complex because every allocation consumes precious compute units: each allocation fragments the limited heap space and cleanup operations consume additional compute units.
 
 ### Zero-Allocation Techniques
 
@@ -222,7 +222,7 @@ Heap allocation isn't inherently bad, but on Solana it's expensive and complex b
         // Parse accounts directly from byte slice - NO HEAP ALLOCATION
         let source_account = &accounts[0..36];  // Just slice references
         let dest_account = &accounts[36..72];
-        
+
         // Access fields through pointer arithmetic - NO ALLOCATION
         let amount = u64::from_le_bytes(instruction_data[0..8].try_into().unwrap());
     }
@@ -236,7 +236,7 @@ Heap allocation isn't inherently bad, but on Solana it's expensive and complex b
 
 ### Pinocchio Memory Allocator
 
-If you want to make sure that you don't allocate any heap, Pinocchio provide a specialized macro to make sure that this happen: `no_allocator!()`
+If you want to make sure that you don't allocate any heap, Pinocchio provides a specialized macro to make sure that this will never happen: `no_allocator!()`
 
 > If not set, Pinocchio will use the `default_allocator!()` for programs requiring traditional heap operations.
 

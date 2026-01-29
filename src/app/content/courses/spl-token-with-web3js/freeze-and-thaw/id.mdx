@@ -19,11 +19,11 @@ Sebelum kita dapat membekukan dan mencairkan token apa pun, kita perlu sudah mem
 Dengan menggunakan instruksi "raw" tanpa abstraksi apa pun, beginilah cara membekukan token:
 
 ```ts
-const tokenAccount = Keypair.generate();
+const keypair = Keypair.generate();
 
 const tokenAccount = await getAssociatedTokenAddress(
     mint.publicKey,
-    tokenAccount.publicKey,
+    keypair.publicKey,
 );
 
 // Create ATA creation instruction
@@ -34,7 +34,7 @@ const createAtaInstruction = createAssociatedTokenAccountIdempotentInstruction(
     mint.publicKey, // mint
 );
 
-// Freeze an ATA 
+// Freeze an ATA
 const freezeInstruction = createFreezeAccountInstruction(
     tokenAccount // account
     mint // mint
@@ -54,7 +54,7 @@ console.log(`Token accounts created and frozen! Check out your TX here: https://
 Dengan menggunakan instruksi "raw" tanpa abstraksi apa pun, beginilah cara mencabut token:
 
 ```ts
-// Thaw an ATA 
+// Thaw an ATA
 const thawInstruction = createThawAccountInstruction(
     tokenAccount // account
     mint // mint
@@ -83,7 +83,7 @@ const ata = await getOrCreateAssociatedTokenAccount(
 );
 
 console.log(`This is your ATA: ${ata.address}!`)
-  
+
 let tx = await freezeAccount(
     connection,
     keypair,

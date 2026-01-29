@@ -69,3 +69,26 @@ La dépendance du Web3 à l'égard des phrases de récupération (*seed phrases*
 Le problème est que les phrases de récupération exigent une sécurité parfaite de la part d'êtres humains imparfaits. Les utilisateurs doivent mémoriser 12 à 24 mots aléatoires, les conserver pour toujours en toute sécurité et ne jamais être victimes d'hameçonnage, ce qui est un standard impossible pour une adoption généralisée.
 
 La solution pourrait résider dans des méthodes d'authentification modernes telles que les passkeys qui éliminent les erreurs humaines en transférant les clés privées vers un matériel de sécurité dédié. Cependant, pour prendre en charge ces éléments sur Solana, nous avons besoin des primitives cryptographiques appropriées.
+
+Cet effet d'écosystème matériel a créé un cycle d'adoption auto-renforçant.
+
+<ArticleSection name="Secp256r1 sur Solana" id="secp256r1-on-solana" level="h2" />
+
+Solana offre une prise en charge native de la vérification de signature secp256r1 grâce à sa précompilation intégrée introduite avec [SIMD-0075](https://github.com/solana-foundation/solana-improvement-documents/pull/75) par [Orion](https://x.com/BasedOrion_).
+
+Cette précompilation permet des méthodes d'authentification modernes comme les passkeys sur Solana, car secp256r1 est la même courbe elliptique utilisée par les implémentations WebAuthn et passkey.
+
+Les propriétés mathématiques que nous avons détaillées, particulièrement l'arithmétique de champ optimisée et les paramètres standardisés, sont ce qui fait de secp256r1 le choix universel pour les modules de sécurité matériels et les enclaves sécurisées qui alimentent ces systèmes d'authentification.
+
+### Relier l'authentification Web2 et Web3
+
+L'intégration traditionnelle des portefeuilles connaît des taux d'abandon de 60 à 80% car les phrases mnémoniques exigent une sécurité parfaite d'humains imparfaits. Les utilisateurs doivent mémoriser 12 à 24 mots aléatoires, les conserver en sécurité pour toujours, et ne jamais être victimes d'hameçonnage—une norme impossible pour une adoption généralisée.
+
+Les méthodes d'authentification modernes comme les passkeys éliminent l'erreur humaine en déplaçant les clés privées vers du matériel de sécurité dédié.
+
+ Cependant, ces systèmes ont standardisé secp256r1 en raison des avantages mathématiques et d'implémentation spécifiques que nous avons explorés :
+- **Compatibilité matérielle :** Le nombre premier pseudo-Mersenne permet une implémentation efficace dans des environnements d'éléments sécurisés contraints
+- **Conformité réglementaire :** La standardisation NIST permet l'utilisation dans les exigences de sécurité gouvernementales et d'entreprise
+- **Cohérence multiplateforme :** Les paramètres vérifiablement aléatoires garantissent que la même courbe fonctionne de manière identique chez tous les fabricants de matériel
+
+Avec la prise en charge native de secp256r1, les développeurs Solana peuvent désormais créer des applications qui exploitent l'infrastructure de sécurité matérielle existante, permettant une intégration transparente via des méthodes d'authentification familières tout en maintenant les garanties de sécurité qui rendent les propriétés mathématiques spécifiques de cette courbe si importantes.

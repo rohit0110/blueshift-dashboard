@@ -2,12 +2,13 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 # Introspection des Instructions
 
-L'Introspection des Instructions est une fonctionnalité puissante de Solana qui permet à un programme d'analyser d'autres instructions au sein d'une même transaction, y compris celles qui n'ont pas encore été exécutées. Cela vous permet de répondre de manière dynamique à ces instructions ou de les compléter,
-par exemple en ajoutant des mesures de sécurité, en validant leur comportement ou en intégrant dans votre propre logique des instructions provenant de programmes externes.
+![Instruction Introspection](/graphics/course-banners/instruction-introspection.png)
+
+L'introspection d'instruction est une fonctionnalité puissante sur Solana qui permet à un programme d'analyser d'autres instructions au sein de la même transaction, y compris celles qui n'ont pas encore été exécutées. Cela vous permet de répondre dynamiquement à ces instructions ou de les enrichir — par exemple, en ajoutant des protections, en validant le comportement, ou en intégrant des instructions de programmes externes dans votre propre logique.
 
 Cela est rendu possible grâce à un compte de système spécial appelé sysvar `Instructions`. Les Sysvars sont des comptes en lecture seule gérés par le runtime de Solana qui exposent l'état interne aux programmes (par exemple l'horloge, la rente, le calendrier des époques, etc.). La sysvar Instructions expose précisément la liste complète des instructions de la transaction en cours, ainsi que leurs métadonnées et leurs données sérialisées.
 
-Voici comment Solana sérialise ces informations lors de l'exécution :
+Voici comment Solana sérialise ces informations à l'exécution :
 
 ```rust
 // First encode the number of instructions:
@@ -59,9 +60,9 @@ fn serialize_instructions(instructions: &[BorrowedInstruction]) -> Vec<u8> {
 
 Cela signifie qu'en lisant le compte sysvar `Instructions` dans votre programme, vous pouvez accéder à toutes les instructions incluses dans la transaction en cours.
 
-Vous n'avez pas besoin de *parser* manuellement les octets bruts. En effet, Solana fournit des fonctions d'aide :
-- `load_current_index_checked`: renvoie l'index de l'instruction en cours d'exécution.
-- `load_instruction_at_checked`: vous permet de charger une instruction précise à partir de son index dans un format *parsé* et désérialisé.
+Vous n'avez pas besoin d'analyser manuellement les octets bruts. Solana fournit des fonctions auxiliaires :
+- `load_current_index_checked` : renvoie l'index de l'instruction en cours d'exécution.
+- `load_instruction_at_checked` : vous permet de charger une instruction spécifique par son index dans un format analysé et désérialisé.
 
 <ArticleSection name="Comment ça marche ?" id="how-does-it-work" level="h2" />
 
@@ -97,6 +98,6 @@ Lorsque vous utilisez l'introspection d'instructions, il est essentiel d'appliqu
 
 En appliquant ces contraintes, vous vous assurez que votre programme ne répond qu'à des instructions valides et fiables, ce qui rend votre logique plus robuste, modulable et sécurisée.
 
-Associées à l'atomicité des transactions, ces vérifications vous permettent de créer une logique robuste et modulable capable d'interagir en toute sécurité avec d'autres programmes et instructions au sein d'une même transaction.
+Associés à l'atomicité des transactions, ces contrôles vous permettent de construire une logique robuste et composable qui peut interagir en toute sécurité avec d'autres programmes et instructions au sein de la même transaction.
 
 > N'oubliez pas que les transactions sur Solana sont atomiques. Si une instruction échoue, l'ensemble de la transaction est annulé

@@ -65,7 +65,6 @@ struct BadOrder {
 
 Le compilateur insère 7 octets de remplissage après `small` car `big` nécessite un alignement de 8 octets. Il ajoute ensuite 6 octets supplémentaires à la fin pour que la taille totale (24 octets) soit un multiple de 8, ce qui gaspille 13 octets.
 
-
 Une meilleure solution serait d'ordonner les champs de la structure comme ceci :
 
 ```rust

@@ -16,7 +16,7 @@ To use thiserror in a Pinocchio program, add it to your `Cargo.toml` like this:
 
 ```
 [dependencies]
-thiserror = { version = "1.0", default-features = false }
+thiserror = { version = "2.0", default-features = false }
 ```
 
 Here’s how you can define a custom error type for your Pinocchio program:
@@ -84,3 +84,31 @@ impl ToStr for PinocchioError {
 ```
 
 > This step is also optional, but it can make error reporting more user-friendly.
+
+### `require!` Macro
+
+Maybe you used to Anchor way of validation with the `require!` macro. You can define a similar macro in your Pinocchio program to simplify error checking:
+
+```rust
+[macro_export]
+macro_rules! require {
+    ( $constraint:expr, $error:expr ) => {
+        if !$constraint {
+            return Err($error.into());
+        }
+    };
+}
+```
+
+This macro checks a condition and returns the specified error if the condition is false, making your code cleaner and more readable.
+With these practices, you can effectively manage errors in your Pinocchio programs, making them robust and user-friendly.
+
+So, checks from the `accounts` chapter will look like follows:
+
+```rust
+// signer check
+require!(account.is_signer(), PinocchioError::NotSigner);
+
+// system account check
+require!(account.is_owned_by(&pinocchio_system::ID), PinocchioError::InvalidOwner);
+```

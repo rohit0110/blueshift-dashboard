@@ -1,9 +1,8 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
-import CrosshairCorners from "../Graphics/CrosshairCorners";
+import { CrosshairCorners } from "@blueshift-gg/ui-components";
 import NFTScene from "./NFTScene";
 import { useOnClickOutside } from "usehooks-ts";
-import Icon from "../Icon/Icon";
 import { AnimatePresence, motion } from "motion/react";
 import { anticipate } from "motion";
 import { CourseDifficulty } from "@/app/utils/course";
@@ -135,13 +134,13 @@ export default function NFTViewer({
               }}
               onAnimationComplete={() => setIsAnimationComplete(true)}
               onAnimationStart={() => setIsAnimationComplete(false)}
-              className="w-max flex flex-col bg-background-card/80 backdrop-blur-xl relative"
+              className="w-max flex flex-col bg-card-solid/80 backdrop-blur-xl relative"
               ref={ref}
               style={{
                 transformOrigin: getTransformOrigin(),
               }}
             >
-              <CrosshairCorners baseDelay={0} />
+              <CrosshairCorners animationDelay={0} />
               <div className="relative aspect-[3/4] md:aspect-square w-[95dvw] xs:w-[80dvw] md:w-[480px] md:h-[480px] overflow-hidden p-2 pb-2 col-span-3">
                 <NFTScene
                   isAnimationComplete={isAnimationComplete}
@@ -173,21 +172,21 @@ export default function NFTViewer({
                 <div className="flex flex-col gap-y-2">
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-mute">Mint Number</div>
-                    <div className="font-mono text-xs text-primary">4/102</div>
+                    <div className="font-mono text-xs text-shade-primary">4/102</div>
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="text-sm text-mute">Transaction Hash</div>
                     <div className="flex items-center gap-x-1">
                       <a
                         href="#"
-                        className="font-mono text-xs text-primary underline underline-offset-2"
+                        className="font-mono text-xs text-shade-primary underline underline-offset-2"
                       >
                         eee77...77eee
                       </a>
                       <Icon
                         name="Copy"
                         size={12}
-                        className="text-mute hover:text-primary transition cursor-pointer"
+                        className="text-mute hover:text-shade-primary transition cursor-pointer"
                       />
                     </div>
                   </div>

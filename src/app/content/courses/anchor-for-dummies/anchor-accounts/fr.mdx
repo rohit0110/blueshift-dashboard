@@ -3,11 +3,11 @@ import { AnchorDiscriminatorCalculator } from "../../../../components/AnchorDisc
 
 # Comptes
 
-Nous avons vu la macro `#[account]` mais il existe différents types de comptes sur Solana. C'est pourquoi il est utile de prendre un moment pour voir comment fonctionnent généralement les comptes sur Solana, et plus précisément, comment ils fonctionnent avec Anchor.
+Nous avons vu la macro `#[account]`, mais naturellement sur Solana il existe différents types de comptes. Pour cette raison, il est utile de prendre un moment pour voir comment fonctionnent généralement les comptes sur Solana, mais plus en profondeur, comment ils fonctionnent avec Anchor.
 
-<ArticleSection name="Vue d'Ensemble" id="general-overview" level="h2" />
+<ArticleSection name="Aperçu général" id="general-overview" level="h2" />
 
-Sur Solana, chaque donnée, l'état, est stockée dans un compte. Imaginez le [livre de comptes (ledger)](https://solana.com/docs/references/terminology#ledger) comme une table géante où chaque ligne partage le même schéma de base :
+Sur Solana, chaque élément d'état réside dans un compte ; imaginez le [registre](https://solana.com/docs/references/terminology#ledger) comme un immense tableau où chaque ligne partage le même schéma de base :
 
 ```rust
 pub struct Account {
@@ -25,42 +25,42 @@ pub struct Account {
 }
 ```
 
-Tous les comptes sur Solana ont le même schéma de base. Ce qui les différencie, c'est :
+Tous les comptes sur Solana partagent la même structure de base. Ce qui les distingue est :
 
-1. Le propriétaire (*owner*): Le programme qui a les droits exclusifs de modifier les données du compte et les lamports.
-2. Les données (*data*): Utilisé par le programme propriétaire pour distinguer les différents types de comptes.
+1. Le propriétaire : le programme qui a les droits exclusifs de modifier les données et les lamports du compte.
+2. Les données : utilisées par le programme propriétaire pour distinguer entre différents types de comptes.
 
-Lorsque nous parlons de Comptes du Programme de Jetons (*Token Program Accounts*), nous entendons par là un compte dont le `owner` est le Programme de Jetons. Contrairement à un Compte du Système (*System Account*) dont le champ de données est vide, un Comptes du Programme de Jetons peut être soit un compte de **Mint**, soit un compte de **Token**. Pour les distinguer, nous utilisons des discriminateurs.
+Quand nous parlons de comptes du programme Token, nous faisons référence à un compte où le `owner` est le programme Token. Contrairement à un compte système dont le champ de données est vide, un compte du programme Token peut être soit un compte **Mint** soit un compte **Token**. Nous utilisons des discriminateurs pour les distinguer.
 
-Tout comme le Programme de Jetons peut être propriétaire de comptes, tout autre programme, y compris le nôtre, peut l'être également.
+Tout comme le programme Token peut posséder des comptes, n'importe quel autre programme peut en faire autant, même le nôtre.
 
-<ArticleSection name="Comptes de Programme" id="program-accounts" level="h2" />
+<ArticleSection name="Comptes de programme" id="program-accounts" level="h2" />
 
-Les Comptes de Programme sont le pilier de la gestion de l'état dans les programmes Anchor. Ils vous permettent de créer des structures de données personnalisées qui appartiennent à votre programme. Voyons comment les utiliser efficacement.
+Les comptes de programme sont la base de la gestion d'état dans les programmes Anchor. Ils vous permettent de créer des structures de données personnalisées qui appartiennent à votre programme. Explorons comment travailler efficacement avec eux.
 
-### Structure des comptes et Discriminateurs
+### Structure de compte et discriminateurs
 
-Chaque compte de programme dans Anchor a besoin d'un moyen d'identifier son type. Cela se fait grâce à des discriminateurs, qui peuvent être soit
+Chaque compte de programme dans Anchor a besoin d'un moyen d'identifier son type. Ceci est géré par des discriminateurs, qui peuvent être soit :
 
-1. **Discriminateurs par Défaut**: Un préfixe de 8 octets généré à l'aide de`sha256("account:<StructName>")[0..8]` pour les comptes, ou `sha256("global:<instruction_name>")[0..8]` pour les instructions. Les seeds utilisent PascalCase pour les comptes et snake_case pour les instructions.
+1. **Discriminateurs par défaut** : Un préfixe de 8 octets généré en utilisant `sha256("account:<StructName>")[0..8]` pour les comptes, ou `sha256("global:<instruction_name>")[0..8]` pour les instructions. Les seeds utilisent PascalCase pour les comptes et snake_case pour les instructions.
 
 <AnchorDiscriminatorCalculator value={"TestAccount"} displayMode="account" />
 
-2. **Discriminateurs Personnalisés**: À partir de la version `v0.31.0` d'Anchor, vous pouvez spécifier votre propre discriminateur :
+2. **Discriminateurs personnalisés** : À partir d'Anchor `v0.31.0`, vous pouvez spécifier votre propre discriminateur :
 
 ```rust
 #[account(discriminator = 1)]              // single-byte
 pub struct Escrow { … }
 ```
 
-**Remarques Importantes sur les Discriminateurs**:
-- Ils doivent être uniques pour l'ensemble de votre programme
-- L'utilisation de `[1]` empêche l'utilisation de `[1, 2, …]` puisque ceux-ci commencent également par `1`
+**Remarques importantes concernant les discriminateurs** :
+- Ils doivent être uniques dans votre programme
+- L'utilisation de `[1]` empêche d'utiliser `[1, 2, …]` car ils commencent également par `1`
 - `[0]` ne peut pas être utilisé car il entre en conflit avec les comptes non initialisés
 
-### Création de Comptes de Programme
+### Création de comptes de programme
 
-Pour créer un Compte de Programme, vous devez d'abord définir votre structure de données :
+Pour créer un compte de programme, vous définissez d'abord votre structure de données :
 
 ```rust
 use anchor_lang::prelude::*;
@@ -72,15 +72,15 @@ pub struct CustomAccountType {
 }
 ```
 
-Points clés sur les comptes de programme :
-- La taille maximale est de 10 240 octets (10 KiB)
-- Pour des comptes plus gros, vous aurez besoin de `zero_copy` et d'écritures segmentées (*chunked writes*)
-- La macro dérivée `InitSpace` calcule automatiquement l'espace nécessaire.
+Points clés concernant les comptes de programme :
+- La taille maximale est de 10 240 octets (10 Kio)
+- Pour les comptes plus volumineux, vous aurez besoin de `zero_copy` et d'écritures fragmentées
+- La macro `InitSpace` calcule automatiquement l'espace requis
 - Espace total = `INIT_SPACE` + `DISCRIMINATOR.len()`
 
 L'espace total en octets nécessaire pour le compte est la somme de `INIT_SPACE` (taille de tous les champs combinés) et de la taille du discriminateur (`DISCRIMINATOR.len()`).
 
-Les comptes Solana nécessitent un dépôt de rente en lamports, qui dépend de la taille du compte. Connaître la taille du compte nous permet de calculer le nombre de lamports que nous devons déposer pour ouvrir le compte.
+Les comptes Solana nécessitent un dépôt de loyer en lamports, qui dépend de la taille du compte. Connaître la taille nous aide à calculer combien de lamports nous devons déposer pour ouvrir le compte.
 
 Voici comment nous allons initier le compte dans notre structure `Account` :
 
@@ -93,12 +93,12 @@ Voici comment nous allons initier le compte dans notre structure `Account` :
 pub account: Account<'info, CustomAccountType>,
 ```
 
-En plus des champs `seeds` et `bump` que nous avons déjà abordés, voici quelques-uns des champs utilisés dans la macro `#[account]` et ce qu'ils font :
-- `init`: indique à Anchor de créer le compte
-- `payer`: le signataire qui paie la rente (ici, le maker)
-- `space`: le nombre d'octets à allouer. C'est également ici que se fait le calcul de la rente
+Voici quelques-uns des champs utilisés dans la macro `#[account]`, au-delà des champs `seeds` et `bump` que nous avons déjà couverts, et ce qu'ils font :
+- `init` : indique à Anchor de créer le compte
+- `payer` : quel signataire finance le loyer (ici, le maker)
+- `space` : combien d'octets allouer. C'est ici que le calcul du loyer se fait également
 
-Après la création, vous pouvez modifier les données du compte. Si vous avez besoin de modifier sa taille, utilisez la réallocation :
+Après la création, vous pouvez modifier les données du compte. Si vous devez changer sa taille, utilisez la réallocation :
 
 ```rust
 #[account(
@@ -109,9 +109,9 @@ Après la création, vous pouvez modifier les données du compte. Si vous avez b
 )]
 ```
 
-**Remarque** : Lorsque vous réduisez la taille de votre compte, définissez `realloc::zero = true` pour vous assurer que les anciennes données sont correctement effacées.
+**Remarque** : Lors de la réduction de la taille du compte, définissez `realloc::zero = true` pour garantir que les anciennes données sont correctement effacées.
 
-Finalement, lorsque le compte n'est plus nécessaire, nous pouvons le clôturer pour récupérer la rente :
+Enfin, lorsque le compte n'est plus nécessaire, nous pouvons le fermer pour récupérer le loyer :
 
 ```rust
 #[account(
@@ -121,7 +121,7 @@ Finalement, lorsque le compte n'est plus nécessaire, nous pouvons le clôturer 
 pub account: Account<'info, CustomAccountType>,
 ```
 
-Nous pouvons ajouter à ces contraintes les PDAs, des adresses déterministes dérivées de seeds et d'un identifiant de programme qui sont particulièrement utiles pour créer des adresses de compte prédictibles, de la manière suivante :
+Nous pouvons ensuite ajouter des PDA, des adresses déterministes dérivées de seeds et d'un ID de programme qui sont particulièrement utiles pour créer des adresses de compte prévisibles, dans ces contraintes comme ceci :
 
 ```rust
 #[account(
@@ -131,9 +131,9 @@ Nous pouvons ajouter à ces contraintes les PDAs, des adresses déterministes d�
 pub account: Account<'info, CustomAccountType>,
 ```
 
-**Remarque** : les PDAs sont déterministes : les mêmes seeds + le même programme + le même bump produisent toujours la même adresse. Le bump garantit que l'adresse est en dehors de la courbe ed25519
+**Remarque** : les PDA sont déterministes : les mêmes seeds + programme + bump produisent toujours la même adresse et le bump garantit que l'adresse est en dehors de la courbe ed25519
 
-Comme le calcul du bump peut "consommer" beaucoup de CUs, il est toujours conseillé de l'enregistrer dans le compte ou de le passer dans l'instruction et de le valider sans avoir à le calculer. Pour cela :
+Comme le calcul du bump peut "brûler" beaucoup de CU, il est toujours bon de le sauvegarder dans le compte ou de le passer dans l'instruction et de le valider sans avoir à calculer comme ceci :
 
 ```rust
 #[account(
@@ -143,7 +143,7 @@ Comme le calcul du bump peut "consommer" beaucoup de CUs, il est toujours consei
 pub account: Account<'info, CustomAccountType>,
 ```
 
-Et il est possible de dériver un PDA qui est dérivé d'un autre programme en passant l'adresse de ce programme comme ceci :
+Et il est possible de dériver un PDA d'un autre programme en passant l'adresse du programme dont il est dérivé comme ceci :
 
 ```rust
 #[account(
@@ -154,23 +154,73 @@ Et il est possible de dériver un PDA qui est dérivé d'un autre programme en p
 pub account: Account<'info, CustomAccountType>,
 ```
 
-<ArticleSection name="Comptes de Jetons" id="token-program" level="h2" />
+### Compte paresseux
 
-Le Programme de Jetons, qui fait partie de la Bibliothèque du Programme Solana (SPL), est la boîte à outils intégrée pour mint et déplacer n'importe quel actif qui n'est pas du SOL natif. Il contient des instructions permettant de créer des jetons, d'en mint de nouveaux, de les transférer, de les brûler, de les geler, etc.
+À partir d'Anchor 0.31.0, `LazyAccount` fournit une façon plus performante de lire les données de compte. Contrairement au type standard `Account` qui désérialise l'ensemble du compte sur la pile, `LazyAccount` est un compte en lecture seule, alloué sur le tas, qui utilise seulement 24 octets de mémoire de pile et vous permet de charger sélectivement des champs spécifiques.
 
-Ce programme possède deux types de comptes essentiels :
-- **Compte de Mint (*Mint Account*)**: stocke les métadonnées d'un jeton précis : offre, décimales, autorité de mint (*mint authority*), autorité de gel (*freeze authority*), etc
-- **Compte de Jetons (*Token Account*)**: détient un solde de ce mint pour un propriétaire précis. Seul le propriétaire peut réduire le solde (transfert, *burn*, etc.), mais n'importe qui peut envoyer des jetons sur le compte, augmentant ainsi son solde
+Commencez par activer la fonctionnalité dans votre `Cargo.toml` :
 
-### Comptes de Jeton avec Anchor
+```
+anchor-lang = { version = "0.31.1", features = ["lazy-account"] }
+```
 
-Nativement, la crate Anchor ne contient que les aides pour les CPI et les comptes pour le System Program. Si vous souhaitez avoir la même aide pour les jetons SPL, vous pouvez utiliser la crate `anchor_spl`.
+Maintenant, nous pouvons l'utiliser comme ceci :
 
-`anchor_spl` ajoute:
-- Des modules d'aide pour chaque instruction des programmes SPL Token et Token-2022
-- Des wrappers de type qui facilitent la vérification et la désérialisation des comptes de Mint et de Jeton.
+```rust
+#[derive(Accounts)]
+pub struct MyInstruction<'info> {
+    pub account: LazyAccount<'info, CustomAccountType>,
+}
 
-Voyons comment les comptes de `Mint` et de `Token` sont structurés :
+#[account(discriminator = 1)]
+pub struct CustomAccountType {
+    pub balance: u64,
+    pub metadata: String,
+}
+
+pub fn handler(ctx: Context<MyInstruction>) -> Result<()> {
+    // Load specific field
+    let balance = ctx.accounts.account.get_balance()?;
+    let metadata = ctx.accounts.account.get_metadata()?;
+    
+    Ok(())
+}
+```
+
+> `LazyAccount` est en lecture seule. Tenter de modifier les champs provoquera une panique car vous travaillez avec des références, pas des données allouées sur la pile.
+
+Lorsque les CPI modifient le compte, les valeurs mises en cache deviennent obsolètes. Pour cette raison, vous devez utiliser la fonction `unload()` pour rafraîchir :
+
+```rust
+// Load the initial value
+let initial_value = ctx.accounts.my_account.load_field()?;
+
+// Do CPI...
+
+// We still have a reference to the account from `initial_value`, drop it before `unload`
+drop(initial_value);
+
+// Load the updated value
+let updated_value = ctx.accounts.my_account.unload()?.load_field()?;
+```
+
+<ArticleSection name="Comptes de jetons" id="token-program" level="h2" />
+
+Le programme de jetons (Token Program), qui fait partie de la bibliothèque de programmes Solana (SPL), est la boîte à outils intégrée pour créer et déplacer tout actif qui n'est pas du SOL natif. Il dispose d'instructions pour créer des jetons, émettre de nouvelles unités, transférer des soldes, brûler, geler, et plus encore.
+
+Ce programme possède deux types de comptes clés :
+- **Compte Mint** : stocke les métadonnées pour un jeton spécifique : l'offre, les décimales, l'autorité d'émission, l'autorité de gel, etc.
+- **Compte de jetons** : détient un solde de cette émission pour un propriétaire particulier. Seul le propriétaire peut réduire le solde (transfert, destruction, etc.), mais n'importe qui peut envoyer des jetons au compte, augmentant ainsi son solde
+
+### Comptes de jetons dans Anchor
+
+Nativement, la bibliothèque Anchor de base ne regroupe que les aides CPI et Accounts pour le programme système. Si vous souhaitez le même accompagnement pour les jetons SPL, vous devez intégrer la bibliothèque `anchor_spl`.
+
+`anchor_spl` ajoute :
+- Des constructeurs d'aide pour chaque instruction dans les programmes SPL Token et Token-2022
+- Des enveloppes de type qui facilitent la vérification et la désérialisation des comptes Mint et Token
+
+Examinons comment les comptes `Mint` et `Token` sont structurés :
 
 ```rust
 #[account(
@@ -190,18 +240,18 @@ pub mint: Account<'info, Mint>,
 pub maker_ata_a: Account<'info, TokenAccount>,
 ```
 
-`Account<'info, Mint>` et `Account<'info, TokenAccount>` indique à Anchor de:
-- confirmer que le compte est bien un compte de Mint ou de Token
-- désérialiser ses données afin de pouvoir lire les champs directement
+`Account<'info, Mint>` et `Account<'info, TokenAccount>` indiquent à Anchor de :
+- confirmer que le compte est bien un compte Mint ou Token
+- désérialiser ses données pour que vous puissiez lire les champs directement
 - appliquer toutes les contraintes supplémentaires que vous spécifiez (`authority`, `decimals`, `mint`, `token_program`, etc.)
 
-Ces comptes liés aux jetons suivent le même processus `init` que celui utilisé précédemment. Puisque Anchor connaît la taille fixe en octets, nous n'avons pas besoin de spécifier une valeur `space` mais seulement le payeur qui finance le compte.
+Ces comptes liés aux jetons suivent le même modèle `init` utilisé précédemment. Comme Anchor connaît leur taille en octets fixe, nous n'avons pas besoin de spécifier une valeur `space`, seulement le payeur qui finance le compte.
 
-Anchor propose également la macro `init_if_needed` : elle vérifie si le compte de jetons existe déjà et, si ce n'est pas le cas, elle le crée. Ce raccourci n'est pas sûr pour tous les types de comptes, mais il est parfaitement adapté aux comptes de jetons. Nous l'utiliserons donc ici.
+Anchor offre également la macro `init_if_needed` : elle vérifie si le compte de jeton existe déjà et, si ce n'est pas le cas, le crée. Ce raccourci n'est pas sûr pour tous les types de comptes, mais il est parfaitement adapté aux comptes de jetons, nous allons donc l'utiliser ici.
 
-Comme mentionné, `anchor_spl` crée des aides pour les programmes **Token** et **Token2022**, ce dernier introduisant les Extensions de Jetons (*Token Extensions*). La principale difficulté est que, même si ces comptes remplissent des tâches similaires et ont des structures comparables, ils ne peuvent pas être désérialisés et vérifiés de la même manière puisqu'ils appartiennent à deux programmes différents.
+Comme mentionné, `anchor_spl` crée des assistants pour les programmes **Token** et **Token2022**, ce dernier introduisant les extensions de jetons. Le principal défi est que même si ces comptes atteignent des objectifs similaires et ont des structures comparables, ils ne peuvent pas être désérialisés et vérifiés de la même manière car ils appartiennent à deux programmes différents.
 
-Nous pourrions créer une logique plus "avancée" pour gérer ces différents types de comptes, mais heureusement Anchor prend en charge ce scénario grâce à **InterfaceAccounts** :
+Nous pourrions créer une logique plus "avancée" pour gérer ces différents types de comptes, mais heureusement Anchor prend en charge ce scénario grâce aux **InterfaceAccounts** :
 
 ```rust
 use anchor_spl::token_interface::{Mint, TokenAccount};
@@ -222,19 +272,19 @@ pub mint: InterfaceAccounts<'info, Mint>,
 pub maker_ata_a: InterfaceAccounts<'info, TokenAccount>,
 ```
 
-La grande différence ici est que nous utilisons `InterfaceAccounts` au lieu de `Account`. Cela permet à notre programme de travailler avec des comptes Token et Token2022 sans avoir à gérer les différences dans leur logique de désérialisation. L'interface fournit un moyen commun d'interagir avec les deux types de comptes tout en maintenant la sécurité des types et une validation correcte.
+La différence clé ici est que nous utilisons `InterfaceAccounts` au lieu de `Account`. Cela permet à notre programme de fonctionner avec les comptes Token et Token2022 sans avoir besoin de gérer les différences dans leur logique de désérialisation. L'interface fournit un moyen commun d'interagir avec les deux types de comptes tout en maintenant la sécurité des types et une validation appropriée.
 
-Cette approche est ainsi particulièrement utile lorsque vous souhaitez que votre programme soit compatible avec les deux normes de jetons, car elle élimine la nécessité d'écrire une logique distincte pour chaque programme. L'interface gère toute la complexité de la gestion des différentes structures de compte en arrière-plan.
+Cette approche est particulièrement utile lorsque vous souhaitez que votre programme soit compatible avec les deux standards de jetons, car elle élimine la nécessité d'écrire une logique séparée pour chaque programme. L'interface gère toute la complexité liée aux différentes structures de comptes en arrière-plan.
 
-Si vous souhaitez en savoir plus sur l'utilisation de `anchor-spl` vous pouvez suivre les cours [SPL-Token avec Anchor](/en/courses/spl-token-with-anchor) ou [Token2022 avec Anchor](/en/courses/token-2022-with-anchor).
+Si vous souhaitez en savoir plus sur l'utilisation de `anchor-spl`, vous pouvez suivre les cours [Programme SPL-Token avec Anchor](/en/courses/spl-token-with-anchor) ou [Programme Token2022 avec Anchor](/en/courses/token-2022-with-anchor).
 
-<ArticleSection name="Types de Comptes Supplémentaires" id="additional-accounts-type" level="h2" />
+<ArticleSection name="Types de comptes supplémentaires" id="additional-accounts-type" level="h2" />
 
-Naturellement, les Comptes de Système, les Comptes de Programme et les Comptes de Jetons ne sont pas les seuls types de comptes que nous pouvons avoir dans Anchor. Nous allons donc voir ici d'autres types de comptes que nous pouvons avoir :
+Naturellement, les comptes système, les comptes de programme et les comptes de jetons ne sont pas les seuls types de comptes que nous pouvons avoir dans Anchor. Nous allons donc voir ici d'autres types de comptes que nous pouvons avoir :
 
 ### Signer
 
-Le type `Signer` (Signataire) est utilisé lorsque vous devez vérifier qu'un compte a signé une transaction. Ce point est essentiel pour la sécurité, car il permet de s'assurer que seuls les comptes autorisés peuvent effectuer certaines actions. Vous utiliserez ce type chaque fois que vous devrez garantir qu'un compte précis a approuvé une transaction, par exemple lors d'un transfert de fonds ou d'une modification des données d'un compte nécessitant une autorisation explicite. Voici comment l'utiliser :
+Le type `Signer` est utilisé lorsque vous devez vérifier qu'un compte a signé une transaction. C'est crucial pour la sécurité car cela garantit que seuls les comptes autorisés peuvent effectuer certaines actions. Vous utiliserez ce type chaque fois que vous devez garantir qu'un compte spécifique a approuvé une transaction, comme lors du transfert de fonds ou de la modification de données de compte qui nécessitent une autorisation explicite. Voici comment l'utiliser :
 
 ```rust
 #[derive(Accounts)]
@@ -244,20 +294,20 @@ pub struct InstructionAccounts<'info> {
 }
 ```
 
-Le type `Signer` vérifie automatiquement si le compte a signé la transaction. Si ce n'est pas le cas, la transaction échouera. Ceci est particulièrement utile lorsque vous devez vous assurer que seuls des comptes précis peuvent effectuer certaines opérations.
+Le type `Signer` vérifie automatiquement si le compte a signé la transaction. Si ce n'est pas le cas, la transaction échouera. C'est particulièrement utile lorsque vous devez vous assurer que seuls des comptes spécifiques peuvent effectuer certaines opérations.
 
 ### AccountInfo & UncheckedAccount
 
-`AccountInfo` et `UncheckedAccount` sont des types de compte de bas niveau qui fournissent un accès direct aux données du compte sans validation automatique. Ils sont identiques en termes de fonctionnalité mais `UncheckedAccount` est le choix privilégié car son nom reflète mieux son utilité.
+`AccountInfo` et `UncheckedAccount` sont des types de compte de bas niveau qui fournissent un accès direct aux données du compte sans validation automatique. Ils sont identiques en fonctionnalité, mais `UncheckedAccount` est le choix préféré car son nom reflète mieux son objectif.
 
 Ces types sont utiles dans trois scénarios principaux :
 1. Travailler avec des comptes qui n'ont pas de structure définie
 2. Implémenter une logique de validation personnalisée
-3. Interagir avec des comptes d'autres programmes qui n'ont pas de définition de type pour Anchor
+3. Interagir avec des comptes d'autres programmes qui n'ont pas de définitions de type Anchor
 
-Puisque ces types contournent les contrôles de sécurité d'Anchor, ils sont fondamentalement peu sûrs et doivent être explicitement reconnus en utilisant le commentaire `/// CHECK`. Ce commentaire sert à prouver que vous comprenez les risques et que vous avez mis en œuvre une validation appropriée.
+Comme ces types contournent les vérifications de sécurité d'Anchor, ils sont intrinsèquement non sécurisés et nécessitent une reconnaissance explicite en utilisant le commentaire `/// CHECK`. Ce commentaire sert de documentation indiquant que vous comprenez les risques et avez mis en œuvre une validation appropriée.
 
-Voici un exemple d'utilisation :
+Voici un exemple de leur utilisation :
 
 ```rust
 #[derive(Accounts)]
@@ -272,14 +322,14 @@ pub struct InstructionAccounts<'info> {
 
 ### Option
 
-Le type `Option` dans Anchor vous permet de rendre des comptes optionnels dans vos instructions. Lorsqu'un compte est marqué avec le type `Option`, il peut être ajouté ou non à la transaction. Ceci est particulièrement utile pour :
-- Construire des instructions modulables qui peuvent fonctionner avec ou sans certains comptes
+Le type `Option` dans Anchor vous permet de rendre les comptes optionnels dans votre instruction. Lorsqu'un compte est enveloppé dans `Option`, il peut être fourni ou omis dans la transaction. C'est particulièrement utile pour :
+- Construire des instructions flexibles qui peuvent fonctionner avec ou sans certains comptes
 - Implémenter des paramètres optionnels qui ne sont pas toujours nécessaires
-- Créer des instructions rétrocompatibles qui peuvent fonctionner avec de nouvelles ou d'anciennes structures de comptes
+- Créer des instructions rétrocompatibles qui peuvent fonctionner avec des structures de compte nouvelles ou anciennes
 
-Lorsqu'un compte `Option` est défini comme étant `None`, Anchor utilisera l'identifiant du programme comme adresse du compte. Il est important de comprendre ce comportement lorsque l'on travaille avec des comptes optionnels.
+Lorsqu'un compte `Option` est défini comme `None`, Anchor utilisera l'ID du programme comme adresse du compte. Il est important de comprendre ce comportement lorsque vous travaillez avec des comptes optionnels.
 
-Voici comment l'appliquer :
+Voici comment l'implémenter :
 
 ```rust
 #[derive(Accounts)]
@@ -290,12 +340,12 @@ pub struct InstructionAccounts<'info> {
 
 ### Box
 
-Le type `Box` est utilisé pour stocker des comptes sur le tas (*heap*) plutôt que sur la pile (*stack*). Cela est nécessaire dans plusieurs cas de figure :
-- Lorsqu'il s'agit de structures de comptes de taille importante qu'il serait inefficace de stocker sur la pile
-- Lorsque l'on travaille avec des structures de données récursives
-- Lorsque vous devez travailler avec des comptes dont la taille ne peut être déterminée au moment de la compilation
+Le type `Box` est utilisé pour stocker des comptes sur le tas (heap) plutôt que sur la pile (stack). Cela est nécessaire dans plusieurs scénarios :
+- Lorsque vous traitez de grandes structures de compte qui seraient inefficaces à stocker sur la pile
+- Lorsque vous travaillez avec des structures de données récursives
+- Lorsque vous devez travailler avec des comptes dont la taille ne peut pas être déterminée au moment de la compilation
 
-L'utilisation de `Box` permet de gérer la mémoire plus efficacement dans ces cas en allouant les données du compte sur le tas. Voici un exemple :
+L'utilisation de `Box` aide à gérer la mémoire plus efficacement dans ces cas en allouant les données du compte sur le tas. Voici un exemple :
 
 ```rust
 #[derive(Accounts)]
@@ -306,15 +356,16 @@ pub struct InstructionAccounts<'info> {
 
 ### Program
 
-Le type `Program` est utilisé pour valider et interagir avec d'autres programmes Solana. Anchor peut facilement identifier les comptes de programme puisque leur drapeau `executable` est fixé à `true`. Ce type est particulièrement utile dans les cas suivants :
+Le type `Program` est utilisé pour valider et interagir avec d'autres programmes Solana. Anchor peut facilement identifier les comptes de programme car ils ont leur indicateur `executable` défini sur `true`. Ce type est particulièrement utile lorsque :
 
-- Lorsque vous devez faire des Invocations de Programme Croisé (*Cross-Program Invocations* ou CPIs)
-- Lorsque vous voulez vous assurer que vous interagissez avec le bon programme
-- Lorsque vous devez vérifier si les comptes appartiennent au bon programme
+- Vous devez effectuer des invocations inter-programmes (CPI)
+- Vous voulez vous assurer que vous interagissez avec le bon programme
+- Vous devez vérifier la propriété du programme sur les comptes
 
-Il y a deux façons principales d'utiliser le type `Program` :
+Il existe deux façons principales d'utiliser le type `Program` :
 
-1. Utilisation des types de programmes intégrés (recommandée lorsqu'ils sont disponibles) :
+1. Utiliser les types de programme intégrés (recommandé lorsqu'ils sont disponibles) :
+
 ```rust
 use anchor_spl::token::Token;
 
@@ -325,7 +376,8 @@ pub struct InstructionAccounts<'info> {
 }
 ```
 
-2. Utilisation d'une adresse de programme personnalisée lorsque le type de programme n'est pas disponible :
+2. Utiliser une adresse de programme personnalisée lorsque le type de programme n'est pas disponible :
+
 ```rust
 // Address of the Program
 const PROGRAM_ADDRESS: Pubkey = pubkey!("22222222222222222222222222222222222222222222")
@@ -338,7 +390,7 @@ pub struct InstructionAccounts<'info> {
 }
 ```
 
-**Remarque** : Lorsque vous travaillez avec des programmes impliquant des jetons, il se peut que vous deviez prendre en charge à la fois le *Token Program* et le *Token-2022 Program*. Dans ce cas, il faut utiliser le type `Interface` au lieu de `Program` :
+**Remarque** : Lorsque vous travaillez avec des programmes de jetons, vous pourriez avoir besoin de prendre en charge à la fois le programme de jetons hérité (Legacy Token Program) et le programme Token-2022. Dans de tels cas, utilisez le type `Interface` au lieu de `Program` :
 
 ```rust
 use anchor_spl::token_interface::TokenInterface;
@@ -349,13 +401,13 @@ pub struct InstructionAccounts<'info> {
 }
 ```
 
-<ArticleSection name="Validation des Comptes Personnalisés" id="custom-account-validation" level="h2" />
+<ArticleSection name="Validation de compte personnalisée" id="custom-account-validation" level="h2" />
 
-Anchor fournit un ensemble puissant de contraintes qui peuvent être appliquées directement dans l'attribut `#[account]`. Ces contraintes permettent de garantir la validité du compte et d'appliquer les règles du programme au niveau du compte avant l'exécution de la logique d'instruction. Voici les contraintes disponibles :
+Anchor fournit un ensemble puissant de contraintes qui peuvent être appliquées directement dans l'attribut `#[account]`. Ces contraintes aident à garantir la validité du compte et à appliquer les règles du programme au niveau du compte, avant l'exécution de votre logique d'instruction. Voici les contraintes disponibles :
 
-### Contrainte Address
+### Contrainte d'adresse
 
-La contrainte `address` vérifie que la clé publique d'un compte est bien égale à une valeur spécifique. Cette fonction est essentielle lorsque vous devez vous assurer que vous interagissez avec un compte connu, tel qu'un PDA spécifique ou un compte de programme :
+La contrainte `address` vérifie que la clé publique d'un compte correspond à une valeur spécifique. C'est essentiel lorsque vous devez vous assurer que vous interagissez avec un compte connu, comme un PDA spécifique ou un compte de programme :
 
 ```rust
 #[account(
@@ -365,9 +417,9 @@ La contrainte `address` vérifie que la clé publique d'un compte est bien égal
 pub account: Account<'info, CustomAccountType>,
 ```
 
-### Contrainte Owner
+### Contrainte de propriétaire
 
-La contrainte `owner` garantit qu'un compte est la propriété d'un programme précis. Il s'agit d'un contrôle de sécurité essentiel lorsque l'on travaille avec des comptes appartenant à un programme, car il empêche l'accès non autorisé à des comptes qui devraient être gérés par un programme particulier :
+La contrainte `owner` garantit qu'un compte appartient à un programme spécifique. C'est une vérification de sécurité critique lors du travail avec des comptes appartenant à des programmes, car elle empêche l'accès non autorisé aux comptes qui devraient être gérés par un programme particulier :
 
 ```rust
 #[account(
@@ -377,18 +429,18 @@ La contrainte `owner` garantit qu'un compte est la propriété d'un programme pr
 pub account: Account<'info, CustomAccountType>,
 ```
 
-### Contrainte Executable
+### Contrainte d'exécutabilité
 
-La contrainte `executable` vérifie qu'un compte est un compte de programme (dont le drapeau `executable` est fixé à `true`). Ceci est particulièrement utile lors des Invocations de Programme Croisé (CPI) pour s'assurer que vous interagissez avec un programme et non avec un compte de données :
+La contrainte `executable` vérifie qu'un compte est un compte de programme (son indicateur `executable` est défini sur `true`). C'est particulièrement utile lors des invocations inter-programmes (CPI) pour s'assurer que vous interagissez avec un programme plutôt qu'avec un compte de données :
 
 ```rust
 #[account(executable)]
 pub account: Account<'info, CustomAccountType>,
 ```
 
-### Contrainte Mutable
+### Contrainte de mutabilité
 
-La contrainte `mut` marque un compte comme mutable ce qui permet de modifier ses données pendant l'instruction. Pour des raisons de sécurité, Anchor impose l'immutabilité par défaut. Ceci est donc nécessaire pour tout compte qui sera mis à jour :
+La contrainte `mut` marque un compte comme mutable, permettant la modification de ses données pendant l'instruction. C'est nécessaire pour tout compte qui sera mis à jour, car Anchor impose l'immutabilité par défaut pour des raisons de sécurité :
 
 ```rust
 #[account(
@@ -398,9 +450,9 @@ La contrainte `mut` marque un compte comme mutable ce qui permet de modifier ses
 pub account: Account<'info, CustomAccountType>,
 ```
 
-### Contrainte Signer
+### Contrainte de signataire
 
-La contrainte `signer` vérifie qu'un compte a signé la transaction. Cela est essentiel pour garantir la sécurité lorsqu'un compte doit autoriser une action, telle qu'un transfert de fonds ou une modification de données. C'est une façon plus explicite d'exiger des signatures que d'utiliser le type `Signer` :
+La contrainte `signer` vérifie qu'un compte a signé la transaction. C'est crucial pour la sécurité lorsqu'un compte doit autoriser une action, comme le transfert de fonds ou la modification de données. C'est une façon plus explicite d'exiger des signatures par rapport à l'utilisation du type `Signer` :
 
 ```rust
 #[account(
@@ -412,7 +464,7 @@ pub account: Account<'info, CustomAccountType>,
 
 ### Contrainte Has One
 
-La contrainte `has_one` vérifie qu'un champ précis de la structure du compte correspond à la clé publique d'un autre compte. Cela est utile pour gérer les relations entre les comptes, par exemple pour s'assurer qu'un compte de jetons appartient au bon propriétaire :
+La contrainte `has_one` vérifie qu'un champ spécifique sur la structure du compte correspond à la clé publique d'un autre compte. C'est utile pour maintenir des relations entre les comptes, comme s'assurer qu'un compte de jeton appartient au bon propriétaire :
 
 ```rust
 #[account(
@@ -421,9 +473,9 @@ La contrainte `has_one` vérifie qu'un champ précis de la structure du compte c
 pub account: Account<'info, CustomAccountType>,
 ```
 
-### Contrainte Personnalisée
+### Contrainte personnalisée
 
-Lorsque les contraintes intégrées ne répondent pas à vos besoins, vous pouvez écrire une expression de validation personnalisée. Cela permet une logique de validation complexe qui ne peut pas être exprimée avec d'autres contraintes, comme la vérification de la taille des données du compte ou la validation des relations entre plusieurs champs :
+Lorsque les contraintes intégrées ne répondent pas à vos besoins, vous pouvez écrire une expression de validation personnalisée. Cela permet une logique de validation complexe qui ne peut pas être exprimée avec d'autres contraintes, comme vérifier la longueur des données du compte ou valider les relations entre plusieurs champs :
 
 ```rust
 #[account(
@@ -432,4 +484,88 @@ Lorsque les contraintes intégrées ne répondent pas à vos besoins, vous pouve
 pub account: Account<'info, CustomAccountType>,
 ```
 
-Ces contraintes peuvent être combinées pour créer des règles de validation puissantes pour vos comptes. En plaçant la validation au niveau du compte, vous gardez vos contrôles de sécurité proches des définitions des comptes et vous évitez de multiplier les appels `require !()` au sein de la logique de vos instructions.
+Ces contraintes peuvent être combinées pour créer des règles de validation puissantes pour vos comptes. En plaçant la validation au niveau du compte, vous gardez vos vérifications de sécurité proches des définitions de compte et évitez de disperser les appels `require!()` dans toute votre logique d'instruction.
+
+<ArticleSection name="Remaining Accounts" id="remaining-accounts" level="h2" />
+
+Parfois, lors de l'écriture de programmes, la structure fixe des comptes d'instruction ne fournit pas la flexibilité dont votre programme a besoin.
+
+Les comptes restants (Remaining accounts) résolvent ce problème en vous permettant de passer des comptes supplémentaires au-delà de la structure d'instruction définie, permettant un comportement dynamique basé sur les conditions d'exécution.
+
+### Directive d'implémentation
+
+Les définitions d'instruction traditionnelles vous obligent à spécifier exactement quels comptes seront utilisés :
+
+```rust
+#[derive(Accounts)]
+pub struct Transfer<'info> {
+    pub from: Account<'info, TokenAccount>,
+    pub to: Account<'info, TokenAccount>,
+    pub authority: Signer<'info>,
+}
+```
+
+Cela fonctionne très bien pour les opérations uniques, mais que faire si vous souhaitez effectuer plusieurs transferts de jetons en une seule instruction ? Vous devriez appeler l'instruction plusieurs fois, augmentant les coûts de transaction et la complexité.
+
+Les comptes restants vous permettent de passer des comptes supplémentaires qui ne font pas partie de la structure d'instruction fixe, ce qui signifie que votre programme pourrait parcourir ces comptes et appliquer une logique répétitive de manière dynamique.
+
+Au lieu d'exiger des instructions séparées pour chaque transfert, vous pouvez concevoir une seule instruction qui gère "N" transferts :
+
+```rust
+#[derive(Accounts)]
+pub struct BatchTransfer<'info> {
+    pub from: Account<'info, TokenAccount>,
+    pub to: Account<'info, TokenAccount>,
+    pub authority: Signer<'info>,
+}
+
+pub fn batch_transfer(ctx: Context<BatchTransfer>, amounts: Vec<u64>) -> Result<()> {
+    // Handle the first transfer using fixed accounts
+    transfer_tokens(&ctx.accounts.from, &ctx.accounts.to, amounts[0])?;
+    
+    let remaining_accounts = &ctx.remaining_accounts;
+
+    // CRITICAL: Validate remaining accounts schema
+    // For batch transfers, we expect pairs of accounts
+    require!(
+        remaining_accounts.len() % 2 == 0,
+        TransferError::InvalidRemainingAccountsSchema
+    );
+
+    // Process remaining accounts in groups of 2 (from_account, to_account)
+    for (i, chunk) in remaining_accounts.chunks(2).enumerate() {
+        let from_account = &chunk[0];
+        let to_account = &chunk[1];
+        let amount = amounts[i + 1];
+        
+        // Apply the same transfer logic to remaining accounts
+        transfer_tokens(from_account, to_account, amount)?;
+    }
+    
+    Ok(())
+}
+```
+
+Regrouper les instructions signifie : 
+- Taille d'instruction réduite : les comptes et données répétitifs n'ont pas besoin d'être inclus
+- Efficacité : chaque CPI coûte 1000 CU, ce qui signifie qu'une personne utilisant votre programme pourrait l'invoquer une seule fois au lieu de 3 si elle a besoin d'exécuter des instructions par lots
+
+> Les comptes restants sont transmis comme `UncheckedAccount`, ce qui signifie qu'Anchor n'effectue aucune validation sur eux. Validez toujours le `RemainingAccountSchema` et le compte sous-jacent.
+
+### Implémentation côté client
+
+Nous pouvons facilement transmettre les comptes restants en utilisant le SDK Anchor généré une fois que nous faisons `anchor build`. Comme ce sont des comptes "bruts", nous devrons spécifier s'ils doivent être transmis en tant que signataire et/ou mutables comme ceci :
+
+```ts
+await program.methods.someMethod().accounts({
+  // some accounts
+})
+.remainingAccounts([
+  {
+    isSigner: false,
+    isWritable: true,
+    pubkey: new Pubkey().default
+  }
+])
+.rpc();
+```

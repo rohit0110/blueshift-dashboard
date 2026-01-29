@@ -2,7 +2,9 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 # Le Programme Token2022
 
-Le Programme Token2022, également connu sous le nom de Token Extensions (Extension de Jetons), est un ensembles plus large de fonctionnalités fournies par le Programme de Jetons. 
+![Token 2022 with Anchor](/graphics/course-banners/token-2022-with-anchor.png)
+
+Le Programme Token2022, également connu sous le nom de Token Extensions (Extension de Jetons), est un ensembles plus large de fonctionnalités fournies par le Programme de Jetons.
 
 Si vous souhaitez en savoir plus sur les fonctionnalités supplémentaires disponibles et les différences avec le Programme de Jetons d'origine, suivez [ce cours](/en/courses/token-2022-program)
 
@@ -10,7 +12,7 @@ Si vous souhaitez en savoir plus sur les fonctionnalités supplémentaires dispo
 
 Pour Anchor, tout ce qui concerne les jetons se trouve dans la crate `anchor-spl`. Pour cette raison, après avoir initialisé un espace de travail `Anchor` nous pouvons simplement faire :
 
-```
+```bash
 cargo add anchor-spl
 ```
 
@@ -75,6 +77,7 @@ Heureusement, `Anchor` nous aide et a créé des macros pour ajouter les extensi
     extensions::permanent_delegate::delegate = <target_account>,
 )]
 pub mint: InterfaceAccount<'info, Mint>,
+```
 
 ### Compte de Jetons Associé avec Extensions
 

@@ -1,14 +1,14 @@
 import { ArticleSection } from "../../../../components/ArticleSection/ArticleSection";
 
-#  L'Extension Permanent Delegate
+# L'extension de délégué permanent
 
-L'extension `PermanentDelegate` (Délégué permanent) est une extension de compte de `Mint` qui permet à un délégué permanent de tous les jetons d'un mint de transférer ou de brûler n'importe quel jeton de ce mint, à partir de n'importe quel compte de jetons.
+L'extension `PermanentDelegate` est une extension de compte Mint qui permet à un délégué permanent pour tous les jetons de la monnaie d'être capable de transférer ou de brûler n'importe quel jeton de cette monnaie, depuis n'importe quel compte de jeton.
 
-<ArticleSection name="Initialisation du Compte de Mint" id="initializing-the-mint-account" level="h2" />
+<ArticleSection name="Initializing the Mint Account" id="initializing-the-mint-account" level="h2" />
 
-Pour initialiser l'extension `PermanentDelegate` sur un compte de `Mint` nous allons avoir besoin de la fonction `initializePermanentDelegate()`. 
+Pour initialiser l'extension `PermanentDelegate` sur un compte `Mint`, nous aurons besoin de la fonction `initializePermanentDelegate()`.
 
-Voici comment créer un compte de mint avec l'extension `PermanentDelegate` :
+Voici comment créer une monnaie avec l'extension de délégué permanent :
 
 ```ts
 import {
@@ -70,10 +70,30 @@ const signature = await sendAndConfirmTransaction(connection, transaction, [keyp
 console.log(`Mint created! Check out your TX here: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
 ```
 
-<ArticleSection name="Actions Autorisées" id="permissioned-actions" level="h2" />
+<ArticleSection name="Closing the Mint Account" id="closing-the-mint-account" level="h2" />
 
-Contrairement aux délégués classiques qui peuvent être révoqués, cette délégation d'autorité est permanente et immuable.
+Si un compte `Mint` a une offre de zéro, le `CloseMint Authority` peut récupérer le loyer sur ce compte en utilisant l'instruction `closeAccount` comme ceci :
 
-Cela signifie que toutes les actions courantes telles que `transfer()`, `burn()`, `approve()` et `freeze()` peuvent être exécutées à tout moment directement par l'autorité sans nécessiter la signature du propriétaire réel.
+```ts
+const closeMintInstruction = createCloseAccountInstruction(
+    mint.publicKey,
+    keypair.publicKey,
+    keypair.publicKey,
+    [],
+    TOKEN_2022_PROGRAM_ID,
+);
 
-Cela signifie que nous pouvons utiliser les instructions `transferChecked()`, `burnChecked()`, etc... et passer l'autorité `PermanetDelegate` dans le champs `authority`.
+const transaction = new Transaction().add(closeMintInstruction);
+
+const signature = await sendAndConfirmTransaction(connection, transaction, [keypair], {skipPreflight: false});
+
+console.log(`Mint closed! Check out your TX here: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
+```
+
+<ArticleSection name="Permissioned Actions" id="permissioned-actions" level="h2" />
+
+Contrairement aux délégués ordinaires qui peuvent être révoqués, cette autorité de délégué est permanente et immuable.
+
+Cela signifie que chaque action normale comme `transfer()`, `burn()`, `approve()` et `freeze()` peut être exécutée quand nécessaire directement par l'autorité sans avoir besoin de la signature du propriétaire réel.
+
+Cela signifie que nous pouvons simplement utiliser les instructions normales `transferChecked()`, `burnChecked()`, ... et transmettre l'autorité `PermanentDelegate` dans le champ `authority`.

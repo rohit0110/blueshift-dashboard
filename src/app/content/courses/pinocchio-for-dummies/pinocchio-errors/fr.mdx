@@ -16,7 +16,7 @@ Pour utiliser `thiserror` dans un programme Pinocchio, ajoutez-le à votre fichi
 
 ```
 [dependencies]
-thiserror = { version = "1.0", default-features = false }
+thiserror = { version = "2.0", default-features = false }
 ```
 
 Voici comment définir un type d'erreur personnalisé pour votre programme Pinocchio :
@@ -68,6 +68,7 @@ impl TryFrom<u32> for PinocchioError {
 ```
 
 > Ceci est facultatif mais utile pour la gestion avancée des erreurs et les tests
+
 ### Erreurs Lisibles par l'Homme
 
 Pour la journalisation et le débogage, vous pouvez fournir une représentation sous forme de chaîne de caractères de vos erreurs. L'implémentation du trait `ToStr` vous permet de faire ceci :
