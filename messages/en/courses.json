@@ -611,7 +611,7 @@
         }
       }
     },
-    "on-chain-operations": {
+    "solana-mobile-client": {
       "title": "Solana Mobile: RPC, Tokens, NFTs & Program Interaction",
       "description": "Execute on-chain operations from mobile apps. Implement RPC connections, SPL token transfers, NFT operations with DAS API, and custom program interactions.",
       "lessons": {
