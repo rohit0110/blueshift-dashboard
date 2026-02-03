@@ -360,7 +360,7 @@ export const courses: CourseMetadata[] = withCourseNumber([
     ],
   },
   {
-    slug: "on-chain-operations",
+    slug: "solana-mobile-client",
     language: "Mobile",
     color: BRAND_COLOURS.mobile,
     difficulty: 2,

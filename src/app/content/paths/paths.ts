@@ -148,7 +148,7 @@ export const paths: PathMetadata[] = [
       { type: "course", slug: "mobile-dapp-fundamentals" },
       { type: "course", slug: "mwa-deep-dive" },
       { type: "course", slug: "embedded-wallets" },
-      { type: "course", slug: "on-chain-operations" },
+      { type: "course", slug: "solana-mobile-client" },
       { type: "course", slug: "dapp-store-publishing" },
     ],
   },
