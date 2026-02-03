@@ -2,8 +2,9 @@ import { ImageResponse } from "next/og";
 import { createTranslator } from "next-intl";
 
 import { CourseMetadata, LessonMetadata } from "@/app/utils/course";
-import { getCourse, getChallenge } from "@/app/utils/content";
+import { getCourse, getChallenge, getPath } from "@/app/utils/content";
 import { ChallengeMetadata } from "@/app/utils/challenges";
+import { PathMetadata } from "@/app/utils/path";
 
 export interface GeneratedBannerData {
   data: ArrayBuffer;
@@ -12,11 +13,11 @@ export interface GeneratedBannerData {
   height: number;
 }
 
-type BannerableItem = CourseMetadata | ChallengeMetadata;
+type BannerableItem = CourseMetadata | ChallengeMetadata | PathMetadata;
 
 interface GenerateBannerDataParams {
   itemSlug: string;
-  type: "course" | "challenge";
+  type: "course" | "challenge" | "path";
   lessonSlug?: string;
   locale?: string;
 }
@@ -31,8 +32,14 @@ export const generateBannerData = async ({
     let item: BannerableItem | undefined;
     if (type === "course") {
       item = await getCourse(itemSlug);
-    } else {
+    } else if (type === "challenge") {
       item = await getChallenge(itemSlug);
+    } else if (type === "path") {
+      try {
+        item = await getPath(itemSlug);
+      } catch {
+        item = undefined;
+      }
     }
 
     if (!item) {
@@ -55,10 +62,15 @@ export const generateBannerData = async ({
       }
     }
 
-    const messages = await import(`@/../messages/${locale}/${type}s.json`);
+    // Load messages based on type - paths are in core.json, others have their own files
+    const messagesFile = type === "path" ? "core" : `${type}s`;
+    const messages = await import(`@/../messages/${locale}/${messagesFile}.json`);
     const t = createTranslator({ locale, messages });
 
-    const itemTitle = t(`${type}s.${itemSlug}.title`);
+    // Get title based on type - paths use a different key structure
+    const itemTitle = type === "path" 
+      ? t(`paths.${itemSlug}.title`)
+      : t(`${type}s.${itemSlug}.title`);
     const lessonTitle =
       lessonSlug && "lessons" in item
         ? type === "course"

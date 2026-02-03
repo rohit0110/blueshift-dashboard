@@ -17,8 +17,8 @@ export const paths: PathMetadata[] = [
   },
   {
     slug: "anchor-mastery",
-    language: "Anchor",
-    color: BRAND_COLOURS.anchor,
+    language: "General",
+    color: BRAND_COLOURS.general,
     difficulty: 2,
     isFeatured: true,
     estimatedHours: 20,
@@ -34,8 +34,8 @@ export const paths: PathMetadata[] = [
   },
   {
     slug: "native-rust-developer",
-    language: "Rust",
-    color: BRAND_COLOURS.rust,
+    language: "General",
+    color: BRAND_COLOURS.general,
     difficulty: 3,
     isFeatured: true,
     estimatedHours: 30,
@@ -51,8 +51,8 @@ export const paths: PathMetadata[] = [
   },
   {
     slug: "typescript-client-developer",
-    language: "Typescript",
-    color: BRAND_COLOURS.typescript,
+    language: "General",
+    color: BRAND_COLOURS.general,
     difficulty: 1,
     isFeatured: true,
     estimatedHours: 15,
@@ -94,8 +94,8 @@ export const paths: PathMetadata[] = [
   },
   {
     slug: "advanced-low-level",
-    language: "Assembly",
-    color: BRAND_COLOURS.assembly,
+    language: "General",
+    color: BRAND_COLOURS.general,
     difficulty: 4,
     isFeatured: false,
     estimatedHours: 25,
