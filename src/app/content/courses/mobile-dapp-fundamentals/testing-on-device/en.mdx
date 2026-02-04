@@ -4,7 +4,7 @@ import { ArticleSection } from "../../../../components/ArticleSection/ArticleSec
 
 ![Testing on Device](/graphics/course-banners/mobile-dapp-fundamentals.png)
 
-MWA only works on physical Android devices. There's no simulator support. The protocol relies on intents, local sockets, and a real wallet app. This lesson covers everything you need to debug and test your dApp on hardware.
+While the core MWA protocol is designed for physical Android devices and relies on intents, local sockets, and a real wallet app, you can use [Mock MWA](https://github.com/solana-mobile/mock-mwa-wallet) to simulate MWA interactions on an emulator.
 
 > First-time setup takes 30 minutes. After that, you can hot-reload and test in seconds.
 
@@ -20,6 +20,8 @@ You need:
 | Developer mode enabled | Settings → About Phone → Tap Build Number 7 times |
 | USB Debugging enabled | Settings → Developer Options → USB Debugging |
 | Devnet SOL | For testing transactions |
+
+**Emulator Note**: Mock MWA requires the emulator to have an authentication of some kind (PIN/biometric). Connecting the wallet fails without authentication.
 
 **iOS Note**: MWA is Android-only. The protocol requires Android Intents to launch wallet apps and local WebSocket servers for communication, neither of which have iOS equivalents. The official spec notes: "iOS support is planned for a future version." For iOS users, embedded wallets (Course 3) or Phantom deeplinks provide alternatives.
 

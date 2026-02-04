@@ -204,7 +204,10 @@ For testing on a physical device:
 4. Run `adb devices` to verify connection
 5. Run `npx expo run:android`
 
-The development build installs on your device and connects to Metro for live reload, similar to Expo Go, but with native module support.
+For testing on an emulator with Mock MWA:
+1. Install Mock MWA from [https://github.com/solana-mobile/mock-mwa-wallet](https://github.com/solana-mobile/mock-mwa-wallet)
+2. Follow the Mock MWA instructions to set up the emulator for MWA testing.
+3. Run `npx expo run:android` to install the development build on the emulator.
 
 <ArticleSection name="Project Structure" id="project-structure" level="h2" />
 
@@ -335,7 +338,7 @@ Test on a real device first. If the issue persists, check that no other app is u
 
 <ArticleSection name="Testing Without a Physical Device" id="testing-without-device" level="h2" />
 
-You can develop UI and non-MWA features in an Android emulator. However, testing actual wallet connections requires either:
+You can develop UI and MWA features on an emulator using [Mock MWA](https://github.com/solana-mobile/mock-mwa-wallet), a dedicated tool for simulating MWA interactions. However, for full Mobile Wallet Adapter protocol testing, a real Android device is still recommended, use either:
 
 1. **A real Android device** with Phantom/Solflare installed
 2. **A wallet that supports emulator connections** (check wallet documentation)
